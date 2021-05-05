@@ -1,0 +1,71 @@
+import React from 'react';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        margin: 0,
+        background: '#5e92f3',
+        minHeight: '200px',
+        width: '100vw',
+        marginTop: '20px',
+        paddingTop: '20px',
+
+    },
+    divider: {
+        marginTop: '0px',
+        marginBottom: '20px',
+    }
+}));
+
+function Footer() {
+    const classes = useStyles();
+    function FormRow() {
+        return (
+            <React.Fragment>
+                <Grid item xs={3}>
+                    Placeholder 1
+                </Grid>
+                <Grid item xs={3}>
+                    Placeholder 2
+                </Grid>
+                <Grid item xs={3}>
+                    Placeholder 3
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography component="h6" variant="h6">
+                        BOOKLAB
+                    </Typography>
+                    <Typography variant="subtitle6" color="textPrimary">
+                        All rights reserved &copy; 2021
+                    </Typography>
+                </Grid>
+
+
+            </React.Fragment>
+        );
+    }
+    return (
+        <div className={classes.root}>
+
+            <Container >
+                <Divider className={classes.divider} />
+                <Grid container spacing={1}>
+                    <Grid container item xs={12} spacing={5}>
+                        <FormRow />
+                    </Grid>
+                </Grid>
+            </Container>
+        </div>
+
+
+    );
+}
+
+export default Footer;
