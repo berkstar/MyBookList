@@ -8,58 +8,28 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import courses from "./dummy-threads";
 import {Link} from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-    root: {
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridGap: "24px",
-    },
-
-    media: {
-      height: 140,
-    },
-
-    card: {
-        display: "grid",
-        gridTemplateRows: "1fr auto",
-        gridGap: "8px",
-        height: 345,
-        minWidth: 500,
-        backgroundSize: "cover"
-    },
-    
-    actions: {
-        display: "flex",
-        justifyContent: "space-between"
-    }
-  });
 
 function Threads() {
-    const classes = useStyles();
-
     return (
-        <div style={{ marginTop: 20, padding: 30 }}>
-            <Grid container spacing={10} justify="center" className={classes.root}>
+        <div>
+            <Grid container>
                 {courses.map(course => (
-                    <Grid item key={course.title}>
-                        <Card>
+                    <Grid item key={course.title} className="col-sm-4">
+                        <Card className="m-2">
                             <CardActionArea>
                                 <CardMedia
-                                    className={classes.media}
                                     component="img"
                                     height="140"
                                     image={course.image}
                                 />
                                 <CardContent style={{ height: 150}}>
-                                    <Typography gutterBottom variant="h6">
+                                    <Typography className="mb-3" variant="h6">
                                         {course.title}
                                     </Typography>
-                                    <Typography gutterBottom variant="h7">{course.content}</Typography>
+                                    <Typography>{course.content}</Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions className={classes.actions}>
+                            <CardActions >
                                 <Button size="small" color="primary">
                                     Like
                                 </Button>

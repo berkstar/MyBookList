@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -50,16 +51,16 @@ const styles = theme => ({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: '#1564bf',
+        backgroundColor: '#303030',
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        backgroundColor: '#5e91f2',
+        backgroundColor: '#595959',
     },
     drawerPaper: {
         width: drawerWidth,
-        backgroundColor: '#5e91f2',
+        backgroundColor: '#595959',
     },
     drawerContainer: {
         overflow: 'auto',
@@ -109,7 +110,7 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     inputRoot: {
-        color: 'inherit',
+        color: 'white',
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
@@ -365,12 +366,9 @@ class Dashboard extends Component {
                         <Grid justify="space-between" // Add it here :)
                               container
                               spacing={0}>
-                            <Grid>
-                                <br/>
-                                <Typography variant="h6" noWrap className={classes.title}>
-                                    BOOKLAB
-                                </Typography>
-                            </Grid>
+                            <Typography variant="h6" noWrap className="my-auto">
+                                BOOKLAB
+                            </Typography>
                             <Grid>
                                 <div className={classes.sectionDesktop}>
                                     <IconButton
@@ -413,7 +411,7 @@ class Dashboard extends Component {
                             InputProps={{
                                 endAdornment: (
                                   <InputAdornment position="end">
-                                    <SearchIcon />
+                                    <SearchIcon style={{ color: '#fff' }}/>
                                   </InputAdornment>
                                 ),
                               }}
@@ -422,24 +420,28 @@ class Dashboard extends Component {
                     <div className={classes.drawerContainer}>
                         <List>
                             <ListItem button onClick={() => this.handleHome()} key="Home">
-                                <ListItemIcon><HomeIcon/></ListItemIcon>
-                                <ListItemText primary="Forum"/>
+                                <ListItemIcon><HomeIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Forum</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyFriends()} key="Friends">
-                                <ListItemIcon><PeopleIcon/></ListItemIcon>
-                                <ListItemText primary="Friends"/>
+                                <ListItemIcon><PeopleIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Friends</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyChallenges()} key="Challenges">
-                                <ListItemIcon><AccessAlarmIcon/></ListItemIcon>
-                                <ListItemText primary="Challenges"/>
+                                <ListItemIcon><AccessAlarmIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Challenges</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleStatistics()} key="MyBooks">
-                                <ListItemIcon><LibraryBooksIcon/></ListItemIcon>
-                                <ListItemText primary="My Books"/>
+                                <ListItemIcon><LibraryBooksIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>My Books</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleBrowse()} key="AllBooks">
-                                <ListItemIcon><MenuBookIcon/></ListItemIcon>
-                                <ListItemText primary="Browse"/>
+                                <ListItemIcon><MenuBookIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Browse</Typography>}/>
+                            </ListItem>
+                            <ListItem button onClick={() => this.handleBrowse()} key="SignOut">
+                                <ListItemIcon><ExitToAppIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Sign Out</Typography>}/>
                             </ListItem>
                         </List>
                         <Divider/>
