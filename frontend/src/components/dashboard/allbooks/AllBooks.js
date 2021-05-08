@@ -79,17 +79,6 @@ export default function AllBooks() {
         showPassword: false,
     });
 
-    // const handleChange = (prop) => (event) => {
-    //     setValues({ ...values, [prop]: event.target.value });
-    // };
-    //
-    // const handleClickShowPassword = () => {
-    //     setValues({ ...values, showPassword: !values.showPassword });
-    // };
-    //
-    // const handleMouseDownPassword = (event) => {
-    //     event.preventDefault();
-    // };
     const [progress, setProgress] = React.useState(10);
 
     React.useEffect(() => {

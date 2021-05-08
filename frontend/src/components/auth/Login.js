@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import "./auth.css";
 import {
     Button,
@@ -11,9 +11,10 @@ import {
     Link,
 } from "@material-ui/core";
 import NavigationBar from "./NavigationBar";
+import TokenService from "../../services/TokenService";
+import Api from "api/Api"
 
 class Login extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -26,15 +27,23 @@ class Login extends React.Component {
         this.setState({ username: event.state.username, password: event.state.password });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-        if (this.state.username === 'admin' && this.state.password === '1') {
+        let userData = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        const response = await Api.login(userData);
+        if(response.data.grant == 1) {
+            TokenService.setToken(response.data.token);
+            Api.setAuthToken();
             this.props.history.push("/dashboard");
-        } else {
+        } 
+        else {
             alert('Incorrect Credentials!');
         }
     }
-
+    
     render() {
         return (
             <div>
