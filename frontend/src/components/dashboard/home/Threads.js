@@ -52,11 +52,11 @@ function Threads() {
                                     height="140"
                                     image={course.image}
                                 />
-                                <CardContent style={{ height: 150 }}>
-                                    <Typography gutterBottom variant="h5" component="h2">
+                                <CardContent style={{ height: 150}}>
+                                    <Typography gutterBottom variant="h6">
                                         {course.title}
                                     </Typography>
-                                    <Typography>{course.content}</Typography>
+                                    <Typography gutterBottom variant="h7">{course.content}</Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions className={classes.actions}>
