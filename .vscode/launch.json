@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MyBookListApplication<MyBookList>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.G11.MyBookList.MyBookListApplication",
+            "projectName": "MyBookList",
+            "args": ""
+        }
+    ]
+}
