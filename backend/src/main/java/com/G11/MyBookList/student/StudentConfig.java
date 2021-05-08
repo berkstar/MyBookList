@@ -3,6 +3,7 @@ package com.G11.MyBookList.student;
 import java.time.LocalDate;
 
 import java.time.Month;
+import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,14 @@ public class StudentConfig {
 							30
 						);
 
-            repository.save(test);
+            Student test2 = new Student(
+                    "Memet",
+                    "yoy@gmail.com",
+                    LocalDate.of(2020, Month.AUGUST, 10),
+                    31
+            );
+
+            repository.saveAll(List.of(test, test2));
         };
     }
 }
