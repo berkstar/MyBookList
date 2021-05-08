@@ -50,16 +50,16 @@ const styles = theme => ({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: '#1564bf',
+        backgroundColor: '#303030',
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        backgroundColor: '#5e91f2',
+        backgroundColor: '#595959',
     },
     drawerPaper: {
         width: drawerWidth,
-        backgroundColor: '#5e91f2',
+        backgroundColor: '#595959',
     },
     drawerContainer: {
         overflow: 'auto',
@@ -365,12 +365,9 @@ class Dashboard extends Component {
                         <Grid justify="space-between" // Add it here :)
                               container
                               spacing={0}>
-                            <Grid>
-                                <br/>
-                                <Typography variant="h6" noWrap className={classes.title}>
-                                    BOOKLAB
-                                </Typography>
-                            </Grid>
+                            <Typography variant="h6" noWrap className="my-auto">
+                                BOOKLAB
+                            </Typography>
                             <Grid>
                                 <div className={classes.sectionDesktop}>
                                     <IconButton
