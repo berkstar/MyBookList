@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -437,6 +438,10 @@ class Dashboard extends Component {
                             <ListItem button onClick={() => this.handleBrowse()} key="AllBooks">
                                 <ListItemIcon><MenuBookIcon/></ListItemIcon>
                                 <ListItemText primary="Browse"/>
+                            </ListItem>
+                            <ListItem button onClick={() => this.handleBrowse()} key="SignOut">
+                                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+                                <ListItemText primary="Sign Out"/>
                             </ListItem>
                         </List>
                         <Divider/>
