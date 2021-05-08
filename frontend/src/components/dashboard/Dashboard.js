@@ -110,7 +110,7 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     inputRoot: {
-        color: 'inherit',
+        color: 'white',
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
@@ -411,7 +411,7 @@ class Dashboard extends Component {
                             InputProps={{
                                 endAdornment: (
                                   <InputAdornment position="end">
-                                    <SearchIcon />
+                                    <SearchIcon style={{ color: '#fff' }}/>
                                   </InputAdornment>
                                 ),
                               }}
@@ -420,28 +420,28 @@ class Dashboard extends Component {
                     <div className={classes.drawerContainer}>
                         <List>
                             <ListItem button onClick={() => this.handleHome()} key="Home">
-                                <ListItemIcon><HomeIcon/></ListItemIcon>
-                                <ListItemText primary="Forum"/>
+                                <ListItemIcon><HomeIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Forum</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyFriends()} key="Friends">
-                                <ListItemIcon><PeopleIcon/></ListItemIcon>
-                                <ListItemText primary="Friends"/>
+                                <ListItemIcon><PeopleIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Friends</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyChallenges()} key="Challenges">
-                                <ListItemIcon><AccessAlarmIcon/></ListItemIcon>
-                                <ListItemText primary="Challenges"/>
+                                <ListItemIcon><AccessAlarmIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Challenges</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleStatistics()} key="MyBooks">
-                                <ListItemIcon><LibraryBooksIcon/></ListItemIcon>
-                                <ListItemText primary="My Books"/>
+                                <ListItemIcon><LibraryBooksIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>My Books</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleBrowse()} key="AllBooks">
-                                <ListItemIcon><MenuBookIcon/></ListItemIcon>
-                                <ListItemText primary="Browse"/>
+                                <ListItemIcon><MenuBookIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Browse</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleBrowse()} key="SignOut">
-                                <ListItemIcon><ExitToAppIcon/></ListItemIcon>
-                                <ListItemText primary="Sign Out"/>
+                                <ListItemIcon><ExitToAppIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Sign Out</Typography>}/>
                             </ListItem>
                         </List>
                         <Divider/>
