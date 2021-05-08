@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '50%',
         marginTop: '1%',
-        marginBottom: '1%'
+        marginbottom: '1%'
     },
     details: {
         flexDirection: 'column',

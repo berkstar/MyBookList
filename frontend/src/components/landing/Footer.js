@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     divider: {
         marginTop: '0px',
-        marginBottom: '20px',
+        marginbottom: '20px',
     }
 }));
 

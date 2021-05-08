@@ -93,7 +93,7 @@ export default function Search() {
 <br/>
 
             <div style={{ marginTop: 0, padding: 30 }}>
-                <Grid container spacing={40} justify="center" className={classes.grid}>
+                <Grid container spacing={10} justify="center" className={classes.grid}>
                     {friends.map(friend  => (
                         <Grid item key={friend.title}>
                             <Card>

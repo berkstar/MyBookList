@@ -87,7 +87,7 @@ export default function Challenges() {
             </Grid>
 
             <div style={{ marginTop: 0, padding: 30 }}>
-                <Grid container spacing={40} justify="center">
+                <Grid container spacing={10} justify="center">
                     {challenges.map(chl => (
                         <Grid item key={chl.title}>
                             <Card>

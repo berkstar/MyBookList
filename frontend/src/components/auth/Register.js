@@ -5,11 +5,8 @@ import {
     TextField,
     Grid,
     Paper,
-    AppBar,
     Typography,
-    Toolbar,
-    MenuItem,
-    Link, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio,
+    Link,
 } from "@material-ui/core";
 import NavigationBar from "./NavigationBar";
 

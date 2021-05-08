@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 import Api from 'api/Api'
@@ -17,7 +17,12 @@ function AppRoute() {
     const [isAuthenticated, setAuth] = useState(0);
     const [isWaiting, setWait] = useState(1);
 
-    async function check() {
+    useEffect(()=> {
+        check();
+    });
+
+    const check = async () => {
+        console.log("check");
         let response = await Api.isAuthenticated();
         let isAuthenticated = response.data.grant;
         setAuth(isAuthenticated);
@@ -29,10 +34,10 @@ function AppRoute() {
             <Route exact path='/' component={LandingPage}></Route>
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/register' component={Register}></Route>
-            <ProtectedRoute exact path='/dashboard' component={Dashboard} isAuthenticated={isAuthenticated} isWaiting={isWaiting}>{check()}</ProtectedRoute>
-            <ProtectedRoute exact path='/test' component={CourseBoard} isAuthenticated={isAuthenticated} isWaiting={isWaiting}>{check()}</ProtectedRoute>
-            <ProtectedRoute exact path='/bd' component={BookDetails} isAuthenticated={isAuthenticated} isWaiting={isWaiting}>{check()}</ProtectedRoute>
-            <ProtectedRoute exact path='/prof' component={otherProfile} isAuthenticated={isAuthenticated} isWaiting={isWaiting}>{check()}</ProtectedRoute>
+            <ProtectedRoute exact path='/dashboard' component={Dashboard} isAuthenticated={isAuthenticated} isWaiting={isWaiting}></ProtectedRoute>
+            <ProtectedRoute exact path='/test' component={CourseBoard} isAuthenticated={isAuthenticated} isWaiting={isWaiting}></ProtectedRoute>
+            <ProtectedRoute exact path='/bd' component={BookDetails} isAuthenticated={isAuthenticated} isWaiting={isWaiting}></ProtectedRoute>
+            <ProtectedRoute exact path='/prof' component={otherProfile} isAuthenticated={isAuthenticated} isWaiting={isWaiting}></ProtectedRoute>
         </Switch>
     );
 }

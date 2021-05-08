@@ -41,7 +41,7 @@ function Threads() {
 
     return (
         <div style={{ marginTop: 20, padding: 30 }}>
-            <Grid container spacing={40} justify="center" className={classes.root}>
+            <Grid container spacing={10} justify="center" className={classes.root}>
                 {courses.map(course => (
                     <Grid item key={course.title}>
                         <Card>
@@ -63,7 +63,7 @@ function Threads() {
                                 <Button size="small" color="primary">
                                     Like
                                 </Button>
-                                <Button component={Link} to='/test' size="small" color="primary" marginBottom="3">
+                                <Button component={Link} to='/test' size="small" color="primary" marginbottom="3">
                                     Learn More
                                 </Button>
                             </CardActions>

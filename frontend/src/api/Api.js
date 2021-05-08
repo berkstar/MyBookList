@@ -18,13 +18,21 @@ function setAuthToken() {
 }
 
 async function login(userData) {
-    return await axios.post('/user/login/', userData);
+    return await axios.post('/user/login/', userData)
+    .catch(function (error) {
+        console.log(error);
+        throw error;
+    });
 }
 
 async function isAuthenticated() {
     token = TokenService.getToken();
     if ( token ) {
-        return await axios.post('/user/auth/check/', {token: token});
+        return await axios.post('/user/auth/check/', {token: token})
+        .catch(function (error) {
+            console.log(error);
+            throw error;
+        });
     }
     else {
         return {
@@ -36,23 +44,43 @@ async function isAuthenticated() {
 }
 
 async function signUp(userData) {
-    return await axios.post('/user/signup/', userData);
+    return await axios.post('/user/signup/', userData)
+    .catch(function (error) {
+        console.log(error);
+        throw error;
+    });
 }
 
 async function getCities(searchText) {
-    return await axios.get('/city/search/' + searchText + "/");
+    return await axios.get('/city/search/' + searchText + "/")
+    .catch(function (error) {
+        console.log(error);
+        throw error;
+    });
 }
 
 async function getAllCities() {
-    return await axios.get('/city/all/');
+    return await axios.get('/city/all/')
+    .catch(function (error) {
+        console.log(error);
+        throw error;
+    });
 }
 
 async function createGroup(groupData) {
-    return await axios.post('group/create/', groupData);
+    return await axios.post('group/create/', groupData)
+    .catch(function (error) {
+        console.log(error);
+        throw error;
+    });
 }
 
 async function createEvent(eventData) {
-    return await axios.post('event/create/', eventData);
+    return await axios.post('event/create/', eventData)
+    .catch(function (error) {
+        console.log(error);
+        throw error;
+    });
 }
 
 async function getEvents(start_time, end_time, searchText) {

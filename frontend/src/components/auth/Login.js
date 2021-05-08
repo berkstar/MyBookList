@@ -5,14 +5,12 @@ import {
     TextField,
     Grid,
     Paper,
-    AppBar,
     Typography,
-    Toolbar,
     Link,
 } from "@material-ui/core";
-import NavigationBar from "./NavigationBar";
 import TokenService from "../../services/TokenService";
 import Api from "api/Api"
+import NavigationBar from './NavigationBar';
 
 class Login extends React.Component {
 
