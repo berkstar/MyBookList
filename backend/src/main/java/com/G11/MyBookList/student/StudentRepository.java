@@ -11,6 +11,6 @@ import java.util.List;
  */
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long>{
-    @Query("SELECT s FROM Student s WHERE s.name = ?1")
+    @Query(value="SELECT * FROM Student WHERE name = :name", nativeQuery=true)
     List<Student> findByName(String name);
 }

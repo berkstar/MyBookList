@@ -16,21 +16,9 @@ public class StudentConfig {
     CommandLineRunner commandLineRunner(StudentRepository repository){
 
         return args->{
-            Student test = new Student(
-							"Mahmut",
-							"yo@gmail.com",
-							LocalDate.of(2020, Month.AUGUST, 10),
-							30
-						);
+            Student test = new Student("user_name", "email", "name", "biography", "password");
 
-            Student test2 = new Student(
-                    "Memet",
-                    "yoy@gmail.com",
-                    LocalDate.of(2020, Month.AUGUST, 10),
-                    31
-            );
-
-            repository.saveAll(List.of(test, test2));
+            repository.save(test);
         };
     }
 }

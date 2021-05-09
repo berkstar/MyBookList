@@ -22,22 +22,22 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping(path = "/getAll")
-	public ResponseEntity<List<Student>> getStudents(@RequestHeader("Authorization") String token, Long id){
-        // token servise sor token aktif mi
-        return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
-    }
+    // @GetMapping(path = "/getAll")
+	// public ResponseEntity<List<Student>> getStudents(@RequestHeader("Authorization") String token, Long id){
+    //     // token servise sor token aktif mi
+    //     return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
+    // }
 
-    @GetMapping(path = "/getByUsernmPwd")
-    public ResponseEntity<List<Student>> getStudents(String username, String passwd) {
-        // if(UserService.login(username, passwd)) {
-        //      return new ResponseEntity<List<Student>>(Null, HttpStatus.OK);
-        // } else {
-        //      return new ResponseEntity<List<Student>>(Null, HttpStatus.Unauthorized);
-        // }
+    // @GetMapping(path = "/getByUsernmPwd")
+    // public ResponseEntity<List<Student>> getStudents(String username, String passwd) {
+    //     // if(UserService.login(username, passwd)) {
+    //     //      return new ResponseEntity<List<Student>>(Null, HttpStatus.OK);
+    //     // } else {
+    //     //      return new ResponseEntity<List<Student>>(Null, HttpStatus.Unauthorized);
+    //     // }
 
-        return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
-    }
+    //     return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
+    // }
 
     @GetMapping(path = "/getByUsernm")
     public ResponseEntity<List<Student>> getStudents(String username) {
