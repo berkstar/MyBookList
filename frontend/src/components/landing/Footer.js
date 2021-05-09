@@ -29,16 +29,19 @@ function Footer() {
     function FormRow() {
         return (
             <React.Fragment>
-                <Grid item xs={3}>
-                    Placeholder 1
+                <Grid item xs={2}>
+                    Aybars Altinisik
                 </Grid>
-                <Grid item xs={3}>
-                    Placeholder 2
+                <Grid item xs={2}>
+                    Bulut Gozubuyuk
                 </Grid>
-                <Grid item xs={3}>
-                    Placeholder 3
+                <Grid item xs={2}>
+                    Berk ....
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
+                    Denizhan Kemeroz
+                </Grid>
+                <Grid item xs={4}>
                     <Typography component="h6" variant="h6">
                         BOOKLAB
                     </Typography>
@@ -46,8 +49,6 @@ function Footer() {
                         All rights reserved &copy; 2021
                     </Typography>
                 </Grid>
-
-
             </React.Fragment>
         );
     }

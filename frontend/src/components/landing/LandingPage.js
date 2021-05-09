@@ -25,7 +25,6 @@ function LandingPage() {
             <Container>
                 <Showcase />
             </Container>
-            <About />
             <Footer />
         </div>
 

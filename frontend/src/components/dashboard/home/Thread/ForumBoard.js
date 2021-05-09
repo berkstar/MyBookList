@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {fade, withStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
+import Link from '@material-ui/core/Link';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -42,16 +43,16 @@ const styles = theme => ({
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        backgroundColor: '#1564bf',
+        backgroundColor: '#303030',
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        backgroundColor: '#5e91f2',
+        backgroundColor: '#595959',
     },
     drawerPaper: {
         width: drawerWidth,
-        backgroundColor: '#5e91f2',
+        backgroundColor: '#595959',
     },
     drawerContainer: {
         overflow: 'auto',
@@ -93,7 +94,7 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     inputRoot: {
-        color: 'inherit',
+        color: 'White',
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
@@ -177,12 +178,9 @@ class ForumBoard extends Component {
                         <Grid justify="space-between" // Add it here :)
                             container
                             spacing={0}>
-                            <Grid>
-                                <br/>
-                                <Typography variant="h6" noWrap className={classes.title}>
-                                    Science Fiction Category
-                                </Typography>
-                            </Grid>
+                            <Link href="/" variant="h6" className="my-auto" style={{color: "white"}}>
+                                BOOKLAB
+                            </Link>
                             <Grid>
                                 <div className={classes.sectionDesktop}>
                                     <IconButton
@@ -235,20 +233,20 @@ class ForumBoard extends Component {
                                 />
                             </div>
                             <ListItem button onClick={() => this.handleRoster()} key="Posts">
-                                <ListItemIcon><NoteIcon /></ListItemIcon>
-                                <ListItemText primary="Posts" />
+                                <ListItemIcon><NoteIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Posts</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleStatistics()} key="Friends">
-                                <ListItemIcon><PeopleIcon/></ListItemIcon>
-                                <ListItemText primary="Friends"/>
+                                <ListItemIcon><PeopleIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Friends</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleStatistics()} key="MyBooks">
-                                <ListItemIcon><LibraryBooksIcon/></ListItemIcon>
-                                <ListItemText primary="My Books"/>
+                                <ListItemIcon><LibraryBooksIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>MyBooks</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleHome()} key="Home">
-                                <ListItemIcon><ForumIcon/></ListItemIcon>
-                                <ListItemText primary="Go Back to Forum"/>
+                                <ListItemIcon><ForumIcon style={{ color: '#fff' }}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Home</Typography>}/>
                             </ListItem>
                         </List>
                         <Divider />
