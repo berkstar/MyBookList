@@ -6,13 +6,13 @@ const swaggerUi = require("swagger-ui-express");
 const YAML = require('yamljs');
 const app = express();
 const userRoute = require("./routes/user");
+const forumRoute = require("./routes/forum");
 const swaggerDocument = YAML.load('./swagger.yaml');
 
 const PORT = 8080;
 
-
 app.use("/user", userRoute);
-
+app.use("/forum", forumRoute);
 
 app.use(bodyParser.json());
 
@@ -25,37 +25,12 @@ app.get("/", (req,res) =>{
 })
 
 
-const options = {
-    definition: {
-      openapi: "3.0.0",
-      info: {
-        title: "My Book List API with Swagger",
-        version: "0.1.0",
-        description:
-          "This is a simple CRUD API application made with Express and documented with Swagger",
-        license: {
-          name: "MIT",
-          url: "https://spdx.org/licenses/MIT.html",
-        },
-      },
-      servers: [
-        {
-          url: "http://localhost:3000/",
-        },
-      ],
-    },
-    apis: ["./routes/*.js"],
-  };
-  
-  const specs = swaggerJsdoc(options);
+
+
   app.use(
     "/api-docs",
     swaggerUi.serve,
-<<<<<<< HEAD
     swaggerUi.setup(swaggerDocument, {explorer: true})
-=======
-    swaggerUi.setup(specs, {explorer: true})
->>>>>>> caae1098a68329fbd72d92f479433bb0e5873149
   );
 
 app.listen(PORT, () => console.log(`API is running on http://localhost:${PORT}`));

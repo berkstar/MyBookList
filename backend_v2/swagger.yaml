@@ -1,12 +1,70 @@
 openapi: '3.0.2'
 info:
-  title: API Title
+  title: My Book List API with Swagger
   version: '1.0'
+  description: "This is a simple CRUD API application made with Express and documented with Swagger"
 servers:
-  - url: https://api.server.test/v1
+  - url: http://localhost:3000/
+  
+
+components:
+  schemas:
+    User: 
+           type: object
+           required: 
+               - username
+               - email
+               - name
+               - password
+           properties:
+               user_id:
+                   type: integer
+               username:
+                   type: string
+               name:
+                   type: string
+               email:
+                   type: string
+               biography:
+                   type: string
+               password:
+                   type: string
+           example:
+               user_id: 1
+               username: Mahmut_03
+               email: test@test.com
+               name: Mahmut
+               password: testtset
 paths:
-  /test:
-    get:
+  /user/register:
+    post:
+      tags:
+        - "User"
+
+      description: Registers the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
       responses:
         '200':
-          description: OKaass
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '406':
+          description: Not Acceptable
+
+
+
+
+
