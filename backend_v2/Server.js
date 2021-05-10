@@ -51,7 +51,11 @@ const options = {
   app.use(
     "/api-docs",
     swaggerUi.serve,
+<<<<<<< HEAD
     swaggerUi.setup(swaggerDocument, {explorer: true})
+=======
+    swaggerUi.setup(specs, {explorer: true})
+>>>>>>> caae1098a68329fbd72d92f479433bb0e5873149
   );
 
 app.listen(PORT, () => console.log(`API is running on http://localhost:${PORT}`));
