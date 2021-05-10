@@ -18,23 +18,22 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import Grid from '@material-ui/core/Grid';
-import Home from 'components/dashboard/home/Home'
-import Challenges from 'components/dashboard/challenge/Challenges'
-import AllBooks from 'components/dashboard/allbooks/AllBooks'
-import BookDetails from 'components/dashboard/book-details/BookDetails'
-import EditBookList from 'components/dashboard/edit-book-list/EditBookList'
-import Mybooks from 'components/dashboard/mybooks/Mybooks'
-import Friends from 'components/dashboard/friends/Friends'
-import SearchFriends from 'components/dashboard/friends/SearchFriends'
-
+import Threads from 'components/dashboard/threads/Threads';
+import Challenges from 'components/dashboard/challenge/Challenges';
+import AllBooks from 'components/dashboard/allbooks/AllBooks';
+import BookDetails from 'components/dashboard/book-details/BookDetails';
+import EditBookList from 'components/dashboard/edit-book-list/EditBookList';
+import Mybooks from 'components/dashboard/mybooks/Mybooks';
+import Friends from 'components/dashboard/friends/Friends';
+import SearchFriends from 'components/dashboard/friends/SearchFriends';
+import Posts from 'components/dashboard/threads/posts/Posts';
 import UserProfile from 'components/dashboard/profile/UserProfile';
 import OtherProfile from 'components/dashboard/profile/OtherProfile';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import { TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 import { FormatListNumbered } from '@material-ui/icons';
 
 
@@ -128,207 +127,97 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
+
     constructor(props) {
         super(props);
         window.helloComponent = this;
-        this.state = {
-            home: true,
-            statistics: false,
+        this.handlePosts = this.handlePosts.bind(this);
+        this.threadTitle = "";
+        this.states = {
+            threads: false,
+            myBooks: false,
             myForms: false,
             savedList: false,
             create: false,
             userProfile: false,
             challenges: false,
             friends: false,
-            AllBooks: false,
-            Mybooks: false,
-            BookDetails: false,
-            EditBookList: false,
-            SearchFriends: false,
-            OtherProfile: false,
+            allBooks: false,
+            myBooks: false,
+            bookDetails: false,
+            editBookList: false,
+            searchFriends: false,
+            otherProfile: false,
+            posts: false,
+        };
+        this.state = {
+            threads: true,
+            myBooks: false,
+            myForms: false,
+            savedList: false,
+            create: false,
+            userProfile: false,
+            challenges: false,
+            friends: false,
+            allBooks: false,
+            mybooks: false,
+            bookDetails: false,
+            editBookList: false,
+            searchFriends: false,
+            otherProfile: false,
+            posts: false,
         };
     }
 
-    handleSearchFriends() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: true});
-        this.setState({OtherProfile: false});
-    }
-
     handleMyFriends() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
+        this.setState(this.states);
         this.setState({friends: true});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
     }
 
     handleMyProfile() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
+        this.setState(this.states);
         this.setState({userProfile: true});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
-
     }
 
     handleOtherProfile() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: true});
+        this.setState(this.states);
+        this.setState({otherProfile: true});
     }
 
     handleMyChallenges() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
+        this.setState(this.states);
         this.setState({challenges: true});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
     }
 
-    handleHome() {
-        this.setState({home: true});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
+    handleThreads() {
+        this.setState(this.states);
+        this.setState({threads: true});
     }
 
-    handleStatistics() {
-        this.setState({home: false});
-        this.setState({statistics: true});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
+    handleMyBooks() {
+        this.setState(this.states);
+        this.setState({myBooks: true});
     }
 
     handleBrowse() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: true});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
+        this.setState(this.states);
+        this.setState({allBooks: true});
     }
 
     handleBookDetails() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: true});
-        this.setState({EditBookList: false});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
+        this.setState(this.states);
+        this.setState({bookDetails: true});
     }
 
     handleEditBookList() {
-        this.setState({home: false});
-        this.setState({statistics: false});
-        this.setState({challenges: false});
-        this.setState({create: false});
-        this.setState({myForms: false});
-        this.setState({savedList: false});
-        this.setState({challenges: false});
-        this.setState({userProfile: false});
-        this.setState({Mybooks: false});
-        this.setState({friends: false});
-        this.setState({AllBooks: false});
-        this.setState({BookDetails: false});
-        this.setState({EditBookList: true});
-        this.setState({SearchFriends: false});
-        this.setState({OtherProfile: false});
+        this.setState(this.states);
+        this.setState({editBookList: true});
+    }
 
+    handlePosts(threadTitle) {
+        this.threadTitle = threadTitle;
+        this.setState(this.states);
+        this.setState({posts: true});
     }
 
 
@@ -336,9 +225,9 @@ class Dashboard extends Component {
         const {classes} = this.props;
 
         let showContent;
-        if (this.state.home) {
-            showContent = <Home/>;
-        } else if (this.state.statistics) {
+        if (this.state.threads) {
+            showContent = <Threads handlePosts={this.handlePosts}/>;
+        } else if (this.state.myBooks) {
             showContent = <Mybooks/>;
         } else if (this.state.challenges) {
             showContent = <Challenges/>;
@@ -346,17 +235,19 @@ class Dashboard extends Component {
             showContent = <Friends/>;
         } else if (this.state.userProfile) {
             showContent = <UserProfile/>
-        } else if (this.state.AllBooks) {
+        } else if (this.state.allBooks) {
             showContent = <AllBooks/>
-        } else if (this.state.BookDetails) {
+        } else if (this.state.bookDetails) {
             showContent = <BookDetails/>
-        } else if (this.state.SearchFriends) {
+        } else if (this.state.searchFriends) {
             showContent = <SearchFriends/>
-        } else if (this.state.OtherProfile) {
+        } else if (this.state.otherProfile) {
             showContent = <OtherProfile/>
-        } else if (this.state.EditBookList) {
+        } else if (this.state.editBookList) {
             showContent = <EditBookList/>
-        }
+        } else if (this.state.posts) {
+            showContent = <Posts threadTitle={this.threadTitle}/>
+        } 
 
         return (
             <div className={classes.root}>
@@ -404,22 +295,9 @@ class Dashboard extends Component {
                     }}
                 >
                     <Toolbar/>
-                        <TextField
-                            type="search"
-                            variant="filled"
-                            label="Search"
-                            InputProps={{
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    <SearchIcon style={{ color: '#fff' }}/>
-                                  </InputAdornment>
-                                ),
-                              }}
-                            >
-                        </TextField>
-                    <div className={classes.drawerContainer}>
+                    <div className={"container-fluid h-100 " + classes.drawerContainer}>
                         <List>
-                            <ListItem button onClick={() => this.handleHome()} key="Home">
+                            <ListItem button onClick={() => this.handleThreads()} key="Threads">
                                 <ListItemIcon><HomeIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Forum</Typography>}/>
                             </ListItem>
@@ -431,7 +309,7 @@ class Dashboard extends Component {
                                 <ListItemIcon><AccessAlarmIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Challenges</Typography>}/>
                             </ListItem>
-                            <ListItem button onClick={() => this.handleStatistics()} key="MyBooks">
+                            <ListItem button onClick={() => this.handleMyBooks()} key="MyBooks">
                                 <ListItemIcon><LibraryBooksIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>My Books</Typography>}/>
                             </ListItem>
@@ -439,18 +317,12 @@ class Dashboard extends Component {
                                 <ListItemIcon><MenuBookIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Browse</Typography>}/>
                             </ListItem>
-                            <ListItem button onClick={() => this.handleBrowse()} key="SignOut">
+                            <ListItem button onClick={() => this.handlePosts()} key="SignOut">
                                 <ListItemIcon><ExitToAppIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Sign Out</Typography>}/>
                             </ListItem>
                         </List>
                         <Divider/>
-                        {/* <List>
-                            <ListItem button onClick={() => this.handleNewForm()} key="NewForm">
-                                <ListItemIcon><AddIcon /></ListItemIcon>
-                                <ListItemText primary="Create Form" />
-                            </ListItem>
-                        </List> */}
                     </div>
                 </Drawer>
                 <main className={classes.content}>
