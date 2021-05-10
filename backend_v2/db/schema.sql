@@ -23,3 +23,4 @@ CREATE TABLE IF NOT EXISTS friend_of(
   accepted BIT DEFAULT 0,
   CONSTRAINT PK_Person PRIMARY KEY (user_id,friend_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
