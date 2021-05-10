@@ -3,10 +3,12 @@ const pool = require("../db_config");
 
 let user = {};
 
-user.addUser = (username, email, password) => {
+user.addUser = (username, name, email, password) => {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO User (user_name, email, name, password) VALUES (?,?,?,?)",[username,email,username,password], (err, results) => {
+        
+        pool.query("INSERT INTO User (user_name, email, name, password) VALUES (?,?,?,?)",[username, email, name, password], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
+                
                 return reject(err);
             }
             return resolve(results);
