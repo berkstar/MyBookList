@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import threads from "./dummy-threads.json";
-import {Card, Container, Col, Row} from 'react-bootstrap'
+import { Card, Container, Col, Row } from 'react-bootstrap';
 import { TextField, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-function Threads() {
+function Threads(props) {
     const initial_state = threads;
     const [content, setContent] = useState(initial_state);
 
@@ -34,7 +34,7 @@ function Threads() {
                         style={{ fontSize: '20px'}}
                         type="search"
                         variant="outlined"
-                        placeholder="Search"
+                        placeholder="Search thread..."
                         onChange= {input => ( search(input.target.value) )}
                         InputProps={{
                             endAdornment: (
@@ -54,7 +54,7 @@ function Threads() {
                             {content.map(thread => (
                                 <Card bg="secondary" text="white" className="my-2" key={thread.title}>
                                     <Card.Body style={{fontSize: "20px"}}>{'t/' + thread.title}</Card.Body>
-                                    <a className="stretched-link" href="/login"></a>
+                                    <a className="stretched-link" onClick={() => {props.handlePosts(thread.title)}}></a>
                                 </Card>
                             ))}
                             </Card.Body>
