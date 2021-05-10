@@ -24,3 +24,22 @@ CREATE TABLE IF NOT EXISTS friend_of(
   CONSTRAINT PK_Person PRIMARY KEY (user_id,friend_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS Librarian(
+  user_id INT PRIMARY KEY,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS Author(
+  user_id INT PRIMARY KEY,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  is_verified BIT DEFAULT 0,
+  verfier_id INT NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE publishes(
+  author_id INT,
+  FOREIGN KEY(author_id) REFERENCES Author(user_id) ON DELETE CASCADE,
+  book_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+  CONSTRAINT PK_Publishes PRIMARY KEY (author_id,book_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
