@@ -18,7 +18,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import Grid from '@material-ui/core/Grid';
-import Home from 'components/dashboard/home/Home'
+import Threads from 'components/dashboard/threads/Threads'
 import Challenges from 'components/dashboard/challenge/Challenges'
 import AllBooks from 'components/dashboard/allbooks/AllBooks'
 import BookDetails from 'components/dashboard/book-details/BookDetails'
@@ -32,9 +32,8 @@ import OtherProfile from 'components/dashboard/profile/OtherProfile';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import { TextField } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
+
+
 import { FormatListNumbered } from '@material-ui/icons';
 
 
@@ -132,7 +131,7 @@ class Dashboard extends Component {
         super(props);
         window.helloComponent = this;
         this.state = {
-            home: true,
+            threads: true,
             statistics: false,
             myForms: false,
             savedList: false,
@@ -150,7 +149,7 @@ class Dashboard extends Component {
     }
 
     handleSearchFriends() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -168,7 +167,7 @@ class Dashboard extends Component {
     }
 
     handleMyFriends() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -186,7 +185,7 @@ class Dashboard extends Component {
     }
 
     handleMyProfile() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -205,7 +204,7 @@ class Dashboard extends Component {
     }
 
     handleOtherProfile() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -223,7 +222,7 @@ class Dashboard extends Component {
     }
 
     handleMyChallenges() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -240,8 +239,8 @@ class Dashboard extends Component {
         this.setState({OtherProfile: false});
     }
 
-    handleHome() {
-        this.setState({home: true});
+    handleThreads() {
+        this.setState({threads: true});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -259,7 +258,7 @@ class Dashboard extends Component {
     }
 
     handleStatistics() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: true});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -277,7 +276,7 @@ class Dashboard extends Component {
     }
 
     handleBrowse() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -295,7 +294,7 @@ class Dashboard extends Component {
     }
 
     handleBookDetails() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -313,7 +312,7 @@ class Dashboard extends Component {
     }
 
     handleEditBookList() {
-        this.setState({home: false});
+        this.setState({threads: false});
         this.setState({statistics: false});
         this.setState({challenges: false});
         this.setState({create: false});
@@ -336,8 +335,8 @@ class Dashboard extends Component {
         const {classes} = this.props;
 
         let showContent;
-        if (this.state.home) {
-            showContent = <Home/>;
+        if (this.state.threads) {
+            showContent = <Threads/>;
         } else if (this.state.statistics) {
             showContent = <Mybooks/>;
         } else if (this.state.challenges) {
@@ -404,22 +403,9 @@ class Dashboard extends Component {
                     }}
                 >
                     <Toolbar/>
-                        <TextField
-                            type="search"
-                            variant="filled"
-                            label="Search"
-                            InputProps={{
-                                endAdornment: (
-                                  <InputAdornment position="end">
-                                    <SearchIcon style={{ color: '#fff' }}/>
-                                  </InputAdornment>
-                                ),
-                              }}
-                            >
-                        </TextField>
-                    <div className={classes.drawerContainer}>
+                    <div className={"container-fluid h-100 " + classes.drawerContainer}>
                         <List>
-                            <ListItem button onClick={() => this.handleHome()} key="Home">
+                            <ListItem button onClick={() => this.handleThreads()} key="Threads">
                                 <ListItemIcon><HomeIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Forum</Typography>}/>
                             </ListItem>
@@ -445,12 +431,6 @@ class Dashboard extends Component {
                             </ListItem>
                         </List>
                         <Divider/>
-                        {/* <List>
-                            <ListItem button onClick={() => this.handleNewForm()} key="NewForm">
-                                <ListItemIcon><AddIcon /></ListItemIcon>
-                                <ListItemText primary="Create Form" />
-                            </ListItem>
-                        </List> */}
                     </div>
                 </Drawer>
                 <main className={classes.content}>

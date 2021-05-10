@@ -25,8 +25,8 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 import Grid from '@material-ui/core/Grid';
 
-import CourseStatistics from 'components/dashboard/home/Thread/statistics/CourseStatistics'
-import Posts from 'components/dashboard/home/Thread/Posts'
+import CourseStatistics from 'components/dashboard/threads/thread/statistics/CourseStatistics'
+import Posts from 'components/dashboard/threads/thread/Posts'
 import Assignments from "./Assignments";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import HomeIcon from "@material-ui/icons/Home";
