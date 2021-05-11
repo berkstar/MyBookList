@@ -9,24 +9,32 @@ import {
     Link,
 } from "@material-ui/core";
 import NavigationBar from "./NavigationBar";
+import Api from "api/Api";
+import StorageService from "services/StorageService"
 
 class Register extends React.Component {
 
 
     constructor(props) {
         super(props);
-        this.state = { username: "", password: "", email: ""};
-        this.handleChange = this.handleChange.bind(this);
+        this.state = { username: "", name: "", password: "", email: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({ username: event.state.username, password: event.state.password, email: event.state.email });
-    }
-
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-        this.props.history.push("/dashboard");
+        let userData = {
+            username: this.state.username,
+            name: this.state.name,
+            password: this.state.password,
+            email: this.state.email
+        }
+        const response = await Api.signUp(userData);
+        if(response.status === 200) {
+            StorageService.setToken(response.data.token);
+            Api.setAuthToken();
+            this.props.history.push("/dashboard");
+        }
     }
 
     render() {
@@ -64,6 +72,23 @@ class Register extends React.Component {
                                                     name="username"
                                                     variant="outlined"
                                                     value={this.state.username}
+                                                    onChange={(event) =>
+                                                        this.setState({
+                                                            [event.target.name]: event.target.value,
+                                                        })
+                                                    }
+                                                    required
+                                                    autoFocus
+                                                />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField
+                                                    type="text"
+                                                    placeholder="Name"
+                                                    fullWidth
+                                                    name="name"
+                                                    variant="outlined"
+                                                    value={this.state.name}
                                                     onChange={(event) =>
                                                         this.setState({
                                                             [event.target.name]: event.target.value,

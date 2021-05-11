@@ -26,7 +26,7 @@ async function login(userData) {
 }
 
 async function signUp(userData) {
-    return await api_post('/user/signup/', userData);
+    return await api_post('/user/register/', userData);
 }
 
 async function getAllThreads() {

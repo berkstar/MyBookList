@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         gridGap: "8px",
         height: 345,
         minWidth: 500,
+        maxWidth: 500,
         backgroundSize: "cover"
     },
     

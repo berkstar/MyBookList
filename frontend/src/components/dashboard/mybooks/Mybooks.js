@@ -16,6 +16,8 @@ import Rating from '@material-ui/lab/Rating';
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
 import IconButton from '@material-ui/core/IconButton';
 import books from "./dummy-books";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
 function LinearProgressWithLabel(props) {
     return (
         <Box display="flex" alignItems="center">
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
         gridTemplateRows: "1fr auto",
         gridGap: "8px",
         height: 345,
-        minWidth: 500,
+        maxWidth: 500,
         backgroundSize: "cover"
     },
 
@@ -88,7 +90,7 @@ export default function Mybooks() {
             </Grid>
 
             <div style={{ marginTop: 0, padding: 30 }}>
-                <Grid container spacing={10} justify="center" className={classes.root}>
+                <Grid container spacing={10} className={classes.root}>
                     {books.map(book => (
                         <Grid item key={book.title}>
                             <Card className={classes.card}>
@@ -111,9 +113,12 @@ export default function Mybooks() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button component={Link} to='/test' size="small" color="primary">
+                                    <Button className="mx-2" size="medium" color="primary">
                                         Progress
                                     </Button>
+                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails()} key="AllBooks">
+                                        <ListItemText primary="See Details"/>
+                                    </ListItem>
                                 </CardActions>
                                 <LinearProgressWithLabel value={progress} />
                             </Card>

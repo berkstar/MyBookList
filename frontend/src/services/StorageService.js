@@ -10,11 +10,15 @@ function getUserId() {
     return JSON.parse(localStorage.getItem('uid'));
 }
 
+function setUserId(userId) {
+    localStorage.setItem('uid', JSON.stringify(userId));
+}
 
 const StorageService = {
     getToken,
     setToken,
-    getUserId
+    getUserId,
+    setUserId
 }
 
 export default StorageService;

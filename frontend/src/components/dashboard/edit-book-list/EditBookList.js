@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import { TextField } from '@material-ui/core';
 import Typography from "@material-ui/core/Typography";
@@ -22,12 +22,7 @@ const columns = [
     },
   ];
 
-const rows = [
-    {name: 'Harry Potter', isbn: 1287548657, pagenumber: 375},
-    {name: 'Hitchhikers Guide to the Galaxy', isbn: 4846124785, pagenumber: 477},
-    {name: 'Gilgamesh', isbn: 9876152457, pagenumber: 622},
-    {name: 'The Prince', isbn: 9875421547, pagenumber: 115},
-];
+
 
 const bookOptions = [
     {
@@ -63,6 +58,21 @@ const bookOptions = [
   ]
 
 export default function EditBookList() {
+    var selected = {};
+
+    const [rows, setRows] = useState([
+        {name: 'Harry Potter', isbn: 1287548657, pagenumber: 375},
+        {name: 'Hitchhikers Guide to the Galaxy', isbn: 4846124785, pagenumber: 477},
+        {name: 'Gilgamesh', isbn: 9876152457, pagenumber: 622},
+        {name: 'The Prince', isbn: 9875421547, pagenumber: 115},
+    ]);
+
+    function addBook(selection) {
+        let newRow = { name: selection.value, isbn: 111111, pagenumber: 555};
+        let newRows = rows.push(newRow);
+        setRows(newRows);
+    }
+
     return (
         <div id='about' >
             <Grid style={{ marginLeft: 50, marginTop: 50}}>
@@ -84,8 +94,9 @@ export default function EditBookList() {
                             placeholder='Select Book'
                             fluid
                             search
-                            selection
+                            selection={selected}
                             options={bookOptions}
+                            onClick={()=>{addBook(selected)}}
                         />
                     </Grid>
                     <TableContainer>

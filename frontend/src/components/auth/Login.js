@@ -8,7 +8,7 @@ import {
     Typography,
     Link,
 } from "@material-ui/core";
-import TokenService from "../../services/StorageService";
+import StorageService from "../../services/StorageService";
 import Api from "api/Api"
 import NavigationBar from './NavigationBar';
 
@@ -33,7 +33,8 @@ class Login extends React.Component {
         }
         const response = await Api.login(userData);
         if(response.status === 200) {
-            TokenService.setToken(response.data.token);
+            StorageService.setToken(response.data.token);
+            StorageService.setUserId(response.data.user_id);
             Api.setAuthToken();
             this.props.history.push("/dashboard");
         }

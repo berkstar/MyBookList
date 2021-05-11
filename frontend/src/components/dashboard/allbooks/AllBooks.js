@@ -53,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
         display: "grid",
         gridTemplateRows: "1fr auto",
         gridGap: "8px",
-        height: 400,
-        minWidth: 500,
+        height: 345,
+        maxWidth: 500,
         backgroundSize: "cover"
     },
 
@@ -71,17 +71,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AllBooks() {
     const classes = useStyles();
-
-    const [progress, setProgress] = React.useState(10);
-
-    React.useEffect(() => {
-        const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-        }, 800);
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
 
     const [value, setValue] = React.useState(2);
 
@@ -100,7 +89,7 @@ export default function AllBooks() {
             </Grid>
 
             <div style={{ marginTop: 0, padding: 30 }}>
-                <Grid container spacing={10} justify="center" className={classes.root}>
+                <Grid container spacing={10} className={classes.root}>
                     {books.map(book => (
                         <Grid item key={book.title}>
                             <Card className={classes.card}>
@@ -123,14 +112,10 @@ export default function AllBooks() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button style={{ marginLeft: 10}}component={Link} to='/test' size="small" color="primary">
-                                        Progress
-                                    </Button>
                                     <ListItem button onClick={() => window.helloComponent.handleBookDetails()} key="AllBooks">
                                         <ListItemText primary="See Details"/>
                                     </ListItem>
                                 </CardActions>
-                                <LinearProgressWithLabel value={progress} />
                             </Card>
                             <br/>
                         </Grid>
