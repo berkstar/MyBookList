@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 router.use(cors());
 const tokgen = new TokenGenerator(128, TokenGenerator.BASE16);
 
-
+const pool = require("../db_config"); // FOR TESTING
 
 router.post("/register", async (req, res) => {
     try {
@@ -137,8 +137,8 @@ router.get("/getfriends", async (req, res) => {
 router.post("/login", async (req, res) => {
 
     try {
-        res.type('json')
-        console.log(req.params);
+        // res.type('json')
+        // console.log(req.params);
         let username = req.body.username
         let password = req.body.password
         var date = new Date()
@@ -166,31 +166,34 @@ router.post("/login", async (req, res) => {
 
 })
 
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<FOR TEST PURPOSES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-router.get("/logintest", async (req, res) => {
+router.get("/test", async (req, res) => {
 
     try {
-        let username = req.body.username
-        let password = req.body.password
-
-        var date = new Date()
-        date.setHours(date.getHours() + 1);
-        let result = await sql.addAuth(date, token = tokgen.generate());
-        //res.status(500);
-        //res.json(result.length);
-        res.json({
-            token: token,
-            rows: result.affectedRows,
-            date: date
-
-        });
-        console.log("AUTH Added=>" + result.affectedRows)
-
+  
+        test = () => {
+            return new Promise((resolve, reject) => {
+        
+                pool.query("(SELECT * from User)", (err, results) => {
+                    if (err) {
+        
+                        return reject(err);
+                    }
+                    return resolve(results);
+                })
+            })
+        }
+        let  resultTable = await test();
+        
+        console.log(bodyParser.json()(resultTable))
+  
     } catch (error) {
         res.sendStatus(500);
         console.log(error)
     }
-
-})
+  
+  })
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<FOR TEST PURPOSES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 module.exports = router;

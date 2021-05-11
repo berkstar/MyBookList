@@ -8,7 +8,6 @@ user.addUser = (username, name, email, password) => {
         
         pool.query("INSERT INTO User (user_name, email, name, password) VALUES (?,?,?,?)",[username, email, name, password], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
-                
                 return reject(err);
             }
             return resolve(results);

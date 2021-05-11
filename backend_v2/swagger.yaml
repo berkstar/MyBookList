@@ -55,10 +55,62 @@ components:
          
 security:
    - Authorization: []    
-#---<<<<<<<<<<<<<<<<<<<<<<<<<<<Forum>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
 
 paths:
+#---<<<<<<<<<<<<<<<<<<<<<<<<<<<System>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+  /system/inserttuples:
+    post:
+      tags:
+        - "System"
+
+      description: Insert example tuples.
+      responses:
+        '200':
+          description: OK - Inserted
+        '500':
+          description: MYSQL ERROR.
+
+  /system/truncatetables:
+    delete:
+      tags:
+        - "System"
+
+      description: Truncate tables.
+      responses:
+        '200':
+          description: OK - Truncated.
+        '500':
+          description: MYSQL ERROR.
+
+  /system/inserttables:
+    post:
+      tags:
+        - "System"
+
+      description: Creates tables (Do not use until fully implemented).
+      responses:
+        '200':
+          description: OK - Inserted.
+        '500':
+          description: MYSQL ERROR.
+
+
+
+
+
+
+
+
+
+
+
+
+#---<<<<<<<<<<<<<<<<<<<<<<<<<<<Forum>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   /forum/getallthreads:
     get:

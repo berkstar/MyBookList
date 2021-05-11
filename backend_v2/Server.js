@@ -7,12 +7,14 @@ const YAML = require('yamljs');
 const app = express();
 const userRoute = require("./routes/user");
 const forumRoute = require("./routes/forum");
+const systemRoute = require("./routes/system");
 const swaggerDocument = YAML.load('./swagger.yaml');
 
 const PORT = 8080;
 
 app.use("/user", userRoute);
 app.use("/forum", forumRoute);
+app.use("/system", systemRoute);
 
 app.use(bodyParser.json());
 
