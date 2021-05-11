@@ -45,7 +45,7 @@ function Footer() {
                     <Typography component="h6" variant="h6">
                         BOOKLAB
                     </Typography>
-                    <Typography variant="subtitle6" color="textPrimary">
+                    <Typography variant="subtitle2" color="textPrimary">
                         All rights reserved &copy; 2021
                     </Typography>
                 </Grid>

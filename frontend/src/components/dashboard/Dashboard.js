@@ -27,14 +27,11 @@ import Mybooks from 'components/dashboard/mybooks/Mybooks';
 import Friends from 'components/dashboard/friends/Friends';
 import SearchFriends from 'components/dashboard/friends/SearchFriends';
 import Posts from 'components/dashboard/threads/posts/Posts';
-import UserProfile from 'components/dashboard/profile/UserProfile';
+import UserProfile from 'components/dashboard/profile/MyProfile';
 import OtherProfile from 'components/dashboard/profile/OtherProfile';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-
-
-import { FormatListNumbered } from '@material-ui/icons';
 
 
 const drawerWidth = 240;
@@ -143,7 +140,6 @@ class Dashboard extends Component {
             challenges: false,
             friends: false,
             allBooks: false,
-            myBooks: false,
             bookDetails: false,
             editBookList: false,
             searchFriends: false,
@@ -218,6 +214,11 @@ class Dashboard extends Component {
         this.threadTitle = threadTitle;
         this.setState(this.states);
         this.setState({posts: true});
+    }
+
+    handleSearchFriends() {
+        this.setState(this.states);
+        this.setState({searchFriends: true});
     }
 
 
@@ -327,7 +328,7 @@ class Dashboard extends Component {
                 </Drawer>
                 <main className={classes.content}>
                     <Toolbar/>
-                    <Grid>
+                    <Grid className="container-fluid">
                         {showContent}
                     </Grid>
                 </main>

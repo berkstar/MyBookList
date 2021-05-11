@@ -71,13 +71,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AllBooks() {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
 
     const [progress, setProgress] = React.useState(10);
 

@@ -1,14 +1,9 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-// import FormControl from '@material-ui/core/FormControl';
-// import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import courses from "./dummy-books";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
@@ -20,8 +15,6 @@ import PropTypes from 'prop-types';
 import Rating from '@material-ui/lab/Rating';
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
 import IconButton from '@material-ui/core/IconButton';
-
-// import AddButton from '../createform/AddButton'
 import books from "./dummy-books";
 function LinearProgressWithLabel(props) {
     return (
@@ -75,25 +68,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Mybooks() {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-
-    // const handleChange = (prop) => (event) => {
-    //     setValues({ ...values, [prop]: event.target.value });
-    // };
-    //
-    // const handleClickShowPassword = () => {
-    //     setValues({ ...values, showPassword: !values.showPassword });
-    // };
-    //
-    // const handleMouseDownPassword = (event) => {
-    //     event.preventDefault();
-    // };
     const [progress, setProgress] = React.useState(10);
 
     React.useEffect(() => {
