@@ -11,6 +11,7 @@ router.use(cors());
 router.get("/getallthreads", async (req, res) => {
 
     try {
+        res.type('json')
         let auth = req.headers.authorization
         let resultCheckAuth = await sql_user.checkAuth(auth)
         
@@ -34,6 +35,7 @@ router.get("/getallthreads", async (req, res) => {
 router.get("/getposts", async (req, res) => {
 
     try {
+        res.type('json')
         let auth = req.headers.authorization
         let threadId = req.query.tid
 

@@ -13,8 +13,8 @@ const tokgen = new TokenGenerator(128, TokenGenerator.BASE16);
 
 
 router.post("/register", async (req, res) => {
-
     try {
+        res.type('json')
         let username = req.body.username
         let name = req.body.name
         let email = req.body.email
@@ -46,8 +46,9 @@ router.post("/register", async (req, res) => {
 })
 
 router.post("/addfriend", async (req, res) => {
-
+    
     try {
+        res.type('json')
         let user_id = req.body.uid
         let friend_id = req.body.fid
 
@@ -80,6 +81,7 @@ router.post("/addfriend", async (req, res) => {
 router.get("/getusers", async (req, res) => {
 
     try {
+        res.type('json')
         let user_id = req.query.uid
 
         let auth = req.headers.authorization
@@ -106,6 +108,7 @@ router.get("/getusers", async (req, res) => {
 router.get("/getfriends", async (req, res) => {
 
     try {
+        res.type('json')
         let user_id = req.query.uid
 
         let auth = req.headers.authorization
@@ -134,6 +137,7 @@ router.get("/getfriends", async (req, res) => {
 router.post("/login", async (req, res) => {
 
     try {
+        res.type('json')
         console.log(req.params);
         let username = req.body.username
         let password = req.body.password
