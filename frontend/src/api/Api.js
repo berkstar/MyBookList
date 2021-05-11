@@ -95,7 +95,7 @@ async function api_get(path, param) {
 
 async function api_post(path, param) {
     try {
-        const response = {};
+        var response = {};
         if (param != null) {
             response = await axios.post(path, param);
         }
@@ -105,9 +105,10 @@ async function api_post(path, param) {
         console.log(response);
         return response;
     } catch (error) {
-        if ( error.response.status === 401 ) {
-            alert('Incorrect Credentials!');
-        } else if ( error.response ) {
+        if ( error.response ) {
+            if ( error.response.status === 401 ) {
+                alert('Incorrect Credentials!');
+            }
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
