@@ -16,6 +16,62 @@ user.addUser = (username, name, email, password) => {
     })
 }
 
+user.addFriend = (user_id, friend_id) => {
+    return new Promise((resolve, reject) => {
+        
+        // pool.query("INSERT INTO friend_of (user_id, friend_id) VALUES (?,?)",[user_id, friend_id], (err, results) => {
+        //     if (err &&err.code != "ER_DUP_ENTRY") {
+        //         return reject(err);
+        //     }
+        //     console.log(results)
+        //     return resolve(results);
+        // })
+
+
+        pool.query("INSERT INTO friend_of (user_id , friend_id) (SELECT ? , ? FROM dual WHERE NOT EXISTS (SELECT * FROM friend_of WHERE friend_id = ? and user_id = ?))",[user_id, friend_id, user_id, friend_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+
+
+
+    })
+}
+
+user.getFriends = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+
+        pool.query("(SELECT u.user_id, u.user_name, u.name, u.biography FROM friend_of f, User u WHERE f.user_id = ? and u.user_id = f.friend_id and  f.accepted = 1) UNION "+
+        "(SELECT u.user_id, u.user_name, u.name, u.biography FROM friend_of f, User u WHERE f.friend_id = ? and u.user_id = f.user_id and f.accepted = 1)",[user_id, user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.getUsers = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+
+        pool.query("(SELECT u.user_id, u.user_name, u.name, u.biography FROM friend_of f, User u WHERE f.user_id = ? and u.user_id = f.friend_id and  f.accepted = 1) UNION "+
+        "(SELECT u.user_id, u.user_name, u.name, u.biography FROM friend_of f, User u WHERE f.friend_id = ? and u.user_id = f.user_id and f.accepted = 1)",[user_id, user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 
 //For Checking Auth token.
 user.checkUser= (username,password) => {
