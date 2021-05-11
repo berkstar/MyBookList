@@ -24,10 +24,12 @@ router.post("/register", async (req, res) => {
         //Succesfully Logged in.
         let resultAddUser = await sql.addUser(username, name, email, password);
         if (resultAddUser && resultAddUser.affectedRows) {
+            let user_id = resultAddUser.insertId
 
             sql.addAuth(date, token = tokgen.generate())
             res.status(200);
             res.json({
+                user_id: user_id,
                 token: token
             });
         } else {// User entered mail or username that has a user.
@@ -57,9 +59,11 @@ router.post("/login", async (req, res) => {
         let resultCheckUser = await sql.checkUser(username, password)
         //If user exists
         if (resultCheckUser.length) {
+            let user_id = resultCheckUser[0].user_id
             sql.addAuth(date, token = tokgen.generate())
             res.status(200);
             res.json({
+                user_id: user_id,
                 token: token
             });
         }

@@ -19,12 +19,12 @@ forum.listThreads = () => {
 }
 
 //
-forum.listPosts = (threadTitle) => {
+forum.listPosts = (threadId) => {
     return new Promise((resolve, reject) => {
 
 
 
-        pool.query("SELECT p.pid, u.user_name, p.title, p.text FROM Post p, Thread t, User u WHERE t.tid = p.tid and u.user_id = p.user_id and t.name = ?",[threadTitle], (err, results) => {
+        pool.query("SELECT p.pid, u.user_name, p.title, p.text FROM Post p, User u WHERE p.tid = ? and u.user_id = p.user_id",[threadId], (err, results) => {
             if (err) {
 
                 return reject(err);
