@@ -10,12 +10,13 @@
     "mysql": "^2.18.1",
     "swagger-jsdoc": "6.0.0",
     "swagger-ui-express": "^4.1.6",
-    "uuid-token-generator": "^1.0.0"
+    "uuid-token-generator": "^1.0.0",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "npx nodemon Server.js -w *",
-    "start": "node server.js"
+    "test": "npx nodemon Server.js -e yaml,js,mjs,json -w *",
+    "start": "node --inspect server.js"
   },
   "keywords": [],
   "author": "",

@@ -15,13 +15,13 @@ class Register extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: "", password: "", authflag: 1 };
+        this.state = { username: "", password: "", email: ""};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({ username: event.state.username, password: event.state.password });
+        this.setState({ username: event.state.username, password: event.state.password, email: event.state.email });
     }
 
     handleSubmit(event) {
@@ -80,7 +80,7 @@ class Register extends React.Component {
                                                     fullWidth
                                                     name="email"
                                                     variant="outlined"
-                                                    value={this.state.username}
+                                                    value={this.state.email}
                                                     onChange={(event) =>
                                                         this.setState({
                                                             [event.target.name]: event.target.value,
