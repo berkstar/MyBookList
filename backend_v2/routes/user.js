@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
         let password = req.body.password
         var date = new Date()
         date.setHours(date.getHours() + 1);
-        
+
         //Succesfully Logged in.
         let resultAddUser = await sql.addUser(username, name, email, password);
         if (resultAddUser && resultAddUser.affectedRows) {
@@ -44,7 +44,83 @@ router.post("/register", async (req, res) => {
 
 })
 
+router.post("/addfriend", async (req, res) => {
 
+    try {
+        let user_id = req.body.uid
+        let friend_id = req.body.fid
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuth(auth)
+        let resultAddFriend = await sql.addFriend(user_id, friend_id);
+
+        if (resultCheckAuth.length && resultAddFriend && resultAddFriend.affectedRows) {
+            res.sendStatus(200);
+
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+
+// router.get("/getusers", async (req, res) => {
+
+//     try {
+//         let user_id = req.body.uid
+
+//         let auth = req.headers.authorization
+
+//         let resultCheckAuth = await sql.checkAuth(auth)
+//         let resultgetFriends = await sql.getFriends(user_id);
+
+//         if (resultCheckAuth.length && resultAddFriend && resultAddFriend.affectedRows) {
+//             res.sendStatus(200);
+
+//         }
+//         else {
+//             res.sendStatus(401);
+//         }
+
+//     } catch (error) {
+//         res.sendStatus(500);
+//         console.log(error)
+//     }
+
+// })
+
+router.get("/getfriends", async (req, res) => {
+
+    try {
+        let user_id = req.body.uid
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuth(auth)
+        let resultGetFriends = await sql.getFriends(user_id);
+
+
+        if (resultCheckAuth.length) {
+            res.status(200);
+            res.json(resultGetFriends);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
 
 
 
