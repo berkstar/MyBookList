@@ -79,7 +79,7 @@ paths:
                         type: string
                       name:
                         type: string
-                      category:
+                      context:
                         type: string
         '401':
           description: Unauthorized - Token is expired or wrong.

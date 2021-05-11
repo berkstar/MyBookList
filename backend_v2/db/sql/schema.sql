@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS friend_of(
 CREATE TABLE IF NOT EXISTS Thread(
   tid int PRIMARY KEY AUTO_INCREMENT,
   name varchar(32) NOT NULL UNIQUE,
-  category varchar(32) NOT NULL
+  context varchar(128) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-CREATE TABLE Post(
+CREATE TABLE IF NOT EXISTS Post(
   pid INT PRIMARY KEY AUTO_INCREMENT,
   tid int NOT NULL,
   user_id int NOT NULL,
