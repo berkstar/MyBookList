@@ -1,12 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const sql = require("../db/user_sql");
+const cors = require("cors");
 const TokenGenerator = require('uuid-token-generator');
 
 
 const router = express.Router();
 router.use(bodyParser.json());
-
+router.use(cors());
 const tokgen = new TokenGenerator(128, TokenGenerator.BASE16);
 
 

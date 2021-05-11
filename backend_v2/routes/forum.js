@@ -1,11 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const sql_user = require("../db/user_sql");
 const sql_forum = require("../db/forum_sql");
 
 const router = express.Router();
 router.use(bodyParser.json());
-
+router.use(cors());
 
 router.get("/getallthreads", async (req, res) => {
 
