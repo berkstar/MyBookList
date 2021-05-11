@@ -53,11 +53,43 @@ router.post("/addfriend", async (req, res) => {
         let auth = req.headers.authorization
 
         let resultCheckAuth = await sql.checkAuth(auth)
-        let resultAddFriend = await sql.addFriend(user_id, friend_id);
+        
+        if (resultCheckAuth.length){
+            let resultAddFriend = await sql.addFriend(user_id, friend_id);
+            if(resultAddFriend && resultAddFriend.affectedRows){
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+        
 
-        if (resultCheckAuth.length && resultAddFriend && resultAddFriend.affectedRows) {
-            res.sendStatus(200);
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
 
+})
+
+
+router.get("/getusers", async (req, res) => {
+
+    try {
+        let user_id = req.query.uid
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuth(auth)
+        
+
+        if (resultCheckAuth.length) {
+            let resultgetUsers = await sql.getUsers(user_id);
+            res.status(200);
+            res.json(resultgetUsers);
         }
         else {
             res.sendStatus(401);
@@ -70,44 +102,18 @@ router.post("/addfriend", async (req, res) => {
 
 })
 
-
-// router.get("/getusers", async (req, res) => {
-
-//     try {
-//         let user_id = req.body.uid
-
-//         let auth = req.headers.authorization
-
-//         let resultCheckAuth = await sql.checkAuth(auth)
-//         let resultgetFriends = await sql.getFriends(user_id);
-
-//         if (resultCheckAuth.length && resultAddFriend && resultAddFriend.affectedRows) {
-//             res.sendStatus(200);
-
-//         }
-//         else {
-//             res.sendStatus(401);
-//         }
-
-//     } catch (error) {
-//         res.sendStatus(500);
-//         console.log(error)
-//     }
-
-// })
-
 router.get("/getfriends", async (req, res) => {
 
     try {
-        let user_id = req.body.uid
+        let user_id = req.query.uid
 
         let auth = req.headers.authorization
 
         let resultCheckAuth = await sql.checkAuth(auth)
-        let resultGetFriends = await sql.getFriends(user_id);
-
+        
 
         if (resultCheckAuth.length) {
+            let resultGetFriends = await sql.getFriends(user_id);
             res.status(200);
             res.json(resultGetFriends);
         }

@@ -56,13 +56,15 @@ user.getFriends = (user_id) => {
     })
 }
 
+//For listing all users that are non-friend expect itself
 user.getUsers = (user_id) => {
     return new Promise((resolve, reject) => {
 
 
-
-        pool.query("(SELECT u.user_id, u.user_name, u.name, u.biography FROM friend_of f, User u WHERE f.user_id = ? and u.user_id = f.friend_id and  f.accepted = 1) UNION "+
-        "(SELECT u.user_id, u.user_name, u.name, u.biography FROM friend_of f, User u WHERE f.friend_id = ? and u.user_id = f.user_id and f.accepted = 1)",[user_id, user_id], (err, results) => {
+        pool.query("SELECT u2.user_id, u2.user_name, u2.name, u2.biography FROM User u1, User u2 WHERE NOT EXISTS ("+
+        "SELECT 1 FROM friend_of f WHERE f.user_id = u1.user_id AND f.accepted = 1 AND f.friend_id = u2.user_id) AND NOT EXISTS"+
+        "(SELECT 1 FROM friend_of f WHERE f.user_id = u2.user_id AND f.accepted = 1 AND f.friend_id = u1.user_id) AND u1.user_id <> u2.user_id "+
+        "AND u1.user_id = ?;",[user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
