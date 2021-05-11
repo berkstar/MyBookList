@@ -36,12 +36,6 @@ class Login extends React.Component {
             TokenService.setToken(response.data.token);
             Api.setAuthToken();
             this.props.history.push("/dashboard");
-        } 
-        else if(response.status === 401) {
-            alert('Incorrect Credentials!');
-        }
-        else {
-            alert('Server Error!');
         }
     }
     

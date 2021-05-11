@@ -14,10 +14,11 @@ if ( token ) {
 }
 
 axios.defaults.baseURL = API_URL;
+axios.defaults.headers.common['Access-Control-Allow-Origin'] = "http://localhost:3000";
 
 function setAuthToken() {
     token = StorageService.getToken();
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.headers.common['Authorization'] = `${token}`;
 }
 
 async function login(userData) {
@@ -76,7 +77,9 @@ async function api_get(path, param) {
         console.log(response);
         return response;
     } catch (error) {
-        if (error.response) {
+        if ( error.response.status === 401 ) {
+            alert('Incorrect Credentials!');
+        } else if ( error.response ) {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -92,17 +95,19 @@ async function api_get(path, param) {
 
 async function api_post(path, param) {
     try {
-        const response = [];
+        const response = {};
         if (param != null) {
-            response = await axios.get(path, param);
+            response = await axios.post(path, param);
         }
         else {
-            response = await axios.get(path);
+            response = await axios.post(path);
         }
         console.log(response);
         return response;
     } catch (error) {
-        if (error.response) {
+        if ( error.response.status === 401 ) {
+            alert('Incorrect Credentials!');
+        } else if ( error.response ) {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -118,17 +123,19 @@ async function api_post(path, param) {
 
 async function api_put(path, param) {
     try {
-        const response = [];
+        const response = {};
         if (param != null) {
-            response = await axios.get(path, param);
+            response = await axios.put(path, param);
         }
         else {
-            response = await axios.get(path);
+            response = await axios.put(path);
         }
         console.log(response);
         return response;
     } catch (error) {
-        if (error.response) {
+        if ( error.response.status === 401 ) {
+            alert('Incorrect Credentials!');
+        } else if ( error.response ) {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -144,17 +151,19 @@ async function api_put(path, param) {
 
 async function api_delete(path, param) {
     try {
-        const response = [];
+        const response = {};
         if (param != null) {
-            response = await axios.get(path, param);
+            response = await axios.delete(path, param);
         }
         else {
-            response = await axios.get(path);
+            response = await axios.delete(path);
         }
         console.log(response);
         return response;
     } catch (error) {
-        if (error.response) {
+        if ( error.response.status === 401 ) {
+            alert('Incorrect Credentials!');
+        } else if ( error.response ) {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
