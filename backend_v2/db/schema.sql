@@ -43,3 +43,161 @@ CREATE TABLE publishes(
   FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
   CONSTRAINT PK_Publishes PRIMARY KEY (author_id,book_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Book(
+  book_id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(32) NOT NULL,
+  description VARCHAR(256) NOT NULL,
+  genre VARCHAR(32) NOT NULL,
+  year INT NOT NULL,
+  img_url VARCHAR(64) DEFAULT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Edition(
+  book_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+  ed_id INT AUTO_INCREMENT,
+  name VARCHAR(32) NOT NULL,
+  format VARCHAR(32) NOT NULL,
+  translator VARCHAR(32) DEFAULT NULL,
+  language VARCHAR(32) NOT NULL,
+  publish_date DATE DEFAULT CURRENT_TIMESTAMP,
+  page INT NOT NULL,
+  author_name VARCHAR(32) NOT NULL,
+  CONSTRAINT PK_Edition PRIMARY KEY (author_id,ed_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE review(
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  book_id INT,
+  FOREIGN KEY(book_id ) REFERENCES Book(book_id ) ON DELETE CASCADE,
+  rating INT NOT NULL,
+  comment VARCHAR(256) NOT NULL,
+  reply VARCHAR(256) DEFAULT NULL,
+  CONSTRAINT PK_review PRIMARY KEY (user_id,book_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Series(
+  ser_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(32) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE series_of(
+  book_id INT PRIMARY KEY,
+  FOREIGN KEY(book_id ) REFERENCES Book(book_id ) ON DELETE CASCADE,
+  FOREIGN KEY(ser_id ) REFERENCES Book(ser_id ) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Progress(
+  pro_id INT PRIMARY KEY AUTO_INCREMENT,
+  page_number INT NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE progress_comment(
+  cid INT PRIMARY KEY,
+  FOREIGN KEY(cid ) REFERENCES Comment(cid ) ON DELETE CASCADE,
+  FOREIGN KEY(pro_id ) REFERENCES Progress(pro_id ) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE mark_progress(
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  book_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+  pro_id INT,
+  FOREIGN KEY(pro_id) REFERENCES Progress(pro_id) ON DELETE CASCADE,
+  CONSTRAINT PK_mark_progress PRIMARY KEY (user_id,book_id,pro_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Comment(
+  cid INT PRIMARY KEY AUTO_INCREMENT,
+  text VARCHAR(256) NOT NULL,
+  date DATE DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE recommend(
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  book_id INT,
+  FOREIGN KEY(friend_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  friend_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+  CONSTRAINT PK_recommend PRIMARY KEY (user_id,book_id,friend_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE joins_challenge(
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  chal_id INT,
+  FOREIGN KEY(chal_id) REFERENCES Challenge(chal_id) ON DELETE CASCADE,
+  book_read INT DEFAULT 0,
+  CONSTRAINT PK_joins_challenge PRIMARY KEY (user_id,chal_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Challenge(
+  chal_id INT AUTO_INCREMENT,
+  bl_id INT,
+  FOREIGN KEY(bl_id) REFERENCES Book_list(bl_id) ON DELETE CASCADE,
+  challenge_name VARCHAR(32) NOT NULL,
+  due_date DATE NOT NULL,
+  FOREIGN KEY(librarian_id) REFERENCES Librarian(user_id) ON DELETE CASCADE,
+  CONSTRAINT PK_Challenge PRIMARY KEY (bl_id,chal_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE requests(
+  book_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  librarian_id INT,
+  FOREIGN KEY(librarian_id) REFERENCES Librarian(user_id) ON DELETE CASCADE,
+  request_msg VARCHAR(256) NOT NULL,
+  approved BIT DEFAULT 0,
+  CONSTRAINT PK_requests PRIMARY KEY (book_id,user_id,librarian_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE has_books(
+  book_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id),
+  bl_id INT,
+  FOREIGN KEY(bl_id) REFERENCES Book_list(bl_id),
+  CONSTRAINT PK_Challenge PRIMARY KEY (book_id,bl_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Book_list(
+  bl_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(32) NOT NULL,
+  book_count INT DEFAULT 0
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Thread(
+  tid INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(32) NOT NULL,
+  category VARCHAR(32) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE follows(
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  tid INT,
+  FOREIGN KEY(tid) REFERENCES Thread(tid) ON DELETE CASCADE,
+  CONSTRAINT PK_follows PRIMARY KEY (user_id,tid)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE Post(
+  pid INT PRIMARY KEY AUTO_INCREMENT,
+  like INT DEFAULT 0,
+  text VARCHAR(256) DEFAULT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  FOREIGN KEY(tid) REFERENCES Thread(tid) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE post_comment(
+  cid INT PRIMARY KEY,
+  FOREIGN KEY(cid) REFERENCES Comment(cid) ON DELETE CASCADE,
+  FOREIGN KEY(pid) REFERENCES Post(pid) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
