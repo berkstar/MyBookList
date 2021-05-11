@@ -11,7 +11,6 @@ router.get("/getallthreads", async (req, res) => {
 
     try {
         let auth = req.headers.authorization
-
         let resultCheckAuth = await sql_user.checkAuth(auth)
         
         let resultListThreads = await sql_forum.listThreads()

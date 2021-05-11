@@ -1,12 +1,23 @@
-openapi: '3.0.2'
+openapi: '3.0.0'
 info:
   title: My Book List API with Swagger
   version: '1.0'
-  description: "This is a simple CRUD API application made with Express and documented with Swagger"
+  description: "This is a simple CRUD API application made with Express and documented with Swagger 
+  <br><br><h1>AUTH PASS (🔑): admin"
 servers:
-  - url: http://localhost:3000/
+  - url: http://localhost:8080/
   
 
+
+
+
+
+
+
+
+
+
+#---<<<<<<<<<<<<<<<<<<<<<<<<<<<USER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 components:
   schemas:
     User: 
@@ -30,12 +41,121 @@ components:
                password:
                    type: string
            example:
-               user_id: 1
                username: Mahmut_03
                email: test@test.com
                name: Mahmut
                password: testtset
+
+  securitySchemes:
+    Authorization:          
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'Use that token => admin' 
+         
+security:
+   - Authorization: []    
+#---<<<<<<<<<<<<<<<<<<<<<<<<<<<Forum>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 paths:
+
+
+  /forum/getallthreads:
+    get:
+      tags:
+        - "Forum"
+
+      description: Listing All Threads
+      responses:
+        '200':
+          description: OK - Listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tid:
+                    type: string
+                  name:
+                    type: string
+                  category:
+                    type: string
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
+
+  /forum/getposts:
+    get:
+      tags:
+        - "Forum"
+
+      description: Listing Post in a Thread
+      parameters:
+        - in: query
+          name: tid
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Listed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pid:
+                    type: integer
+                  user_name:
+                    type: string
+                  title:
+                    type: string
+                  text:
+                    type: string
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
+
+#---<<<<<<<<<<<<<<<<<<<<<<<<<<<USER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  /user/login:
+    post:
+      tags:
+        - "User"
+
+      description: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+              example:
+               username: Mahmut_03
+               password: testtset
+              
+      responses:
+        '200':
+          description: OK - Successfully logged in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id:
+                    type: integer
+                  token:
+                    type: string
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+
+
+          
   /user/register:
     post:
       tags:
@@ -47,22 +167,22 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                username:
-                  type: string
+              $ref: "#/components/schemas/User"
       responses:
         '200':
-          description: OK
+          description: OK - Successfully registered.
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  user_id:
+                    type: integer
                   token:
                     type: string
         '406':
-          description: Not Acceptable
+          description: Not Acceptable - User with same username or email already exists.
+
 
 
 
