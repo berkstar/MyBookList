@@ -1,26 +1,17 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
+import Api from 'api/Api';
 import { makeStyles } from '@material-ui/core/styles';
-
-// import FormControl from '@material-ui/core/FormControl';
-// import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
-
-// import AddButton from '../createform/AddButton'
 import friends from "./dummy-friends";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
+import { Row } from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -66,23 +57,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Friends() {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
+    // const [friends, setFriends] = useState([]);
+    // const history = useHistory();
+
+    // const parseFriends = async () => {
+    //     let response = await Api.getFriends();
+    //     if( response.status !== "200" ) {
+    //         history.push("/login");
+    //     } 
+    //     else {
+    //         setFriends(response.body);
+    //     }
+    // }
+
+    // parseFriends();
 
     return (
         <div className={classes.root}>
-            <Grid>
-                <h2 style={{ marginLeft:30 }}>FRIENDS - </h2>
-            </Grid>
-                <Button onClick={() => window.helloComponent.handleSearchFriends()} size="medium" color="primary" style={{marginLeft: 10, float: 'right'}}>
+            <Row className="container-fluid row-cols-auto">
+                <h2 className="col my-auto" style={{ marginLeft:10 }}>FRIENDS - </h2>
+                <Button className="col my-auto" onClick={() => window.helloComponent.handleSearchFriends()} size="medium" color="primary" style={{marginLeft: 10, float: 'right'}}>
                     Add Friend
                 </Button>
-
+            </Row>
+                
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} justify="center" className={classes.grid}>
                     {friends.map(friend  => (
@@ -97,8 +95,8 @@ export default function Friends() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button component={Link} to='/test' size="small" color="primary">
-                                        View
+                                    <Button onClick={() => window.helloComponent.handleOtherProfile()} size="large" color="primary">
+                                        View Profile
                                     </Button>
                                 </CardActions>
                             </Card>

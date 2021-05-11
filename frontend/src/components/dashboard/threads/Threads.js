@@ -9,14 +9,14 @@ function Threads(props) {
     const [content, setContent] = useState(initial_state);
 
     function search(input) {
-        if(input == '') {
+        if(input === '') {
             setContent(initial_state);
         }
         else {
             let threads_content = []
             for(var i = 0; i < initial_state.length; i++)
             {
-                if(initial_state[i].title.toLowerCase().indexOf(input.toLowerCase()) != -1)
+                if(initial_state[i].title.toLowerCase().indexOf(input.toLowerCase()) !== -1)
                 {
                     threads_content.push(initial_state[i]);
                 }

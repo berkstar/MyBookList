@@ -8,7 +8,7 @@ import {
     Typography,
     Link,
 } from "@material-ui/core";
-import TokenService from "../../services/TokenService";
+import TokenService from "../../services/StorageService";
 import Api from "api/Api"
 import NavigationBar from './NavigationBar';
 
@@ -32,12 +32,12 @@ class Login extends React.Component {
             password: this.state.password
         }
         const response = await Api.login(userData);
-        if(response.status == 200) {
+        if(response.status === 200) {
             TokenService.setToken(response.data.token);
             Api.setAuthToken();
             this.props.history.push("/dashboard");
         } 
-        else if(response.status == 401) {
+        else if(response.status === 401) {
             alert('Incorrect Credentials!');
         }
         else {

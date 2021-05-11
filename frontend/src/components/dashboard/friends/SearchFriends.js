@@ -1,9 +1,6 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-// import FormControl from '@material-ui/core/FormControl';
-// import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -11,14 +8,13 @@ import CardContent from "@material-ui/core/CardContent";
 import {TextField, Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import { IconButton } from '@material-ui/core';
-
-// import AddButton from '../createform/AddButton'
-import friends from "./dummy-friends";
+import users from "./dummy-friends";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import AddIcon from '@material-ui/icons/Add';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,20 +58,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Search() {
+export default function SearchFriends() {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
+
+    // const [users, setUsers] = useState([]);
+    // const history = useHistory();
+
+    // const parseUsers = async () => {
+    //     let response = await Api.getUsers();
+    //     if( response.status !== "200" ) {
+    //         history.push("/login");
+    //     } 
+    //     else {
+    //         setUsers(response.body);
+    //     }
+    // }
+
+    // parseUsers();
+
+    // const addFriend = async () => {
+    //     let response = await Api.getUsers();
+    //     if( response.status !== "200" ) {
+    //         history.push("/login");
+    //     } 
+    //     else {
+    //         setUsers(response.body);
+    //     }
+    // }
 
     return (
         <div className={classes.root}>
             <Grid container justify="space-between">
-                <h2 style={{ marginLeft:30 }}> Search People</h2>
+                <h2 className="my-auto" style={{ marginLeft:30 }}> SEARCH PEOPLE</h2>
                 <TextField
                     type="search"
                     variant="filled"
@@ -94,22 +108,22 @@ export default function Search() {
 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} justify="center" className={classes.grid}>
-                    {friends.map(friend  => (
-                        <Grid item key={friend.title}>
+                    {users.map(user  => (
+                        <Grid item key={user.title}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {friend.title}
+                                            {user.title}
                                         </Typography>
-                                        <Typography component="p">{friend.content}</Typography>
+                                        <Typography component="p">{user.content}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
                                     <Grid container justify="space-between">
-                                        <ListItem style={{ maxWidth:200 }} button onClick={() => window.helloComponent.handleOtherProfile()}>
-                                            <ListItemText primary="View Profile"/>
-                                        </ListItem>
+                                        <Button onClick={() => window.helloComponent.handleOtherProfile()} size="large" color="primary">
+                                            View Profile
+                                        </Button>
                                         <IconButton color="primary" style={{ float:"right" }}>
                                             <AddIcon/>
                                         </IconButton>

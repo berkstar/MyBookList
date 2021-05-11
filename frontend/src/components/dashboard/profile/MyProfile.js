@@ -3,7 +3,6 @@ import {Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import EditIcon from '@material-ui/icons/Edit';
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import posts from "../threads/posts/dummy-posts";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -12,7 +11,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 
-class HelloWorld extends React.Component {
+class MyProfile extends React.Component {
     render() {
         return (
             <div id='about' >
@@ -91,4 +90,4 @@ class HelloWorld extends React.Component {
     }
 }
 
-export default HelloWorld
+export default MyProfile

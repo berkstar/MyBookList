@@ -6,10 +6,15 @@ function setToken(userToken) {
     localStorage.setItem('Authorization', JSON.stringify(userToken));
 }
 
-
-const TokenService = {
-    getToken,
-    setToken
+function getUserId() {
+    return JSON.parse(localStorage.getItem('uid'));
 }
 
-export default TokenService;
+
+const StorageService = {
+    getToken,
+    setToken,
+    getUserId
+}
+
+export default StorageService;

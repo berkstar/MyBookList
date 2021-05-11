@@ -1,13 +1,9 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-// import FormControl from '@material-ui/core/FormControl';
-// import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
@@ -16,9 +12,8 @@ import {Link} from "react-router-dom";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-
-// import AddButton from '../createform/AddButton'
 import challenges from "./dummy-challenges";
+
 function LinearProgressWithLabel(props) {
     return (
         <Box display="flex" alignItems="center">
@@ -61,14 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Challenges() {
     const classes = useStyles();
-    const [values, setValues] = React.useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-    });
-
     const [progress, setProgress] = React.useState(10);
 
     React.useEffect(() => {
