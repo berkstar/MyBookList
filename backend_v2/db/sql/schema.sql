@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS friend_of(
 CREATE TABLE IF NOT EXISTS Thread(
   tid int PRIMARY KEY AUTO_INCREMENT,
   name varchar(32) NOT NULL UNIQUE,
-  context varchar(128) NOT NULL
+  context varchar(256) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

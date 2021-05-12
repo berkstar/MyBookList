@@ -13,9 +13,13 @@ user.addUser = (username, name, email, password) => {
             return resolve(results);
         })
     })
+
+
+
+
 }
 
-user.addFriend = (user_id, friend_id) => {
+user.addFriend = (user_id, friend_id) =>    {
     return new Promise((resolve, reject) => {
         
         // pool.query("INSERT INTO friend_of (user_id, friend_id) VALUES (?,?)",[user_id, friend_id], (err, results) => {

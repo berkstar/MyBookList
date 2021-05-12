@@ -1,5 +1,14 @@
 {
     "configurations": [
+
+        {
+            "command": "npm test",
+            "name": "Run npm Test",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/backend_v2"
+
+        },
         {
             "type": "java",
             "name": "Spring Boot-MyBookListApplication<MyBookList>",
