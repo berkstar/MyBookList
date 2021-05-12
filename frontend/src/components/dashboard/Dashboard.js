@@ -26,12 +26,13 @@ import EditBookList from 'components/dashboard/edit-book-list/EditBookList';
 import Mybooks from 'components/dashboard/mybooks/Mybooks';
 import Friends from 'components/dashboard/friends/Friends';
 import SearchFriends from 'components/dashboard/friends/SearchFriends';
-import Posts from 'components/dashboard/threads/posts/Posts';
+import Posts from 'components/dashboard/posts/Posts';
 import UserProfile from 'components/dashboard/profile/MyProfile';
 import OtherProfile from 'components/dashboard/profile/OtherProfile';
 import { fade } from '@material-ui/core/styles';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import PostDetails from './post-details/Post-details';
 
 
 const drawerWidth = 240;
@@ -129,7 +130,8 @@ class Dashboard extends Component {
         super(props);
         window.helloComponent = this;
         this.handlePosts = this.handlePosts.bind(this);
-        this.threadTitle = "";
+        this.thread = {};
+        this.post = {};
         this.states = {
             threads: false,
             myBooks: false,
@@ -145,6 +147,7 @@ class Dashboard extends Component {
             searchFriends: false,
             otherProfile: false,
             posts: false,
+            postDetails: false,
         };
         this.state = {
             threads: true,
@@ -162,6 +165,7 @@ class Dashboard extends Component {
             searchFriends: false,
             otherProfile: false,
             posts: false,
+            postDetails: false,
         };
     }
 
@@ -210,10 +214,16 @@ class Dashboard extends Component {
         this.setState({editBookList: true});
     }
 
-    handlePosts(threadTitle) {
-        this.threadTitle = threadTitle;
+    handlePosts(thread) {
+        this.thread = thread;
         this.setState(this.states);
         this.setState({posts: true});
+    }
+
+    handlePostDetails(post) {
+        this.post = post;
+        this.setState(this.states);
+        this.setState({postDetails: true});
     }
 
     handleSearchFriends() {
@@ -247,7 +257,9 @@ class Dashboard extends Component {
         } else if (this.state.editBookList) {
             showContent = <EditBookList/>
         } else if (this.state.posts) {
-            showContent = <Posts threadTitle={this.threadTitle}/>
+            showContent = <Posts thread={this.thread}/>
+        } else if (this.state.postDetails) {
+            showContent = <PostDetails post={this.post}/>
         } 
 
         return (

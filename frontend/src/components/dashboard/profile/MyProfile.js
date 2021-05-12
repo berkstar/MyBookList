@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Card, TextField, Button, CardMedia, Container, Grid} from "@material-ui/core";
-import posts from "../threads/posts/dummy-posts";
+import posts from "../posts/dummy-posts";
 import ProfImg from "static/img/dummy_profile_image.png"
 import { Row, Col } from 'react-bootstrap';
-import Post from '../threads/posts/Post'
+import Post from '../posts/Post'
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';

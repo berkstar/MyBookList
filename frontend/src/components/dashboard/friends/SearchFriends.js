@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
@@ -8,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import {TextField, Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import { IconButton } from '@material-ui/core';
-import users from "./dummy-friends";
+import dummy_users from "./dummy-friends";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -60,17 +59,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchFriends() {
     const classes = useStyles();
+    const initial_state = dummy_users;
+    const [users, setUsers] = useState(initial_state);
 
     // const [users, setUsers] = useState([]);
     // const history = useHistory();
 
     // const parseUsers = async () => {
     //     let response = await Api.getUsers();
-    //     if( response.status !== "200" ) {
+    //     if( response.status !== 200 ) {
     //         history.push("/login");
     //     } 
     //     else {
-    //         setUsers(response.body);
+    //         setUsers(response.data);
     //     }
     // }
 
@@ -78,13 +79,30 @@ export default function SearchFriends() {
 
     // const addFriend = async () => {
     //     let response = await Api.getUsers();
-    //     if( response.status !== "200" ) {
+    //     if( response.status !== 200 ) {
     //         history.push("/login");
     //     } 
     //     else {
-    //         setUsers(response.body);
+    //         setUsers(response.data);
     //     }
     // }
+
+    function search(input) {
+        if(input === '') {
+            setUsers(initial_state);
+        }
+        else {
+            let corres_users = []
+            for(var i = 0; i < initial_state.length; i++)
+            {
+                if(initial_state[i].title.toLowerCase().indexOf(input.toLowerCase()) !== -1)
+                {
+                    corres_users.push(initial_state[i]);
+                }
+            }
+            setUsers(corres_users);
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -92,9 +110,10 @@ export default function SearchFriends() {
                 <h2 className="my-auto" style={{ marginLeft:30 }}> SEARCH PEOPLE</h2>
                 <TextField
                     type="search"
-                    variant="filled"
-                    label="Search"
-                    style={{ marginRight:30 }}
+                    variant="outlined"
+                    style={{ marginRight:30, color:'#606060' }}
+                    placeholder="Search for a user..."
+                    onChange= {input => ( search(input.target.value) )}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -104,12 +123,12 @@ export default function SearchFriends() {
                     }}
                 > </TextField>
             </Grid>
-<br/>
+            <br/>
 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} justify="center" className={classes.grid}>
-                    {users.map(user  => (
-                        <Grid item key={user.title}>
+                    {users.map((user, index)  => (
+                        <Grid item key={index}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>

@@ -17,27 +17,13 @@ function Post(props) {
     const [like, setLike] = useState(0);
     const [comment, setComment] = useState(-1);
     const posts = props.posts
-    // const [posts, setPosts] = useState([]);
-    // const history = useHistory();
-
-    // const parsePosts = async () => {
-    //     let response = await Api.getPosts(props.threadTitle);
-    //     if( response.status !== "200" ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setPosts(response.body);
-    //     }
-    // }
-
-    // parsePosts();
 
     const If = ({ condition }) => (condition ? <CommentBox/> : <br/>);
 
     const CommentBox = () => (
         <Row className="my-2">
             <Col className="col-9">
-                <Card >
+                <Card>
                     <TextField
                         className="container-fluid bg-info text-light"
                         variant="outlined"
@@ -72,7 +58,9 @@ function Post(props) {
                         item
                         key={post.title}
                         >
-                        <Card>
+                        <Card
+                            onClick={() => {window.helloComponent.handlePostDetails(post)}}
+                            >
                             <CardActionArea>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">

@@ -63,11 +63,11 @@ export default function Friends() {
 
     // const parseFriends = async () => {
     //     let response = await Api.getFriends();
-    //     if( response.status !== "200" ) {
+    //     if( response.status !== 200 ) {
     //         history.push("/login");
     //     } 
     //     else {
-    //         setFriends(response.body);
+    //         setFriends(response.data);
     //     }
     // }
 

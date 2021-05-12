@@ -67,7 +67,7 @@ async function uploadImage(img) {
 
 async function api_get(path, param) {
     try {
-        const response = {};
+        var response = {};
         if (param != null) {
             response = await axios.get(path, {params: param});
         }
@@ -77,9 +77,10 @@ async function api_get(path, param) {
         console.log(response);
         return response;
     } catch (error) {
-        if ( error.response.status === 401 ) {
-            alert('Incorrect Credentials!');
-        } else if ( error.response ) {
+        if ( error.response ) {
+            if ( error.response.status === 401 ) {
+                alert('Incorrect Credentials!');
+            }
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -124,7 +125,7 @@ async function api_post(path, param) {
 
 async function api_put(path, param) {
     try {
-        const response = {};
+        var response = {};
         if (param != null) {
             response = await axios.put(path, param);
         }
@@ -134,9 +135,10 @@ async function api_put(path, param) {
         console.log(response);
         return response;
     } catch (error) {
-        if ( error.response.status === 401 ) {
-            alert('Incorrect Credentials!');
-        } else if ( error.response ) {
+        if ( error.response ) {
+            if ( error.response.status === 401 ) {
+                alert('Incorrect Credentials!');
+            }
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
@@ -152,7 +154,7 @@ async function api_put(path, param) {
 
 async function api_delete(path, param) {
     try {
-        const response = {};
+        var response = {};
         if (param != null) {
             response = await axios.delete(path, param);
         }
@@ -162,9 +164,10 @@ async function api_delete(path, param) {
         console.log(response);
         return response;
     } catch (error) {
-        if ( error.response.status === 401 ) {
-            alert('Incorrect Credentials!');
-        } else if ( error.response ) {
+        if ( error.response ) {
+            if ( error.response.status === 401 ) {
+                alert('Incorrect Credentials!');
+            }
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);

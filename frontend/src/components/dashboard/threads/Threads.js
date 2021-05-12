@@ -1,27 +1,42 @@
 import React, { useState } from 'react';
-import threads from "./dummy-threads.json";
+import Api from "api/Api"
 import { Card, Container, Col, Row } from 'react-bootstrap';
 import { TextField, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { useHistory } from "react-router-dom";
 
 function Threads(props) {
-    const initial_state = threads;
-    const [content, setContent] = useState(initial_state);
+    const [allThreads, setAllThreads] = useState([]);
+    const [threads, setThreads] = useState([]);
+    const history = useHistory();
+
+    const parseThreads = async () => {
+        let response = await Api.getAllThreads();
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setAllThreads(response.data);
+            setThreads(response.data);
+        }
+    }
+
+    useState(parseThreads);
 
     function search(input) {
         if(input === '') {
-            setContent(initial_state);
+            setThreads(allThreads);
         }
         else {
             let threads_content = []
-            for(var i = 0; i < initial_state.length; i++)
+            for(var i = 0; i < allThreads.length; i++)
             {
-                if(initial_state[i].title.toLowerCase().indexOf(input.toLowerCase()) !== -1)
+                if(allThreads[i].name.toLowerCase().indexOf(input.toLowerCase()) !== -1)
                 {
-                    threads_content.push(initial_state[i]);
+                    threads_content.push(allThreads[i]);
                 }
             }
-            setContent(threads_content);
+            setThreads(threads_content);
         }
     }
 
@@ -51,10 +66,10 @@ function Threads(props) {
                         <Card bg="light" text="dark" className="mb-2" >
                             <Card.Header style={{fontSize: "25px"}}>THREADS</Card.Header>
                             <Card.Body>
-                            {content.map(thread => (
-                                <Card bg="secondary" text="white" className="my-2" key={thread.title}>
-                                    <Card.Body style={{fontSize: "20px"}}>{'t/' + thread.title}</Card.Body>
-                                    <a className="stretched-link" onClick={() => {props.handlePosts(thread.title)}}></a>
+                            {threads.map(thread => (
+                                <Card bg="secondary" text="white" className="my-2" key={thread.name}>
+                                    <Card.Body style={{fontSize: "20px"}}>{'t/' + thread.name}</Card.Body>
+                                    <a className="stretched-link" onClick={() => {props.handlePosts(thread)}}></a>
                                 </Card>
                             ))}
                             </Card.Body>
@@ -64,10 +79,10 @@ function Threads(props) {
                         <Card bg="light" text="dark" className="mb-2" >
                             <Card.Header style={{fontSize: "22px"}}>POPULAR THREADS</Card.Header>
                             <Card.Body>
-                            {content.map((thread, index) => (
-                                <Card bg="secondary" text="white" className="my-2" key={thread.title}>
-                                    <Card.Body style={{fontSize: "20px"}}>{(index + 1) + ' - ' + 't/' + thread.title}</Card.Body>
-                                    <a className="stretched-link" href="/login"></a>
+                            {threads.map((thread, index) => (
+                                <Card bg="secondary" text="white" className="my-2" key={thread.name}>
+                                    <Card.Body style={{fontSize: "20px"}}>{(index + 1) + ' - ' + 't/' + thread.name}</Card.Body>
+                                    <a className="stretched-link" onClick={() => {props.handlePosts(thread)}}></a>
                                 </Card>
                             ))}
                             </Card.Body>

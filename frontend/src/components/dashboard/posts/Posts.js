@@ -21,19 +21,29 @@ function Posts(props) {
 
     // const parsePosts = async () => {
     //     let response = await Api.getPosts(props.threadTitle);
-    //     if( response.status !== "200" ) {
+    //     if( response.status !== 200 ) {
     //         history.push("/login");
     //     } 
     //     else {
-    //         setPosts(response.body);
+    //         setPosts(response.data);
     //     }
     // }
 
-    // parsePosts();
+    // useState(parsePosts);
 
     return (
         <div style={{ marginTop: 0, padding: 10 }}>
-            <h1>{props.threadTitle}</h1>
+            <Grid className="mb-4" container justify="space-between">
+                <h1>{props.thread.name}</h1>
+                <Button 
+                style={{ marginRight:30 }}
+                variant="contained"
+                color="default"
+                size="medium"
+                onClick={() => { window.helloComponent.handleEditBookList() }}>
+                    <b>NEW POST</b>
+                </Button>
+            </Grid>
             <Post posts={posts}/>
         </div>
     );

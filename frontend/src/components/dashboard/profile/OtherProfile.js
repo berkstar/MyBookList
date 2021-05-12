@@ -1,10 +1,10 @@
 import React from 'react'
 import {CardMedia, Container, Grid} from "@material-ui/core";
-import posts from "../threads/posts/dummy-posts";
+import posts from "../posts/dummy-posts";
 import Card from "@material-ui/core/Card";
 import ProfImg from "static/img/dummy_profile_image.png"
 import { Row, Col } from 'react-bootstrap';
-import Post from '../threads/posts/Post'
+import Post from '../posts/Post'
 
 class OtherProfile extends React.Component {
     render() {
