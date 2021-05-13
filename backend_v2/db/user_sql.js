@@ -59,7 +59,6 @@ user.addFriend = (user_id, friend_id) =>    {
         })
 
 
-
     })
 }
 
@@ -87,6 +86,18 @@ user.getUserInfo = (user_id) => {
         pool.query("SELECT * FROM User u JOIN UserType_View ut USING (user_id) WHERE user_id = ?",[user_id], (err, results) => {
             if (err) {
 
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.setBiography = (user_id, biography) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE User SET biography = ? WHERE user_id = ?",[biography, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }
             return resolve(results);
@@ -183,7 +194,7 @@ user.checkAuthType = (authCode, user_id) => {
 
                 return reject(err);
             }
-            console.log("Auth Found=>" + results.length);
+            console.log("Auth with uid Found=>" + results.length);
             return resolve(results);
             
         })

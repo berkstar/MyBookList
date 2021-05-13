@@ -70,7 +70,7 @@ router.post("/addfriend", async (req, res) => {
 
         let auth = req.headers.authorization
 
-        let resultCheckAuth = await sql.checkAuth(auth)
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
         
         if (resultCheckAuth.length){
             let resultAddFriend = await sql.addFriend(user_id, friend_id);
@@ -78,6 +78,38 @@ router.post("/addfriend", async (req, res) => {
                 res.sendStatus(200);
             }
             else { // If there are duplicates
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+        
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+router.put("/setbio", async (req, res) => {
+    
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let biography = req.body.bio
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultSetBiography = await sql.setBiography(user_id, biography);
+            if(resultSetBiography && resultSetBiography.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
                 res.sendStatus(401);
             }
         }
@@ -170,7 +202,6 @@ router.post("/login", async (req, res) => {
             let type = resultCheckUserType[0].type
 
 
-
             res.status(200);
             res.json({
                 user_id: user_id,
@@ -200,9 +231,7 @@ router.get("/getuser", async (req, res) => {
         
         let auth = req.headers.authorization
 
-        let resultCheckAuth = await sql.checkAuth(auth)
-        
-
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
         if (resultCheckAuth.length) {
             let resultGetUserInfo = await sql.getUserInfo(user_id);
             res.status(200);
