@@ -40,7 +40,7 @@ function Posts(props) {
                 variant="contained"
                 color="default"
                 size="medium"
-                onClick={() => { window.helloComponent.handleEditBookList() }}>
+                onClick={() => { window.helloComponent.handleEditPost(props.thread) }}>
                     <b>NEW POST</b>
                 </Button>
             </Grid>

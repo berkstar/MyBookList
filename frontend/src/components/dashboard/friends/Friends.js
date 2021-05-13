@@ -84,8 +84,8 @@ export default function Friends() {
                 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} justify="center" className={classes.grid}>
-                    {friends.map(friend  => (
-                        <Grid item key={friend.title}>
+                    {friends.map((friend,index)  => (
+                        <Grid item key={index}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>

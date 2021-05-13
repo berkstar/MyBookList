@@ -14,6 +14,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import AddIcon from '@material-ui/icons/Add';
 import Button from "@material-ui/core/Button";
+import Api from 'api/Api';
+import StorageService from 'services/StorageService';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -87,6 +89,17 @@ export default function SearchFriends() {
     //     }
     // }
 
+    async function addFriend(friendId) {
+        const newRequest = {
+            uid: StorageService.getUserId(),
+            fid: friendId
+        };
+        const response = await Api.addFriend(newRequest);
+        if(response.status === 200) {
+            alert("Friend request sent!");
+        }
+    }
+
     function search(input) {
         if(input === '') {
             setUsers(initial_state);
@@ -143,7 +156,7 @@ export default function SearchFriends() {
                                         <Button onClick={() => window.helloComponent.handleOtherProfile()} size="large" color="primary">
                                             View Profile
                                         </Button>
-                                        <IconButton color="primary" style={{ float:"right" }}>
+                                        <IconButton  onClick={() => addFriend(user.id)} color="primary" style={{ float:"right" }}>
                                             <AddIcon/>
                                         </IconButton>
                                     </Grid>

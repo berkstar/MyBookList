@@ -33,6 +33,7 @@ import { fade } from '@material-ui/core/styles';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import PostDetails from './post-details/Post-details';
+import EditPost from './edit-post/EditPost';
 
 
 const drawerWidth = 240;
@@ -132,6 +133,7 @@ class Dashboard extends Component {
         this.handlePosts = this.handlePosts.bind(this);
         this.thread = {};
         this.post = {};
+        this.editPost_thread = {};
         this.states = {
             threads: false,
             myBooks: false,
@@ -148,6 +150,7 @@ class Dashboard extends Component {
             otherProfile: false,
             posts: false,
             postDetails: false,
+            editPost: false,
         };
         this.state = {
             threads: true,
@@ -166,6 +169,7 @@ class Dashboard extends Component {
             otherProfile: false,
             posts: false,
             postDetails: false,
+            editPost: false,
         };
     }
 
@@ -231,6 +235,11 @@ class Dashboard extends Component {
         this.setState({searchFriends: true});
     }
 
+    handleEditPost(editPost_thread) {
+        this.editPost_thread = editPost_thread;
+        this.setState(this.states);
+        this.setState({editPost: true});
+    }
 
     render() {
         const {classes} = this.props;
@@ -260,6 +269,8 @@ class Dashboard extends Component {
             showContent = <Posts thread={this.thread}/>
         } else if (this.state.postDetails) {
             showContent = <PostDetails post={this.post}/>
+        } else if (this.state.editPost) {
+            showContent = <EditPost thread={this.editPost_thread}/>
         } 
 
         return (

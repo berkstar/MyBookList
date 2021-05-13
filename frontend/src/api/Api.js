@@ -47,22 +47,12 @@ async function getUsers() {
     return await api_get('/user/getusers', null);
 }
 
-async function addFriend(friendId) {
-    let newFriends = { uid: StorageService.getUserId(), fid: friendId};
-    return await api_post('/user/addfriend', newFriends);
+async function addFriend(newRequest) {
+    return await api_post('/user/addfriend', newRequest);
 }
 
-
-async function uploadImage(img) {
-    let data = new FormData();
-    data.append('imgFile', img, img.fileName);
-    return await axios.post('upload/', data, {
-        headers: {
-            'accept': 'application/json',
-            'Accept-Language': 'en-US,en;q=0.8',
-            'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-        }
-    });
+async function postPost(newPost) {
+    return await api_post('/forum/postpost', newPost);
 }
 
 async function api_get(path, param) {
@@ -187,10 +177,10 @@ const Api = {
     signUp,
     getAllThreads,
     getPosts,
-    uploadImage,
     getFriends,
     getUsers,
     addFriend,
+    postPost,
 }
 
 export default Api;

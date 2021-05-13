@@ -4,7 +4,8 @@ export default [
         title: "Bulut Gozubuyuk",
         excerpt: "",
         content: "Lorem ipsum dolouat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla aborum.",
-        image: "https://bit.ly/3suqD1T"
+        image: "https://bit.ly/3suqD1T",
+        id: "1",
     },
 
     {
