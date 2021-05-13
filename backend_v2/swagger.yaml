@@ -3,16 +3,11 @@ info:
   title: My Book List API with Swagger
   version: '1.0'
   description: "This is a simple CRUD API application made with Express and documented with Swagger 
-  <br><br><h1>AUTH PASS (🔑): admin"
+  <br><br><h1>AUTH PASS (🔑): admin
+  <br><br><h1>SUPER-AUTH PASS (🔑🦹‍♂️): superadmin"
 servers:
   - url: http://localhost:8080/
   
-
-
-
-
-
-
 
 
 
@@ -51,7 +46,12 @@ components:
       type: apiKey
       name: Authorization
       in: header
-      description: 'Use that token => admin' 
+      description: 'Use that token => admin'
+    Super-Authorization:          
+      type: apiKey
+      name: super_auth
+      in: header
+      description: 'Super Special key for creating librarians => superadmin'  
          
 security:
    - Authorization: []    
@@ -65,6 +65,8 @@ paths:
 
   /system/inserttuples:
     post:
+
+      
       tags:
         - "System"
 
@@ -98,9 +100,6 @@ paths:
           description: OK - Inserted.
         '500':
           description: MYSQL ERROR.
-
-
-
 
 
 
@@ -210,6 +209,8 @@ paths:
                     type: integer
                   token:
                     type: string
+                  type:
+                    type: integer
         '401':
           description: Unauthorized - Wrong username or email.
 
@@ -219,16 +220,40 @@ paths:
        
   /user/register:
     post:
+      security:
+        - Super-Authorization: []
+        
       tags:
         - "User"
 
-      description: Registers the user.
+      description: Registers the user. Super-Auth Key is required in order to register as Librarian.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              type: object
+              properties:
+               user_id:
+                  type: integer
+               username:
+                  type: string
+               name:
+                  type: string
+               email:
+                  type: string
+               biography:
+                  type: string
+               password:
+                  type: string
+               type:
+                  type: integer
+              example:
+               username: Mahmut_03
+               email: test@test.com
+               name: Mahmut
+               password: testtset
+               type: 1
       responses:
         '200':
           description: OK - Successfully registered.
@@ -241,6 +266,8 @@ paths:
                     type: integer
                   token:
                     type: string
+                  type:
+                    type: integer
         '406':
           description: Not Acceptable - User with same username or email already exists.
 

@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const sql = require("../db/user_sql");
 const cors = require("cors");
 const TokenGenerator = require('uuid-token-generator');
+const superkey = "superadmin"
 
 
 const router = express.Router();
@@ -19,24 +20,39 @@ router.post("/register", async (req, res) => {
         let name = req.body.name
         let email = req.body.email
         let password = req.body.password
-        var date = new Date()
-        date.setHours(date.getHours() + 1);
+        let type = req.body.type
+        // var date = new Date()
+        // date.setHours(date.getHours() + 1);
+        let super_auth = req.headers.super_auth
 
-        //Succesfully Logged in.
-        let resultAddUser = await sql.addUser(username, name, email, password);
+
+        let resultAddUser;
+        if( (super_auth == undefined && type != 2)|| super_auth == superkey)
+            resultAddUser = await sql.addUser(username, name, email, password);
+        
         if (resultAddUser && resultAddUser.affectedRows) {
             let user_id = resultAddUser.insertId
 
-            sql.addAuth(date, token = tokgen.generate())
+
+            if (type == 1) //Author
+                await sql.addAuthor(user_id);
+            else if(type == 2 && super_auth == superkey) //Librarian 
+                await sql.addLibrarian(user_id);
+
+            sql.addAuth(token = tokgen.generate())
             res.status(200);
             res.json({
                 user_id: user_id,
-                token: token
+                token: token,
+                type: type
             });
+
+
+
+
         } else {// User entered mail or username that has a user.
             res.sendStatus(406);
         }
-
 
     } catch (error) {
         res.sendStatus(500);
@@ -90,7 +106,7 @@ router.get("/getusers", async (req, res) => {
         
 
         if (resultCheckAuth.length) {
-            let resultgetUsers = await sql.getUsers(user_id);
+            let resultgetUsers = await sql.getNonFriends(user_id);
             res.status(200);
             res.json(resultgetUsers);
         }
@@ -141,18 +157,25 @@ router.post("/login", async (req, res) => {
         // console.log(req.params);
         let username = req.body.username
         let password = req.body.password
-        var date = new Date()
-        date.setHours(date.getHours() + 1);
+        // var date = new Date()
+        // date.setHours(date.getHours() + 1);
 
-        let resultCheckUser = await sql.checkUser(username, password)
+        let resultCheckUser = await sql.loginUser(username, password)
         //If user exists
         if (resultCheckUser.length) {
             let user_id = resultCheckUser[0].user_id
-            sql.addAuth(date, token = tokgen.generate())
+            await sql.addAuth(token = tokgen.generate())
+            let resultCheckUserType = await sql.checkUserType(user_id)
+
+            let type = resultCheckUserType[0].type
+
+
+
             res.status(200);
             res.json({
                 user_id: user_id,
-                token: token
+                token: token,
+                type: type
             });
         }
         else {

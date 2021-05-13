@@ -24,7 +24,7 @@ forum.listPosts = (threadId) => {
 
 
 
-        pool.query("SELECT p.pid, u.user_name, p.title, p.text FROM Post p, User u WHERE p.tid = ? and u.user_id = p.user_id",[threadId], (err, results) => {
+        pool.query("SELECT pid, user_name, title, text FROM Post_Preview WHERE tid = ?",[threadId], (err, results) => {
             if (err) {
 
                 return reject(err);

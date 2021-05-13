@@ -13,10 +13,30 @@ user.addUser = (username, name, email, password) => {
             return resolve(results);
         })
     })
+}
 
+user.addLibrarian = (user_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO Librarian (user_id) VALUES (?)",[user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
 
-
-
+user.addAuthor = (user_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO Author (user_id) VALUES (?)",[user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
 }
 
 user.addFriend = (user_id, friend_id) =>    {
@@ -60,14 +80,10 @@ user.getFriends = (user_id) => {
 }
 
 //For listing all users that are non-friend expect itself
-user.getUsers = (user_id) => {
+user.getNonFriends = (user_id) => {
     return new Promise((resolve, reject) => {
 
-
-        pool.query("SELECT u2.user_id, u2.user_name, u2.name, u2.biography FROM User u1, User u2 WHERE NOT EXISTS ("+
-        "SELECT 1 FROM friend_of f WHERE f.user_id = u1.user_id AND f.accepted = 1 AND f.friend_id = u2.user_id) AND NOT EXISTS"+
-        "(SELECT 1 FROM friend_of f WHERE f.user_id = u2.user_id AND f.accepted = 1 AND f.friend_id = u1.user_id) AND u1.user_id <> u2.user_id "+
-        "AND u1.user_id = ?;",[user_id], (err, results) => {
+        pool.query("SELECT user_id, user_name, name, biography FROM nonFriend_view WHERE check_user = ?;",[user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
@@ -78,10 +94,10 @@ user.getUsers = (user_id) => {
 }
 
 
-//For Checking Auth token.
-user.checkUser= (username,password) => {
+//For Login
+user.loginUser= (username,password) => {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT * FROM User WHERE user_name = ? and password = ?",[username, password], (err, results) => {
+        pool.query("SELECT * FROM User WHERE user_name = ? and password = ?;",[username, password], (err, results) => {
             if (err) {
 
                 return reject(err);
@@ -91,29 +107,44 @@ user.checkUser= (username,password) => {
     })
 }
 
-//Deletes old auth tokens.
-user.deleteOldAuth = () => {
+user.checkUserType= (user_id) => {
     return new Promise((resolve, reject) => {
-
-        let date = new Date();
-
-        pool.query("DELETE FROM auth WHERE date < ?",[date], (err, results) => {
+        pool.query("SELECT * FROM UserType_View WHERE user_id = ?;",[user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
             }
-            console.log("Old Auth Deleted=>" + results.affectedRows);
+            console.log(results)
             return resolve(results);
         })
     })
 }
+
+
+// Task is used instead of this.
+// //Deletes old auth tokens.
+// user.deleteOldAuth = () => {
+//     return new Promise((resolve, reject) => {
+
+//         let date = new Date();
+
+//         pool.query("DELETE FROM auth WHERE date < ?",[date], (err, results) => {
+//             if (err) {
+
+//                 return reject(err);
+//             }
+//             console.log("Old Auth Deleted=>" + results.affectedRows);
+//             return resolve(results);
+//         })
+//     })
+// }
 
 
 //For Checking Auth token validity.
 user.checkAuth = (authCode) => {
     return new Promise((resolve, reject) => {
 
-        user.deleteOldAuth() // Calls delete Auth Function for old auths.
+        // user.deleteOldAuth() // Calls delete Auth Function for old auths.
 
         pool.query("SELECT * FROM auth WHERE token = ?",[authCode], (err, results) => {
             if (err) {
@@ -128,9 +159,11 @@ user.checkAuth = (authCode) => {
 }
 
 //Adds new Auth Token.
-user.addAuth = (date,authCode) => {
+user.addAuth = (authCode) => {
     return new Promise((resolve, reject) => {
-        pool.query("INSERT INTO auth VALUES (?,?)",[date,authCode], (err, results) => {
+
+
+        pool.query("INSERT INTO auth VALUES (ADDDATE(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR),?)",[authCode], (err, results) => {
             if (err) {
 
                 return reject(err);
