@@ -402,11 +402,119 @@ paths:
                     type: string
                     format: biography
                     example: "My Biography"
-
-              
       responses:
         '200':
-          description: OK - Successfully added the friend.
+          description: OK - Successfully updated.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+  /user/setemail:
+    put:
+      tags:
+        - "User"
+
+      description: Sets email of a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: user_id
+                    example: 1
+                  email:
+                    type: string
+                    format: email
+                    example: "new@mail.com"
+      responses:
+        '200':
+          description: OK - Successfully updated.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+
+
+  /user/setname:
+    put:
+      tags:
+        - "User"
+
+      description: Sets name of a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: user_id
+                    example: 1
+                  name:
+                    type: string
+                    format: name
+                    example: "Mr.Wonka"
+      responses:
+        '200':
+          description: OK - Successfully updated.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+  /user/setpassword:
+    put:
+      tags:
+        - "User"
+
+      description: Sets password of a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: user_id
+                    example: 1
+                  password:
+                    type: string
+                    format: password
+                    example: "as5f4as5df132"
+      responses:
+        '200':
+          description: OK - Successfully updated.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+  /user/setusername:
+    put:
+      tags:
+        - "User"
+
+      description: Sets username of a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: user_id
+                    example: 1
+                  username:
+                    type: string
+                    format: username
+                    example: "usn_a23s"
+      responses:
+        '200':
+          description: OK - Successfully updated.
         '401':
           description: Unauthorized - Wrong username or email.
 

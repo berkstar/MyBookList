@@ -126,6 +126,122 @@ router.put("/setbio", async (req, res) => {
 })
 
 
+router.put("/setemail", async (req, res) => {
+    
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let email = req.body.email
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultSetEmail = await sql.setEmail(user_id, email);
+            if(resultSetEmail && resultSetEmail.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.put("/setname", async (req, res) => {
+    
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let name = req.body.name
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultSetName = await sql.setName(user_id, name);
+            if(resultSetName && resultSetName.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.put("/setpassword", async (req, res) => {
+    
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let password = req.body.password
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultSetPassword = await sql.setPassword(user_id, password);
+            if(resultSetPassword && resultSetPassword.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.put("/setusername", async (req, res) => {
+    
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let username = req.body.username
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultSetUsername = await sql.setUsername(user_id, username);
+            if(resultSetUsername && resultSetUsername.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
 router.get("/getusers", async (req, res) => {
 
     try {

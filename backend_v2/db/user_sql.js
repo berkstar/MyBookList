@@ -105,6 +105,54 @@ user.setBiography = (user_id, biography) => {
     })
 }
 
+user.setEmail = (user_id, email) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE User SET email = ? WHERE user_id = ?",[email, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.setName = (user_id, name) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE User SET name = ? WHERE user_id = ?",[name, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.setPassword = (user_id, password) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE User SET password = ? WHERE user_id = ?",[password, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.setUsername = (user_id, username) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE User SET user_name = ? WHERE user_id = ?",[username, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 //For listing all users that are non-friend expect itself
 user.getNonFriends = (user_id) => {
     return new Promise((resolve, reject) => {
@@ -140,7 +188,6 @@ user.checkUserType= (user_id) => {
 
                 return reject(err);
             }
-            console.log(results)
             return resolve(results);
         })
     })

@@ -19,20 +19,19 @@ app.use("/system", systemRoute);
 app.use(bodyParser.json());
 
 
-app.get("/", (req,res) =>{
-    console.log(req.query)
+app.get("/", (req, res) => {
+  console.log(req.query)
 
-    console.log("Main Page Request");
-    res.send("JUST NO");
+  console.log("Main Page Request");
+  res.send("JUST NO");
 })
 
 
 
-
-  app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerDocument, {explorer: true})
-  );
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, { explorer: true })
+);
 
 app.listen(PORT, () => console.log(`API is running on http://localhost:${PORT}`));
