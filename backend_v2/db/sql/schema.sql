@@ -94,29 +94,57 @@ CREATE TABLE IF NOT EXISTS publishes(
   CONSTRAINT PK_Publishes PRIMARY KEY (author_id,book_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
-//Denizhan
-
-
-
-
-
-CREATE TABLE Edition(
-  book_id INT,
+CREATE TABLE IF NOT EXISTS Edition(
+  ed_id INT PRIMARY KEY AUTO_INCREMENT,
+  book_id INT NOT NULL,
   FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
-  ed_id INT AUTO_INCREMENT,
   name VARCHAR(32) NOT NULL,
   format VARCHAR(32) NOT NULL,
   translator VARCHAR(32) DEFAULT NULL,
   language VARCHAR(32) NOT NULL,
-  publish_date DATE DEFAULT CURRENT_TIMESTAMP,
+  publish_date DATE NOT NULL,
   page INT NOT NULL,
-  author_name VARCHAR(32) NOT NULL,
-  CONSTRAINT PK_Edition PRIMARY KEY (author_id,ed_id)
+  author_name VARCHAR(32) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE review(
+
+CREATE TABLE IF NOT EXISTS Series(
+  ser_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(32) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS series_of(
+  book_id INT PRIMARY KEY,
+  ser_id INT NOT NULL,
+  FOREIGN KEY(book_id ) REFERENCES Book(book_id ) ON DELETE CASCADE,
+  FOREIGN KEY(ser_id ) REFERENCES Series(ser_id ) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS Progress(
+  pro_id INT PRIMARY KEY AUTO_INCREMENT,
+  page_number INT NOT NULL,
+  date DATETIME DEFAULT CURRENT_TIMESTAMP()
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS progress_comment(
+  cid INT PRIMARY KEY,
+  pro_id INT NOT NULL,
+  FOREIGN KEY(cid ) REFERENCES Comment(cid ) ON DELETE CASCADE,
+  FOREIGN KEY(pro_id ) REFERENCES Progress(pro_id ) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS mark_progress(
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+  book_id INT,
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
+  pro_id INT,
+  FOREIGN KEY(pro_id) REFERENCES Progress(pro_id) ON DELETE CASCADE,
+  CONSTRAINT PK_mark_progress PRIMARY KEY (user_id,book_id,pro_id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE IF NOT EXISTS review(
   user_id INT,
   FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
   book_id INT,
@@ -127,42 +155,27 @@ CREATE TABLE review(
   CONSTRAINT PK_review PRIMARY KEY (user_id,book_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE Series(
-  ser_id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(32) NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE series_of(
-  book_id INT PRIMARY KEY,
-  ser_id INT NOT NULL,
-  FOREIGN KEY(book_id ) REFERENCES Book(book_id ) ON DELETE CASCADE,
-  FOREIGN KEY(ser_id ) REFERENCES Book(ser_id ) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE Progress(
-  pro_id INT PRIMARY KEY AUTO_INCREMENT,
-  page_number INT NOT NULL,
-  date DATETIME DEFAULT CURRENT_TIMESTAMP
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE progress_comment(
-  cid INT PRIMARY KEY,
-  pro_id INT NOT NULL,
-  FOREIGN KEY(cid ) REFERENCES Comment(cid ) ON DELETE CASCADE,
-  FOREIGN KEY(pro_id ) REFERENCES Progress(pro_id ) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE mark_progress(
-  user_id INT,
+CREATE TABLE IF NOT EXISTS Book_list(
+  bl_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
   FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
-  book_id INT,
-  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
-  pro_id INT,
-  FOREIGN KEY(pro_id) REFERENCES Progress(pro_id) ON DELETE CASCADE,
-  CONSTRAINT PK_mark_progress PRIMARY KEY (user_id,book_id,pro_id)
+  name VARCHAR(32) NOT NULL,
+  book_count INT DEFAULT 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE recommend(
+
+CREATE TABLE IF NOT EXISTS Challenge(
+  chal_id INT PRIMARY KEY AUTO_INCREMENT,
+  librarian_id INT NOT NULL,
+  FOREIGN KEY(librarian_id) REFERENCES Librarian(user_id) ON DELETE CASCADE,
+  bl_id INT NOT NULL,
+  FOREIGN KEY(bl_id) REFERENCES Book_list(bl_id) ON DELETE CASCADE,
+  challenge_name VARCHAR(32) NOT NULL,
+  due_date DATE NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE IF NOT EXISTS recommend(
   user_id INT,
   FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
   book_id INT,
@@ -172,7 +185,8 @@ CREATE TABLE recommend(
   CONSTRAINT PK_recommend PRIMARY KEY (user_id,book_id,friend_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE joins_challenge(
+
+CREATE TABLE IF NOT EXISTS joins_challenge(
   user_id INT,
   FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
   chal_id INT,
@@ -181,18 +195,9 @@ CREATE TABLE joins_challenge(
   CONSTRAINT PK_joins_challenge PRIMARY KEY (user_id,chal_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE Challenge(
-  chal_id INT AUTO_INCREMENT,
-  bl_id INT,
-  librarian_id INT,
-  FOREIGN KEY(bl_id) REFERENCES Book_list(bl_id) ON DELETE CASCADE,
-  challenge_name VARCHAR(32) NOT NULL,
-  due_date DATE NOT NULL,
-  FOREIGN KEY(librarian_id) REFERENCES Librarian(user_id) ON DELETE CASCADE,
-  CONSTRAINT PK_Challenge PRIMARY KEY (bl_id,chal_id)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE requests(
+
+CREATE TABLE IF NOT EXISTS requests(
   book_id INT,
   FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
   user_id INT,
@@ -204,21 +209,18 @@ CREATE TABLE requests(
   CONSTRAINT PK_requests PRIMARY KEY (book_id,user_id,librarian_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE has_books(
+
+CREATE TABLE IF NOT EXISTS has_books(
   book_id INT,
-  FOREIGN KEY(book_id) REFERENCES Book(book_id),
+  FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
   bl_id INT,
-  FOREIGN KEY(bl_id) REFERENCES Book_list(bl_id),
+  FOREIGN KEY(bl_id) REFERENCES Book_list(bl_id) ON DELETE CASCADE,
   CONSTRAINT PK_Challenge PRIMARY KEY (book_id,bl_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE Book_list(
-  bl_id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(32) NOT NULL,
-  book_count INT DEFAULT 0
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE follows(
+
+CREATE TABLE IF NOT EXISTS follows(
   user_id INT,
   FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE,
   tid INT,
@@ -227,9 +229,5 @@ CREATE TABLE follows(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-CREATE TABLE creates_list(
-  cid INT PRIMARY KEY,
-  pid INT,
-  FOREIGN KEY(cid) REFERENCES Comment(cid) ON DELETE CASCADE,
-  FOREIGN KEY(pid) REFERENCES Post(pid) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
