@@ -39,7 +39,7 @@ router.post("/register", async (req, res) => {
             else if(type == 2 && super_auth == superkey) //Librarian 
                 await sql.addLibrarian(user_id);
 
-            sql.addAuth(token = tokgen.generate())
+            sql.addAuth(token = tokgen.generate(), user_id)
             res.status(200);
             res.json({
                 user_id: user_id,
@@ -164,7 +164,7 @@ router.post("/login", async (req, res) => {
         //If user exists
         if (resultCheckUser.length) {
             let user_id = resultCheckUser[0].user_id
-            await sql.addAuth(token = tokgen.generate())
+            await sql.addAuth(token = tokgen.generate(), user_id)
             let resultCheckUserType = await sql.checkUserType(user_id)
 
             let type = resultCheckUserType[0].type
@@ -186,6 +186,37 @@ router.post("/login", async (req, res) => {
         res.sendStatus(500);
         console.log(error)
     }
+
+})
+
+
+
+
+router.get("/getuser", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.query.uid
+        
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuth(auth)
+        
+
+        if (resultCheckAuth.length) {
+            let resultGetUserInfo = await sql.getUserInfo(user_id);
+            res.status(200);
+            res.json(resultGetUserInfo[0]);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
 
 })
 

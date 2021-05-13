@@ -79,6 +79,21 @@ user.getFriends = (user_id) => {
     })
 }
 
+user.getUserInfo = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+
+        pool.query("SELECT * FROM User u JOIN UserType_View ut USING (user_id) WHERE user_id = ?",[user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 //For listing all users that are non-friend expect itself
 user.getNonFriends = (user_id) => {
     return new Promise((resolve, reject) => {
@@ -158,12 +173,29 @@ user.checkAuth = (authCode) => {
     })
 }
 
-//Adds new Auth Token.
-user.addAuth = (authCode) => {
+
+user.checkAuthType = (authCode, user_id) => {
     return new Promise((resolve, reject) => {
 
 
-        pool.query("INSERT INTO auth VALUES (ADDDATE(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR),?)",[authCode], (err, results) => {
+        pool.query("SELECT * FROM auth WHERE token = ? and user_id = ?",[authCode, user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            console.log("Auth Found=>" + results.length);
+            return resolve(results);
+            
+        })
+    })
+}
+
+//Adds new Auth Token.
+user.addAuth = (authCode, user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("INSERT INTO auth VALUES (ADDDATE(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR),?,?)",[authCode, user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
