@@ -131,6 +131,92 @@ paths:
         '401':
           description: Unauthorized - Token is expired or wrong.
 
+  /forum/followthread:
+    post:
+      tags:
+        - "Forum"
+
+      description: User follows a thread
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: User ID
+                    example: 2
+                  tid:
+                    type: integer
+                    format: Thread ID
+                    example: 6
+      responses:
+        '200':
+          description: OK - Successfully followed a thread.
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
+
+  /forum/unfollowthread:
+    delete:
+      tags:
+        - "Forum"
+
+      description: User unfollows a thread
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: User ID
+                    example: 2
+                  tid:
+                    type: integer
+                    format: Thread ID
+                    example: 6
+      responses:
+        '200':
+          description: OK - Successfully unfollowed a thread.
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
+  /forum/listfollowedthreads:
+    get:
+      tags:
+        - "Forum"
+
+      description: Listing followed threads.
+      parameters:
+        - in: query
+          name: uid
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Listed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    pid:
+                      type: integer
+                    user_name:
+                      type: string
+                    title:
+                      type: string
+                    text:
+                      type: string
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
 
   /forum/getposts:
     get:
@@ -193,8 +279,6 @@ paths:
                     type: string
                     format: Post context
                     example: "Example Post Text"
-
-              
       responses:
         '200':
           description: OK - Successfully posted a post.
@@ -257,7 +341,7 @@ paths:
   /user/login:
     post:
       tags:
-        - "User"
+        - "User-General"
 
       description: User Login
       requestBody:
@@ -302,7 +386,7 @@ paths:
         - Super-Authorization: []
         
       tags:
-        - "User"
+        - "User-General"
 
       description: Registers the user. Super-Auth Key is required in order to register as Librarian.
       requestBody:
@@ -354,7 +438,7 @@ paths:
   /user/addfriend:
     post:
       tags:
-        - "User"
+        - "User-Friend"
 
       description: Adds friend to the user
       requestBody:
@@ -383,7 +467,7 @@ paths:
   /user/removefriend:
     delete:
       tags:
-        - "User"
+        - "User-Friend"
 
       description: Removes friend from friendlist.
       requestBody:
@@ -412,7 +496,7 @@ paths:
   /user/incomingrequests:
     get:
       tags:
-        - "User"
+        - "User-Friend"
 
       description: Gets incoming friend requests.
       parameters:
@@ -447,7 +531,7 @@ paths:
   /user/outgoingrequests:
     get:
       tags:
-        - "User"
+        - "User-Friend"
 
       description: Gets received friend requests.
       parameters:
@@ -483,7 +567,7 @@ paths:
   /user/requestresponse:
     put:
       tags:
-        - "User"
+        - "User-Friend"
       description: For accepting or declining friend requests. Response is 1(accept) or 0(decline)
       requestBody:
         required: true
@@ -513,7 +597,7 @@ paths:
   /user/setbio:
     put:
       tags:
-        - "User"
+        - "User-General"
 
       description: Sets biography of a user
       requestBody:
@@ -540,7 +624,7 @@ paths:
   /user/setemail:
     put:
       tags:
-        - "User"
+        - "User-General"
 
       description: Sets email of a user
       requestBody:
@@ -569,7 +653,7 @@ paths:
   /user/setname:
     put:
       tags:
-        - "User"
+        - "User-General"
 
       description: Sets name of a user
       requestBody:
@@ -596,7 +680,7 @@ paths:
   /user/setpassword:
     put:
       tags:
-        - "User"
+        - "User-General"
 
       description: Sets password of a user
       requestBody:
@@ -623,7 +707,7 @@ paths:
   /user/setusername:
     put:
       tags:
-        - "User"
+        - "User-General"
 
       description: Sets username of a user
       requestBody:
@@ -650,7 +734,7 @@ paths:
   /user/getfriends:
     get:
       tags:
-        - "User"
+        - "User-Friend"
 
       description: Lists user's friends
       parameters:
@@ -684,7 +768,7 @@ paths:
   /user/getusers:
     get:
       tags:
-        - "User"
+        - "User-Friend"
 
       description: Lists non friend users except itself. Friends mush have accepeted.
       parameters:
@@ -717,7 +801,7 @@ paths:
   /user/getuser:
     get:
       tags:
-        - "User"
+        - "User-General"
 
       description: Gets user's all information.
       parameters:

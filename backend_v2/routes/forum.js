@@ -31,6 +31,89 @@ router.get("/getallthreads", async (req, res) => {
 
 })
 
+router.get("/listfollowedthreads", async (req, res) => {
+
+    try {
+        res.type('json')
+        let auth = req.headers.authorization
+        let user_id = req.query.uid
+
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+
+        
+        if (resultCheckAuth.length) {
+            let resultListThreads = await sql_forum.listFollowedThreads(user_id)
+            res.status(200);
+            res.json(resultListThreads);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+
+router.post("/followthread", async (req, res) => {
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let thread_id = req.body.tid
+
+        let auth = req.headers.authorization
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultFollowThread = await sql_forum.followThread(thread_id, user_id);
+            if(resultFollowThread && resultFollowThread.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If there is an sql error.
+            res.sendStatus(401);
+        }
+        
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.delete("/unfollowthread", async (req, res) => {
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let thread_id = req.body.tid
+
+        let auth = req.headers.authorization
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultUnfollowThread = await sql_forum.unFollowThread(thread_id, user_id);
+            if(resultUnfollowThread && resultUnfollowThread.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If there is an sql error.
+            res.sendStatus(401);
+        }
+        
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
 
 router.get("/getposts", async (req, res) => {
 
@@ -85,6 +168,9 @@ router.get("/getpost", async (req, res) => {
     }
 
 })
+
+
+
 
 
 router.post("/postpost", async (req, res) => {

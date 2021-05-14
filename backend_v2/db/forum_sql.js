@@ -18,6 +18,44 @@ forum.listThreads = () => {
     })
 }
 
+forum.followThread = (thread_id, user_id) =>    {
+    return new Promise((resolve, reject) => {
+
+        pool.query("INSERT INTO follows VALUES (?,?)",[user_id, thread_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+forum.unFollowThread = (thread_id, user_id) =>    {
+    return new Promise((resolve, reject) => {
+
+        pool.query("DELETE FROM follows WHERE user_id = ? AND tid = ?",[user_id, thread_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+forum.listFollowedThreads = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("SELECT tid, name, context FROM follows JOIN Thread USING(tid) WHERE user_id = ? ORDER BY name",[user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 //
 forum.listPosts = (threadId) => {
     return new Promise((resolve, reject) => {
