@@ -104,41 +104,6 @@ paths:
           description: MYSQL ERROR.
 
 
-  /user/incomingrequests:
-    get:
-      tags:
-        - "User-Friend"
-
-      description: Gets incoming friend requests.
-      parameters:
-        - in: query
-          name: uid
-          schema:
-            type: integer
-          description: Id of user
-          example: 1
-      responses:
-        '200':
-          description: OK - Successfully listed.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  properties:
-                    sender_id:
-                      type: integer
-                    receiver_id:
-                      type: integer
-                    user_name:
-                      type: string
-                    name:
-                      type: string
-                    accepted:
-                      type: boolean   
-        '401':
-          description: Unauthorized - Token is expired or wrong.
-
 
 #---<<<<<<<<<<<<<<<<<<<<<<<<<<<Forum>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -765,7 +730,7 @@ paths:
                     example: 1920
                   pages:
                     type: integer
-                    format: 125
+                    format: "125"
                     example: 130
       responses:
         '200':
