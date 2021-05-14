@@ -127,7 +127,35 @@ router.get("/getposts", async (req, res) => {
         
         
         if (resultCheckAuth.length) {
-            let resultListThreads = await sql_forum.listPosts(threadId)
+            let resultListPosts = await sql_forum.listPosts(threadId)
+            res.status(200);
+            res.json(resultListPosts);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+
+router.get("/getuserposts", async (req, res) => {
+
+    try {
+        res.type('json')
+        let auth = req.headers.authorization
+        let user_id = req.query.uid
+
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+
+        
+        
+        if (resultCheckAuth.length) {
+            let resultListThreads = await sql_forum.listMyPosts(user_id)
             res.status(200);
             res.json(resultListThreads);
         }
@@ -292,5 +320,133 @@ router.post("/postpost", async (req, res) => {
     }
 
 })
+
+router.get("/getpostcomment", async (req, res) => {
+
+    try {
+        res.type('json')
+        let auth = req.headers.authorization
+        let post_id = req.query.pid
+
+        let resultCheckAuth = await sql_user.checkAuth(auth)
+
+        if (resultCheckAuth.length) {
+            let resultGetComments = await sql_forum.getComments(post_id)
+            res.status(200);
+            res.json(resultGetComments);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+
+router.post("/addpostcomment", async (req, res) => {
+
+    try {
+        res.type('json')
+
+        let user_id = req.body.uid
+        let post_id = req.body.pid
+        let comment_text = req.body.text
+
+        let auth = req.headers.authorization
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultAddComment = await sql_forum.addComment(user_id, comment_text);
+            let commentId = resultAddComment.insertId
+
+            if(resultAddComment && resultAddComment.affectedRows){
+
+                await sql_forum.linkPostComment(commentId, post_id);
+
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If there is an sql error.
+            res.sendStatus(401);
+        }
+        
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+router.delete("/deletepostcomment", async (req, res) => {
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let comment_id = req.body.cid
+
+        let auth = req.headers.authorization
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultDeleteComment = await sql_forum.deleteComment(user_id, comment_id);
+            if(resultDeleteComment && resultDeleteComment.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If there is an sql error.
+            res.sendStatus(401);
+        }
+        
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.put("/updatepostcomment", async (req, res) => {
+
+    try {
+        res.type('json')
+
+
+        let user_id = req.body.uid
+        let comment_id = req.body.cid
+        let context = req.body.text
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultUpdateComment = await sql_forum.updatePostComment(user_id, comment_id,context);
+            if (resultUpdateComment && resultUpdateComment.affectedRows) {
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(401);
+            }
+        }
+        else {
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+
 
 module.exports = router;

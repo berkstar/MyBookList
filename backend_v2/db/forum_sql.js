@@ -62,7 +62,22 @@ forum.listPosts = (threadId) => {
 
 
 
-        pool.query("SELECT pid, user_name, title, text FROM Post_Preview WHERE tid = ?",[threadId], (err, results) => {
+        pool.query("SELECT pid, user_name, title, text, like_count FROM Post_Preview WHERE tid = ?",[threadId], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
+forum.listMyPosts = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("SELECT * FROM top_postcomment_view WHERE user_id = ? LIMIT 4",[user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
@@ -137,6 +152,43 @@ forum.likePost = (pid) => {
     })
 }
 
+
+
+
+
+forum.addComment = (user_id, comment_text) =>    {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("INSERT INTO Comment (user_id, text) VALUES (?,?)",[user_id, comment_text], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+
+
+    })
+}
+
+
+
+forum.linkPostComment = (commentId, post_id) =>    {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("INSERT INTO post_comment (cid, pid) VALUES (?,?)",[commentId, post_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+
+
+    })
+}
+
+
 forum.getComments = (post_id) => {
     return new Promise((resolve, reject) => {
 
@@ -148,6 +200,30 @@ forum.getComments = (post_id) => {
             }
             console.log(results[0]);
             return resolve(results[0]);
+        })
+    })
+}
+
+forum.deleteComment = (user_id, comment_id) =>    {
+    return new Promise((resolve, reject) => {
+
+        pool.query("DELETE FROM Comment WHERE user_id = ? AND cid = ?",[user_id, comment_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+forum.updatePostComment = (user_id, comment_id,context) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE Comment SET text = ? WHERE cid = ? AND user_id = ?",[context, comment_id, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
         })
     })
 }

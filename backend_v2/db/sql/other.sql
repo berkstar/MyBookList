@@ -6,7 +6,7 @@ DROP PROCEDURE IF EXISTS PostComments_procedure;
 CREATE PROCEDURE `PostComments_procedure`(IN `postId` INT) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
 SELECT u.user_name, u.name, c.text, DATE_FORMAT(c.date, "%e %M %Y") AS date FROM (SELECT * FROM post_comment WHERE pid = postId) AS pc JOIN Comment c 
 USING (cid) JOIN User u 
-USING (user_id) ORDER BY date
+USING (user_id) ORDER BY c.date
 
 
 --For Calling<<<
@@ -18,7 +18,11 @@ CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERV
 
 -->>>>>>>>>>>>>>>Views
 
-
+--For listing top 4 user comments
+CREATE VIEW top_postcomment_view AS 
+SELECT user_id, pid, title, text, DATE_FORMAT(date, "%e %M %Y") AS date, like_count, (SELECT COUNT(*) FROM post_comment c WHERE c.pid = p.pid ) AS comment_count
+FROM Post p
+ORDER BY like_count DESC
 --For listing incoming friend requests
 
 CREATE VIEW incoming_request_view AS 
@@ -49,7 +53,7 @@ GROUP BY user_id;
 
 --For listing potential friends before adding friend.
 CREATE VIEW nonFriend_view as
-SELECT u2.user_id, u2.user_name, u2.name, u2.biography, u1.user_id AS check_user FROM User u1, User u2 WHERE NOT EXISTS 
+SELECT u2.user_id, u2.user_name, u2.name, u2.biography, u2.email, u1.user_id AS check_user FROM User u1, User u2 WHERE NOT EXISTS 
 (SELECT 1 FROM friend_of f WHERE f.user_id = u1.user_id AND f.accepted = 1 AND f.friend_id = u2.user_id) AND NOT EXISTS 
 (SELECT 1 FROM friend_of f WHERE f.user_id = u2.user_id AND f.accepted = 1 AND f.friend_id = u1.user_id) AND u1.user_id <> u2.user_id
 ORDER BY u2.name

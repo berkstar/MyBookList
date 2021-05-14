@@ -211,7 +211,7 @@ user.setUsername = (user_id, username) => {
 user.getNonFriends = (user_id) => {
     return new Promise((resolve, reject) => {
 
-        pool.query("SELECT user_id, user_name, name, biography FROM nonFriend_view WHERE check_user = ?;",[user_id], (err, results) => {
+        pool.query("SELECT user_id, user_name, name, email, biography FROM nonFriend_view WHERE check_user = ?;",[user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
