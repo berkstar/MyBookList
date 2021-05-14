@@ -18,6 +18,19 @@ CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERV
 
 -->>>>>>>>>>>>>>>Views
 
+
+--For listing incoming friend requests
+
+CREATE VIEW incoming_request_view AS 
+SELECT f.user_id AS sender_id, f.friend_id AS receiver_id, u.user_name, u.name, f.accepted FROM friend_of f JOIN User u ON f.user_id = u.user_id WHERE f.accepted = 0 ORDER BY u.name
+
+
+--For listing outgoing friend requests
+
+CREATE VIEW outgoing_request_view AS 
+SELECT f.user_id AS sender_id, f.friend_id AS receiver_id, u.user_name, u.name, f.accepted FROM friend_of f JOIN User u ON f.friend_id = u.user_id WHERE f.accepted = 0 ORDER BY u.name
+
+
 -- For listing posts after selecting a thread
 CREATE VIEW Post_Preview AS
 SELECT p.tid, p.pid, u.user_name, p.title, p.text, p.like_count, p.date FROM Post p JOIN User u USING (user_id) ORDER BY p.date DESC;

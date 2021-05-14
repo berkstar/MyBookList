@@ -62,6 +62,20 @@ user.addFriend = (user_id, friend_id) =>    {
     })
 }
 
+user.delFriend = (user_id, friend_id) =>    {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("DELETE FROM friend_of WHERE (user_id = ? AND friend_id = ?) OR (friend_id = ? AND user_id = ?)",[user_id, friend_id, user_id, friend_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+
+
+    })
+}
+
 user.getFriends = (user_id) => {
     return new Promise((resolve, reject) => {
 
@@ -77,6 +91,46 @@ user.getFriends = (user_id) => {
         })
     })
 }
+
+user.getIncomingRequests = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+        pool.query("SELECT * FROM incoming_request_view WHERE receiver_id = ?",[user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.getOutgoingRequests = (user_id) => {
+    return new Promise((resolve, reject) => {
+
+        pool.query("SELECT * FROM outgoing_request_view WHERE sender_id = ?",[user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.acceptRequest = (user_id, friend_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE friend_of SET accepted = 1 WHERE user_id = ? AND friend_id = ?",[friend_id, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
 
 user.getUserInfo = (user_id) => {
     return new Promise((resolve, reject) => {
