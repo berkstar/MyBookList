@@ -58,20 +58,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Friends() {
     const classes = useStyles();
-    // const [friends, setFriends] = useState([]);
-    // const history = useHistory();
+    const [friends, setFriends] = useState([]);
+    const history = useHistory();
 
-    // const parseFriends = async () => {
-    //     let response = await Api.getFriends();
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setFriends(response.data);
-    //     }
-    // }
+    const parseFriends = async () => {
+        let response = await Api.getFriends();
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setFriends(response.data);
+        }
+    }
 
-    // parseFriends();
+    useState(parseFriends);
 
     return (
         <div className={classes.root}>

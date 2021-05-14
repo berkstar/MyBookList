@@ -15,6 +15,7 @@ if ( token ) {
 
 axios.defaults.baseURL = API_URL;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = "http://localhost:3000";
+axios.defaults.headers.common['super-auth'] = "superadmin";
 
 function setAuthToken() {
     token = StorageService.getToken();
@@ -44,15 +45,47 @@ async function getFriends() {
 }
 
 async function getUsers() {
-    return await api_get('/user/getusers', null);
+    let uid = { uid: StorageService.getUserId() };
+    return await api_get('/user/getusers', uid);
 }
 
-async function addFriend(newRequest) {
-    return await api_post('/user/addfriend', newRequest);
+async function getUser() {
+    let uid = { uid: StorageService.getUserId() };
+    return await api_get('/user/getuser', uid);
+}
+
+async function addFriend(fid) {
+    let request = {
+        uid: StorageService.getUserId(),
+        fid: fid
+    };
+    return await api_post('/user/addfriend', request);
 }
 
 async function postPost(newPost) {
     return await api_post('/forum/postpost', newPost);
+}
+
+async function getAllChallenges() {
+    return await api_get('/challange/getallchallenges', null);
+}
+
+async function joinChallenge(challenge_id) {
+    let request = {
+        uid: StorageService.getUserId(),
+        cid: challenge_id
+    }
+    return await api_post('/challange/joinchallenge', request);
+}
+
+async function postBook(book_name, author_id, num_of_pages, description) {
+    let request = {
+        b_name: book_name,
+        aid: author_id,
+        page_num: num_of_pages,
+        desc: description
+    }
+    return await api_post('/book/publish', request);
 }
 
 async function api_get(path, param) {
@@ -181,6 +214,10 @@ const Api = {
     getUsers,
     addFriend,
     postPost,
+    getUser,
+    postBook,
+    getAllChallenges,
+    joinChallenge,
 }
 
 export default Api;

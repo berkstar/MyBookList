@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import Typography from "@material-ui/core/Typography";
 import EditIcon from '@material-ui/icons/Edit';
 import { Dropdown } from 'semantic-ui-react'
@@ -21,8 +21,6 @@ const columns = [
       align: 'right',
     },
   ];
-
-
 
 const bookOptions = [
     {
@@ -94,9 +92,9 @@ export default function EditBookList() {
                             placeholder='Select Book'
                             fluid
                             search
-                            selection={selected}
-                            options={bookOptions}
-                            onClick={()=>{addBook(selected)}}
+                            selection
+                            onSelect ={(event) =>{selected = event.target.value}}
+                            options={bookOptions}         
                         />
                     </Grid>
                     <TableContainer>
@@ -134,6 +132,15 @@ export default function EditBookList() {
                     </TableContainer>
                 </Grid>
             </Grid>
+            <Button 
+                style={{ marginLeft:50, marginTop:30 }}
+                variant="contained"
+                color="primary"
+                size="medium"
+                onClick={()=>{console.log(selected)}}
+                >
+                    <b>Publish</b>
+            </Button>
         </div>
     );
 }

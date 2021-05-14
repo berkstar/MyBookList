@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
@@ -18,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import books from "./dummy-books";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
+import StorageService from 'services/StorageService';
 
 function LinearProgressWithLabel(props) {
     return (
@@ -71,13 +71,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AllBooks() {
     const classes = useStyles();
-
+    const userType = StorageService.getUserType();
     const [value, setValue] = React.useState(2);
 
     return (
         <div>
             <Grid container justify="space-between">
-                <h2 style={{ marginLeft:30 }}>ALL BOOKS</h2>
+                <h2 className="col-9" style={{ marginLeft:30 }}>ALL BOOKS</h2>
+                { userType == 2 && <Button 
+                    style={{ marginRight:30 }}
+                    variant="contained"
+                    color="default"
+                    size="medium"
+                    onClick={() => { window.helloComponent.handleEditBook() }}>
+                    <b>Publish a book</b>
+                </Button>}
                 <Button 
                 style={{ marginRight:30 }}
                 variant="contained"
@@ -90,15 +98,15 @@ export default function AllBooks() {
 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} className={classes.root}>
-                    {books.map(book => (
-                        <Grid item key={book.title}>
+                    {books.map((book, index) => (
+                        <Grid item key={index}>
                             <Card className={classes.card}>
                                 <CardActionArea>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {book.title}
                                             <IconButton>
-                                                <ListRoundedIcon fontSize="medium"/>
+                                                <ListRoundedIcon fontSize="large"/>
                                             </IconButton>
                                         </Typography>
                                         <Rating

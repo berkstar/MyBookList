@@ -34,6 +34,7 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import PostDetails from './post-details/Post-details';
 import EditPost from './edit-post/EditPost';
+import EditBook from './edit-book/EditBook';
 
 
 const drawerWidth = 240;
@@ -133,6 +134,7 @@ class Dashboard extends Component {
         this.handlePosts = this.handlePosts.bind(this);
         this.thread = {};
         this.post = {};
+        this.profile_user = {};
         this.editPost_thread = {};
         this.states = {
             threads: false,
@@ -151,6 +153,7 @@ class Dashboard extends Component {
             posts: false,
             postDetails: false,
             editPost: false,
+            editBook: false,
         };
         this.state = {
             threads: true,
@@ -170,6 +173,7 @@ class Dashboard extends Component {
             posts: false,
             postDetails: false,
             editPost: false,
+            editBook: false,
         };
     }
 
@@ -183,7 +187,8 @@ class Dashboard extends Component {
         this.setState({userProfile: true});
     }
 
-    handleOtherProfile() {
+    handleOtherProfile(user) {
+        this.profile_user = user;
         this.setState(this.states);
         this.setState({otherProfile: true});
     }
@@ -241,6 +246,11 @@ class Dashboard extends Component {
         this.setState({editPost: true});
     }
 
+    handleEditBook() {
+        this.setState(this.states);
+        this.setState({editBook: true});
+    }
+
     render() {
         const {classes} = this.props;
 
@@ -262,7 +272,7 @@ class Dashboard extends Component {
         } else if (this.state.searchFriends) {
             showContent = <SearchFriends/>
         } else if (this.state.otherProfile) {
-            showContent = <OtherProfile/>
+            showContent = <OtherProfile user={this.profile_user}/>
         } else if (this.state.editBookList) {
             showContent = <EditBookList/>
         } else if (this.state.posts) {
@@ -271,7 +281,9 @@ class Dashboard extends Component {
             showContent = <PostDetails post={this.post}/>
         } else if (this.state.editPost) {
             showContent = <EditPost thread={this.editPost_thread}/>
-        } 
+        } else if (this.state.editBook) {
+            showContent = <EditBook/>
+        }
 
         return (
             <div className={classes.root}>
@@ -341,7 +353,7 @@ class Dashboard extends Component {
                                 <ListItemIcon><MenuBookIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Browse</Typography>}/>
                             </ListItem>
-                            <ListItem button onClick={() => this.handlePosts()} key="SignOut">
+                            <ListItem button onClick={() => this.props.history.push("/login")} key="SignOut">
                                 <ListItemIcon><ExitToAppIcon style={{ color: '#fff' }}/></ListItemIcon>
                                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Sign Out</Typography>}/>
                             </ListItem>

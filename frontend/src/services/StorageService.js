@@ -14,11 +14,21 @@ function setUserId(userId) {
     localStorage.setItem('uid', JSON.stringify(userId));
 }
 
+function setUserType(userType) {
+    localStorage.setItem('u_type', JSON.stringify(userType));
+}
+
+function getUserType() {
+    return JSON.parse(localStorage.getItem('u_type'));
+}
+
 const StorageService = {
     getToken,
     setToken,
     getUserId,
-    setUserId
+    setUserId,
+    getUserType,
+    setUserType,
 }
 
 export default StorageService;

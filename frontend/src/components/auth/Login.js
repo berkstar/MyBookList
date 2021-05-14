@@ -35,6 +35,7 @@ class Login extends React.Component {
         if(response.status === 200) {
             StorageService.setToken(response.data.token);
             StorageService.setUserId(response.data.user_id);
+            StorageService.setUserType(response.data.type);
             Api.setAuthToken();
             this.props.history.push("/dashboard");
         }

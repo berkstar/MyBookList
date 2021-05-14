@@ -91,8 +91,8 @@ export default function Mybooks() {
 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} className={classes.root}>
-                    {books.map(book => (
-                        <Grid item key={book.title}>
+                    {books.map((book,index) => (
+                        <Grid item key={index}>
                             <Card className={classes.card}>
                                 <CardActionArea>
                                     <CardContent>

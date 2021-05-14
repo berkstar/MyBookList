@@ -16,20 +16,20 @@ import { Col, Row } from 'react-bootstrap';
 import Post from './Post';
 
 function Posts(props) {
-    // const [posts, setPosts] = useState([]);
-    // const history = useHistory();
+    const [posts, setPosts] = useState([]);
+    const history = useHistory();
 
-    // const parsePosts = async () => {
-    //     let response = await Api.getPosts(props.threadTitle);
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setPosts(response.data);
-    //     }
-    // }
+    const parsePosts = async () => {
+        let response = await Api.getPosts(props.thread.id);
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setPosts(response.data);
+        }
+    }
 
-    // useState(parsePosts);
+    useState(parsePosts);
 
     return (
         <div style={{ marginTop: 0, padding: 10 }}>

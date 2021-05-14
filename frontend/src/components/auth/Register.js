@@ -11,30 +11,47 @@ import {
 import NavigationBar from "./NavigationBar";
 import Api from "api/Api";
 import StorageService from "services/StorageService"
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Register extends React.Component {
 
 
     constructor(props) {
         super(props);
-        this.state = { username: "", name: "", password: "", email: ""};
+        this.state = { username: "", name: "", password: "", email: "", author: false, librarian: false };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     async handleSubmit(event) {
         event.preventDefault();
+        let type = 0;
+        if(this.state.librarian) {
+            type = 1;
+        } 
+        else if(this.state.author) {
+            type = 2;
+        }
         let userData = {
             username: this.state.username,
             name: this.state.name,
             password: this.state.password,
-            email: this.state.email
+            email: this.state.email,
+            type: type
         }
         const response = await Api.signUp(userData);
         if(response.status === 200) {
             StorageService.setToken(response.data.token);
+            StorageService.setUserId(response.data.user_id);
+            StorageService.setUserType(response.data.type);
             Api.setAuthToken();
             this.props.history.push("/dashboard");
         }
+    }
+
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.checked });
     }
 
     render() {
@@ -130,6 +147,32 @@ class Register extends React.Component {
                                                     }
                                                     required
                                                 />
+                                            </Grid>
+                                            <Grid item>
+                                            <FormControlLabel
+                                                control={
+                                                <Checkbox
+                                                    checked={this.state.author}
+                                                    onChange={this.handleChange}
+                                                    name="author"
+                                                    color="primary"
+                                                    disabled={this.state.librarian}
+                                                />
+                                                }
+                                                label="Are you an author?"
+                                            />
+                                            <FormControlLabel
+                                                control={
+                                                <Checkbox
+                                                    checked={this.state.librarian}
+                                                    onChange={this.handleChange}
+                                                    name="librarian"
+                                                    color="primary"
+                                                    disabled={this.state.author}
+                                                />
+                                                }
+                                                label="Are you a librarian?"
+                                            />
                                             </Grid>
                                             <Grid item>
                                                 <Button

@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
@@ -8,11 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import challenges from "./dummy-challenges";
+import Api from "api/Api";
 
 function LinearProgressWithLabel(props) {
     return (
@@ -56,16 +56,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Challenges() {
     const classes = useStyles();
-    const [progress, setProgress] = React.useState(10);
+    // const [progress, setProgress] = React.useState(10);
+    // const [challenges, setChallenges] = useState([]);
+    // const history = useHistory();
 
-    React.useEffect(() => {
-        const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-        }, 800);
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
+    // const parseChallenges = async () => {
+    //     let response = await Api.getAllChallenges();
+    //     if( response.status !== 200 ) {
+    //         history.push("/login");
+    //     } 
+    //     else {
+    //         setChallenges(response.data);
+    //     }
+    // }
+
+    // const joinChallenge = async (id) => {
+    //     let response = await Api.joinChallenge(id);
+    //     if( response.status !== 200 ) {
+    //         history.push("/login");
+    //     } 
+    //     else {
+    //         parseChallanges();
+    //         alert("Joined to challenge!");
+    //     }
+    // }
+
+    // useState(parseChallenges);
+
+    // React.useEffect(() => {
+    //     const timer = setInterval(() => {
+    //         setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
+    //     }, 800);
+    //     return () => {
+    //         clearInterval(timer);
+    //     };
+    // }, []);
 
     return (
         <div className={classes.root}>
@@ -87,14 +112,14 @@ export default function Challenges() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button component={Link} to='/test' size="small" color="primary">
+                                    { chl.joined != 1 && <Button size="small" color="primary">
                                         Join
-                                    </Button>
-                                    <Button component={Link} to='/test' size="small" color="primary">
+                                    </Button>}
+                                    <Button size="small" color="primary">
                                         View
                                     </Button>
                                 </CardActions>
-                                <LinearProgressWithLabel value={progress} />
+                                <LinearProgressWithLabel value={chl.progress} />
                             </Card>
                             <br/>
                         </Grid>

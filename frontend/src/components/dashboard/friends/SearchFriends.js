@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
@@ -61,40 +62,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchFriends() {
     const classes = useStyles();
-    const initial_state = dummy_users;
-    const [users, setUsers] = useState(initial_state);
+    const [users, setUsers] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const history = useHistory();
 
-    // const [users, setUsers] = useState([]);
-    // const history = useHistory();
+    const parseUsers = async () => {
+        let response = await Api.getUsers();
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setUsers(response.data);
+            setAllUsers(response.data);
+        }
+    }
 
-    // const parseUsers = async () => {
-    //     let response = await Api.getUsers();
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setUsers(response.data);
-    //     }
-    // }
-
-    // parseUsers();
-
-    // const addFriend = async () => {
-    //     let response = await Api.getUsers();
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setUsers(response.data);
-    //     }
-    // }
+    useState(parseUsers);
 
     async function addFriend(friendId) {
-        const newRequest = {
-            uid: StorageService.getUserId(),
-            fid: friendId
-        };
-        const response = await Api.addFriend(newRequest);
+        const response = await Api.addFriend(friendId);
         if(response.status === 200) {
             alert("Friend request sent!");
         }
@@ -102,15 +88,15 @@ export default function SearchFriends() {
 
     function search(input) {
         if(input === '') {
-            setUsers(initial_state);
+            setUsers(allUsers);
         }
         else {
             let corres_users = []
-            for(var i = 0; i < initial_state.length; i++)
+            for(var i = 0; i < allUsers.length; i++)
             {
-                if(initial_state[i].title.toLowerCase().indexOf(input.toLowerCase()) !== -1)
+                if(allUsers[i].title.toLowerCase().indexOf(input.toLowerCase()) !== -1)
                 {
-                    corres_users.push(initial_state[i]);
+                    corres_users.push(allUsers[i]);
                 }
             }
             setUsers(corres_users);
@@ -146,17 +132,17 @@ export default function SearchFriends() {
                                 <CardActionArea>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {user.title}
+                                            {user.name}
                                         </Typography>
-                                        <Typography component="p">{user.content}</Typography>
+                                        <Typography component="p">{user.biography}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
                                     <Grid container justify="space-between">
-                                        <Button onClick={() => window.helloComponent.handleOtherProfile()} size="large" color="primary">
+                                        <Button onClick={() => window.helloComponent.handleOtherProfile(user)} size="large" color="primary">
                                             View Profile
                                         </Button>
-                                        <IconButton  onClick={() => addFriend(user.id)} color="primary" style={{ float:"right" }}>
+                                        <IconButton  onClick={() => addFriend(user.user_id)} color="primary" style={{ float:"right" }}>
                                             <AddIcon/>
                                         </IconButton>
                                     </Grid>
