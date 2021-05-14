@@ -112,9 +112,9 @@ INSERT IGNORE INTO `Book_list` (`bl_id`, `user_id`, `name`, `book_count`) VALUES
 
 /* Challange */
 
-INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (1, 9, 2, 'consequatur', '1972-02-15');
-INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (2, 9, 2, 'id', '2007-02-22');
-INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (3, 9, 2, 'quos', '1995-03-10');
+INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (1, 9, 2, 'The Best 100 Challenge', '2021-10-15');
+INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (2, 9, 2, 'Adventure Challenge', '2022-02-22');
+INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (3, 9, 2, 'Bloody Challenge', '2023-03-10');
 
 /* Edition */
 INSERT IGNORE INTO `Edition` (`ed_id`, `book_id`, `name`, `format`, `translator`, `language`, `publish_date`, `page`, `author_name`) VALUES (1, 6, 'nemo', 'nostrum', 'Prof. Roman Dibbert', 'it', '2004-05-05', 191, 'Prof. Virgil Schowalter');
