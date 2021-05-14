@@ -5,36 +5,37 @@ console.log(req.body.YO); BOdy Bakma
 -----------------USER--------
 
 
-● Users are able to register and login. 														1# POST:/user/login |  POST:/user/register
+● Users are able to register and login. 														# POST:/user/login |  POST:/user/register
 
-● Users may add / remove each other as friends and list /answer request. 	                    2# POST:/user/addfriend | DELETE:/user/removefriend | GET:/user/getfriends | GET:/user/incomingrequests | GET :/user/outgoingrequests | PUT:/user/requestresponse
-● Users are able to edit their profile such as biography, username and password.				2# GET:/user/getuser | PUT:/user/setemail | PUT:/user/setname | PUT:/user/setbio | PUT:/user/setpassword | PUT:/user/setusername
-● Users are able to follow and list Forum threads.                                              3# GET:/forum/getallthreads | POST:/forum/followthread | DELETE:/forum/unfollowthread | GET:forum/listfollowedthreads
-● Users are able to write / update / delete / view / list / like posts and get user posts.      4# POST:/forum/postpost | GET:/forum/getposts | GET:/forum/getpost | PUT:/forum/likepost | DELETE:/forum/deletepost | PUT:/forum/updatepost | GET:/forum/getuserposts 
-● Users are able to write / update / delete / list comments to Posts.                           5# POST:/forum/addpostcomment GET:/forum/getpostcomment | DELETE:/forum/delpostcomment |  PUT:/forum/updatepostcomment   
-
-
+● Users may add / remove each other as friends and list /answer request. 	                    # POST:/user/addfriend | DELETE:/user/removefriend | GET:/user/getfriends | GET:/user/incomingrequests | GET :/user/outgoingrequests | PUT:/user/requestresponse
+● Users are able to edit their profile such as biography, username and password.				# GET:/user/getuser | PUT:/user/setemail | PUT:/user/setname | PUT:/user/setbio | PUT:/user/setpassword | PUT:/user/setusername
+● Users are able to follow and list Forum threads.                                              # GET:/forum/getallthreads | POST:/forum/followthread | DELETE:/forum/unfollowthread | GET:forum/listfollowedthreads
+● Users are able to write / update / delete / view / list / like posts and get user posts.      # POST:/forum/postpost | GET:/forum/getposts | GET:/forum/getpost | PUT:/forum/likepost | DELETE:/forum/deletepost | PUT:/forum/updatepost | GET:/forum/getuserposts 
+● Users are able to write / update / delete / list comments to Posts.                           # POST:/forum/addpostcomment GET:/forum/getpostcomment | DELETE:/forum/delpostcomment |  PUT:/forum/updatepostcomment   
 
 
-● Users are able to recommend books to their friends.
-● Users are able to create book lists.
-● Users are able to comment and rate out of 10 on specified books.
+
+● Users are able to recommend books to their friends.                                           3$
+● Users are able to create book lists.                                                          5$
+● Users are able to comment and rate out of 10 on specified books.                              4$
 ● Users will be able to create / edit book progress.	
 ● Users are able to report wrong information about books to librarians.
 ● Users will be able to comment and like the book progress of their friends.					
      
-● Users are able to search books by filtering author, year, genre.                              $
-● Users are able to search for friends.                                                         $ GET:/user/getusers | ...
+● Users are able to search books by filtering author, year, genre.                              2$
+● Users are able to search for friends.                                                         # GET:/user/getusers <Search done in front-end>
 
 ---------------AUTHOR---------------------
 
-● Authors are able to register and login.														#
+● Authors are able to register and login.														# POST:/user/login |  POST:/user/register
+● Authors are able to publish their new books in the system.                                    1$
 ● Authors are able to reply user’s comments about their own books.
 ● Authors are able to report wrong information or claim issues about their books to librarians.	
-● Authors are able to publish their new books in the system.
+
 
 
 --------------Librarian--------------------
+● Librarians are able to list / verify an author.                                               # GET: /user/getunverifiedauthors | GET: /user/getverifiedauthors | PUT: /user/verifyauthor
 ● Librarians are able to update, delete a book.                                         
 ● Librarians are able to create new / delete Forum threads. 												
 ● Librarians are able to manage and verify book addition requests.
@@ -44,4 +45,4 @@ console.log(req.body.YO); BOdy Bakma
 
 
 
-Comment Ekleme (Forum), Booklar, Challangelar, 
+ Booklar, Challangelar, 

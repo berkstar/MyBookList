@@ -19,6 +19,16 @@ app.use("/system", systemRoute);
 app.use(bodyParser.json());
 
 
+//For parse errors.
+app.use(function (error, req, res, next) {
+  if (error instanceof SyntaxError) {
+    res.sendStatus(500);
+    console.log(error)
+  }
+});
+
+
+
 app.get("/", (req, res) => {
   console.log(req.query)
 

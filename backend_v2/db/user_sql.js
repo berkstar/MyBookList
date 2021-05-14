@@ -135,9 +135,45 @@ user.acceptRequest = (user_id, friend_id) => {
 user.getUserInfo = (user_id) => {
     return new Promise((resolve, reject) => {
 
-
-
         pool.query("SELECT * FROM User u JOIN UserType_View ut USING (user_id) WHERE user_id = ?",[user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.verifyAuthor = (user_id, author_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE Author SET is_verified = 1, verifier_id = ? WHERE user_id = ?",[user_id, author_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.getUnverifiedAuthors = () => {
+    return new Promise((resolve, reject) => {
+
+        pool.query("SELECT user_id, user_name, name, email, biography FROM Author a JOIN User u USING(user_id) WHERE is_verified = 0", (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+user.getVerifiedAuthors = () => {
+    return new Promise((resolve, reject) => {
+
+        pool.query("SELECT user_id, user_name, name, email, biography FROM Author a JOIN User u USING(user_id) WHERE is_verified = 1", (err, results) => {
             if (err) {
 
                 return reject(err);
@@ -296,6 +332,54 @@ user.checkAuthType = (authCode, user_id) => {
                 return reject(err);
             }
             console.log("Auth with uid Found=>" + results.length);
+            return resolve(results);
+            
+        })
+    })
+}
+
+user.checkAuthLibrarian = (authCode, user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("SELECT * FROM auth WHERE token = ? and user_id = ?",[authCode, user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            console.log("Auth with uid Found=>" + results.length);
+            return resolve(results);
+            
+        })
+    })
+}
+
+user.checkAuthLibrarian = (authCode, user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("SELECT * FROM auth a JOIN Librarian l USING(user_id) WHERE token = ? and user_id = ?",[authCode, user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            console.log("AuthLibrarian with uid Found=>" + results.length);
+            return resolve(results);
+            
+        })
+    })
+}
+
+user.checkAuthAuthor = (authCode, user_id) => {
+    return new Promise((resolve, reject) => {
+
+
+        pool.query("SELECT * FROM auth a JOIN Author l USING(user_id) WHERE token = ? and user_id = ? is_verified = 1",[authCode, user_id], (err, results) => {
+            if (err) {
+
+                return reject(err);
+            }
+            console.log("AuthAuthor with uid Found=>" + results.length);
             return resolve(results);
             
         })

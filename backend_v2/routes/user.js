@@ -499,6 +499,86 @@ router.get("/getuser", async (req, res) => {
 
 })
 
+
+
+router.get("/getunverifiedauthors", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.query.uid
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthLibrarian(auth, user_id)
+        if (resultCheckAuth.length) {
+            let resultUnverifiedAuthors = await sql.getUnverifiedAuthors(user_id);
+            res.status(200);
+            res.json(resultUnverifiedAuthors);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.get("/getverifiedauthors", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.query.uid
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthLibrarian(auth, user_id)
+        if (resultCheckAuth.length) {
+            let resultverifiedAuthors = await sql.getVerifiedAuthors(user_id);
+            res.status(200);
+            res.json(resultverifiedAuthors);
+        }
+        else {
+            res.sendStatus(401);
+        }
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.put("/verifyauthor", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let author_id = req.body.author_id
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql.checkAuthLibrarian(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultVerifyAuthor= await sql.verifyAuthor(user_id,author_id);
+            if (resultVerifyAuthor && resultVerifyAuthor.affectedRows) {
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<FOR TEST PURPOSES >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 router.get("/test", async (req, res) => {

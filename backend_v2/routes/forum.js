@@ -8,6 +8,7 @@ const router = express.Router();
 router.use(bodyParser.json());
 router.use(cors());
 
+
 router.get("/getallthreads", async (req, res) => {
 
     try {
