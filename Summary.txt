@@ -5,22 +5,23 @@ console.log(req.body.YO); BOdy Bakma
 -----------------USER--------
 
 
-● Users are able to register and login. 														# /user/login |  /user/register
-● Users may add each other as friends. 															# /user/addfriend
+● Users are able to register and login. 														# POST:/user/login |  POST:/user/register
+● Users are able to search for friends.                                                         $ GET:/user/getusers | ...
+● Users may add / remove each other as friends and list /answer request. 	                    # POST:/user/addfriend | DELETE:/user/removefriend | GET:/user/getfriends | GET:/user/incomingrequests | GET :/user/outgoingrequests | PUT:/user/requestresponse
 ● Users are able to edit their profile such as biography, username and password.				# /user/getuser | /user/setemail | /user/setname | /user/setbio | /user/setpassword | /user/setusername
-● Users are able to follow Forum threads. 
-● Users are able to write / update / delete comments to Posts. 
-● Users are able to write / update / delete posts. 
+● Users are able to follow and list Forum threads.                                              # /forum/getallthreads | /forum/followthreadtoggle | forum/listfollowedthread
+● Users are able to write / update / delete / view / list / like posts.                         $ /forum/postpost | /forum/getposts | /forum/getpost | /forum/likepost | /forum/deletepost | /forum/updatepost
+● Users are able to write / update / delete / list comments to Posts.                                  
 ● Users are able to recommend books to their friends.
 ● Users are able to create book lists.
 ● Users are able to comment and rate out of 10 on specified books.
 ● Users will be able to create / edit book progress.	
 ● Users are able to report wrong information about books to librarians.
-● Users are able to search for friends.                                                         # /user/getusers         
-● Users are able to search books by filtering author, year, genre.                              #
+
 
 ● Users will be able to comment and like the book progress of their friends.					?
-
+     
+● Users are able to search books by filtering author, year, genre.                              $
 
 
 ---------------AUTHOR---------------------
@@ -32,7 +33,7 @@ console.log(req.body.YO); BOdy Bakma
 
 
 --------------Librarian--------------------
-
+● Librarians are able to create, update, delete a book.
 ● Librarians are able to create new Forum threads. 												
 ● Librarians are able to manage and verify book addition requests.
 ● Librarians are able to create global challenges.
