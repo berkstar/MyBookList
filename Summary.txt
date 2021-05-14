@@ -22,7 +22,7 @@ console.log(req.body.YO); BOdy Bakma
 ● Users are able to report wrong information about books to librarians.
 ● Users will be able to comment and like the book progress of their friends.					
      
-● Users are able to search books by filtering author, year, genre.                              $ GET: /book/searchbook
+● Users are able to search books by filtering author, year, genre.                              $ GET:/book/searchbook 
 ● Users are able to search for friends.                                                         # GET:/user/getusers <Search done in front-end>
 
 ---------------AUTHOR---------------------

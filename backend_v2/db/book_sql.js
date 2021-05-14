@@ -42,7 +42,19 @@ book.delBook = (book_id) => {
 
 book.checkBook = (user_id, book_id) => {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT book_id FROM book_publishes_view WHERE book_id = ? AND author_id = ?",[book_id, user_id], (err, results) => {
+        pool.query("SELECT book_id FROM Book WHERE book_id = ? AND author_id = ?",[book_id, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
+book.searchBookTitle = (keyword) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM book_series_view WHERE title LIKE ?",[keyword], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }

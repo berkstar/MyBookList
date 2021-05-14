@@ -591,6 +591,47 @@ paths:
 
 
 
+  /book/searchbook:
+    get:
+      tags:
+        - "Book-General"
+
+      description: Searchs book from keywords
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: keyword
+          example: 1
+      responses:
+        '200':
+          description: OK - Successfully listed.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    book_id:
+                      type: integer
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    genre:
+                      type: string
+                    year:
+                      type: integer   
+                    img_url:
+                      type: string
+                    pages:
+                      type: integer
+                    author_id:
+                      type: integer  
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
   /book/getmybooks:
     get:
       tags:

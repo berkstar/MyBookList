@@ -86,6 +86,39 @@ router.put("/updatebook", async (req, res) => {
 })
 
 
+router.get("/searchbook", async (req, res) => {
+
+    try {
+        res.type('json')
+        let keyword = req.query.keyword
+        let auth = req.headers.authorization
+        console.log("IN=> " + keyword);
+        keyword = "%" + keyword.trim().replace(/\s/g, "%") + "%";
+        let resultCheckAuth = await user_sql.checkAuth(auth)
+        
+        console.log("OUT=> " + keyword);
+
+        if (resultCheckAuth.length) {
+            let resultGetBook = await book_sql.searchBookTitle(keyword);
+            if (resultGetBook && resultGetBook.length) {
+                res.json(resultGetBook);
+                res.status(200);
+            }
+            else { 
+                
+                res.status(200);
+                res.json([])
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
 router.get("/getmybooks", async (req, res) => {
 
     try {
@@ -102,7 +135,7 @@ router.get("/getmybooks", async (req, res) => {
                 res.json(resultGetBook);
                 res.status(200);
             }
-            else { // If there are duplicates
+            else { 
                 
                 res.status(200);
                 res.json([])
