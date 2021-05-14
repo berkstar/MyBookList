@@ -18,6 +18,16 @@ CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERV
 
 -->>>>>>>>>>>>>>>Views
 
+CREATE VIEW book_series_view AS
+SELECT b.book_id, b.title, b.description, b.genre, s.name AS series_name , b.year, b.img_url, b.pages
+FROM Book b LEFT JOIN series_of so USING(book_id) LEFT JOIN Series s USING(ser_id) ORDER BY title
+
+--For Listing Book and their publishers
+
+CREATE VIEW book_publishes_view AS
+SELECT *
+FROM Book b JOIN publishes p USING(book_id)
+
 --For listing top 4 user comments
 CREATE VIEW top_postcomment_view AS 
 SELECT user_id, pid, title, text, DATE_FORMAT(date, "%e %M %Y") AS date, like_count, (SELECT COUNT(*) FROM post_comment c WHERE c.pid = p.pid ) AS comment_count

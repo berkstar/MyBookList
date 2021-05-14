@@ -15,8 +15,8 @@ INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`,
 INSERT IGNORE INTO `Librarian` (`user_id`) VALUES (9);
 
 /* Author */
-INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verfier_id`) VALUES (1, 1, 9);
-INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verfier_id`) VALUES (3, 0, NULL);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (1, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (3, 0, NULL);
 
 
 
@@ -89,16 +89,16 @@ INSERT IGNORE INTO `post_comment` (`cid`, `pid`) VALUES (9, 19);
 
 
 /* Book */
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (1, 'Officiis sint.', 'Soluta sit autem odit totam quasi sunt. Sed reiciendis aliquid omnis doloremque perferendis et.', 'Molestiae.', 2014, 'http://www.larkin.com/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (2, 'Officiis veniam.', 'Ad dolor eveniet aliquid error eveniet minima. Id repudiandae dicta perferendis commodi reiciendis officia.', 'Dolorem eaque.', 2012, 'http://koss.com/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (3, 'Nostrum excepturi consequatur.', 'Dolorum placeat incidunt et vitae. Illo non adipisci expedita et rerum inventore facere ipsa. Similique iste maxime iusto nihil quisquam quis.', 'Dignissimos alias.', 2005, 'http://www.morissette.biz/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (4, 'Quas placeat nobis.', 'Id rem perferendis voluptatem quis maiores itaque aut. Ea vero nemo sit doloremque consequatur.', 'Corrupti voluptatum.', 2011, 'http://www.reilly.info/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (5, 'Quia distinctio est.', 'Ducimus deleniti sit doloribus doloremque voluptas dolor. Beatae vel molestiae ut quisquam. Fugit velit autem sint inventore neque natus.', 'Corrupti est.', 1987, 'http://hackett.com/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (6, 'Commodi tempora quasi.', 'Dolor debitis natus dolor sapiente rem iusto. Provident quam et quo labore assumenda corrupti tempora voluptas. Et in officia cum expedita.', 'Facere.', 1996, 'http://deckow.com/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (7, 'Voluptatibus cupiditate.', 'Tempore deleniti eius adipisci est autem. Quis rem similique esse voluptatem ad. Eum aut qui vitae rerum aut non molestias adipisci.', 'Ut.', 1986, 'http://west.org/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (8, 'Et ipsa veniam.', 'Explicabo inventore non quis quos dicta at. Dolorum maxime in natus mollitia dolore est.', 'Nihil accusantium.', 2019, 'http://will.org/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (9, 'Repellat consequatur dicta.', 'Labore quia eaque deleniti tempore. Nisi blanditiis non praesentium.', 'Cupiditate impedit.', 2006, 'http://buckridge.net/');
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`) VALUES (10, 'Omnis molestiae omnis.', 'Delectus non repudiandae similique et debitis quaerat. Sequi dicta at quibusdam occaecati sed facere qui. Porro reprehenderit saepe aut incidunt consequatur eaque maiores.', 'Eius.', 1991, 'http://www.hoeger.org/');
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (1, 'Officiis sint.', 'Soluta sit autem odit totam quasi sunt. Sed reiciendis aliquid omnis doloremque perferendis et.', 'Molestiae.', 2014, 'http://www.larkin.com/', 210);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (2, 'Officiis veniam.', 'Ad dolor eveniet aliquid error eveniet minima. Id repudiandae dicta perferendis commodi reiciendis officia.', 'Dolorem eaque.', 2012, 'http://koss.com/', 150);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (3, 'Nostrum excepturi consequatur.', 'Dolorum placeat incidunt et vitae. Illo non adipisci expedita et rerum inventore facere ipsa. Similique iste maxime iusto nihil quisquam quis.', 'Dignissimos alias.', 2005, 'http://www.morissette.biz/', 110);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (4, 'Quas placeat nobis.', 'Id rem perferendis voluptatem quis maiores itaque aut. Ea vero nemo sit doloremque consequatur.', 'Corrupti voluptatum.', 2011, 'http://www.reilly.info/', 172);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (5, 'Quia distinctio est.', 'Ducimus deleniti sit doloribus doloremque voluptas dolor. Beatae vel molestiae ut quisquam. Fugit velit autem sint inventore neque natus.', 'Corrupti est.', 1987, 'http://hackett.com/', 137);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (6, 'Commodi tempora quasi.', 'Dolor debitis natus dolor sapiente rem iusto. Provident quam et quo labore assumenda corrupti tempora voluptas. Et in officia cum expedita.', 'Facere.', 1996, 'http://deckow.com/', 520);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (7, 'Voluptatibus cupiditate.', 'Tempore deleniti eius adipisci est autem. Quis rem similique esse voluptatem ad. Eum aut qui vitae rerum aut non molestias adipisci.', 'Ut.', 1986, 'http://west.org/', 27);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (8, 'Et ipsa veniam.', 'Explicabo inventore non quis quos dicta at. Dolorum maxime in natus mollitia dolore est.', 'Nihil accusantium.', 2019, 'http://will.org/', 50);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (9, 'Repellat consequatur dicta.', 'Labore quia eaque deleniti tempore. Nisi blanditiis non praesentium.', 'Cupiditate impedit.', 2006, 'http://buckridge.net/',720);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (10, 'Omnis molestiae omnis.', 'Delectus non repudiandae similique et debitis quaerat. Sequi dicta at quibusdam occaecati sed facere qui. Porro reprehenderit saepe aut incidunt consequatur eaque maiores.', 'Eius.', 1991, 'http://www.hoeger.org/', 530);
 
 /* Publishes */
 

@@ -22,21 +22,21 @@ console.log(req.body.YO); BOdy Bakma
 ● Users are able to report wrong information about books to librarians.
 ● Users will be able to comment and like the book progress of their friends.					
      
-● Users are able to search books by filtering author, year, genre.                              2$
+● Users are able to search books by filtering author, year, genre.                              $ GET: /book/searchbook
 ● Users are able to search for friends.                                                         # GET:/user/getusers <Search done in front-end>
 
 ---------------AUTHOR---------------------
 
 ● Authors are able to register and login.														# POST:/user/login |  POST:/user/register
-● Authors are able to publish their new books in the system.                                    1$
-● Authors are able to reply user’s comments about their own books.
-● Authors are able to report wrong information or claim issues about their books to librarians.	
+● Authors are able to publish their new / update books in the system.                           # POST: /book/createbook | PUT: /book/updatebook |GET: /book/getmybooks | DELETE: /book/removebook  
+● Authors are able to add / remove edition, series                                              $ POST: /book/addedition | GET: /book/listeditions DELETE: /book/removeedition | POST: /book/addseries | POST: /book/addtoseries | GET: /book/listseries | DELETE: /book/removeseries
+● Authors are able to reply user’s comments about their own books.                              $
+● Authors are able to report wrong information or claim issues about their books to librarians.	$
 
 
 
 --------------Librarian--------------------
-● Librarians are able to list / verify an author.                                               # GET: /user/getunverifiedauthors | GET: /user/getverifiedauthors | PUT: /user/verifyauthor
-● Librarians are able to update, delete a book.                                         
+● Librarians are able to list / verify an author.                                               # GET: /user/getunverifiedauthors | GET: /user/getverifiedauthors | PUT: /user/verifyauthor                                   
 ● Librarians are able to create new / delete Forum threads. 												
 ● Librarians are able to manage and verify book addition requests.
 ● Librarians are able to create global challenges.
