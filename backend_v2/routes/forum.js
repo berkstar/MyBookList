@@ -169,9 +169,95 @@ router.get("/getpost", async (req, res) => {
 
 })
 
+router.delete("/deletepost", async (req, res) => {
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let post_id = req.body.pid
+
+        let auth = req.headers.authorization
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+        
+        if (resultCheckAuth.length){
+            let resultUnfollowThread = await sql_forum.deletePost(post_id, user_id);
+            if(resultUnfollowThread && resultUnfollowThread.affectedRows){
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If there is an sql error.
+            res.sendStatus(401);
+        }
+        
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.put("/likepost", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let pid = req.body.pid
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultLikePost = await sql_forum.likePost(pid);
+            if (resultLikePost && resultLikePost.affectedRows) {
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
 
 
+router.put("/updatepost", async (req, res) => {
 
+    try {
+        res.type('json')
+
+
+        let user_id = req.body.uid
+        let pid = req.body.pid
+        let title = req.body.title
+        let context = req.body.context
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultLikePost = await sql_forum.updatePost(user_id, pid,title,context);
+            if (resultLikePost && resultLikePost.affectedRows) {
+                res.sendStatus(200);
+            }
+            else {
+                res.sendStatus(401);
+            }
+        }
+        else {
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
 
 router.post("/postpost", async (req, res) => {
 

@@ -6,23 +6,21 @@ console.log(req.body.YO); BOdy Bakma
 
 
 ● Users are able to register and login. 														# POST:/user/login |  POST:/user/register
-● Users are able to search for friends.                                                         $ GET:/user/getusers | ...
+
 ● Users may add / remove each other as friends and list /answer request. 	                    # POST:/user/addfriend | DELETE:/user/removefriend | GET:/user/getfriends | GET:/user/incomingrequests | GET :/user/outgoingrequests | PUT:/user/requestresponse
 ● Users are able to edit their profile such as biography, username and password.				# GET:/user/getuser | PUT:/user/setemail | PUT:/user/setname | PUT:/user/setbio | PUT:/user/setpassword | PUT:/user/setusername
 ● Users are able to follow and list Forum threads.                                              # GET:/forum/getallthreads | POST:/forum/followthread | DELETE:/forum/unfollowthread | GET:forum/listfollowedthreads
-● Users are able to write / update / delete / view / list / like posts.                         $ POST:/forum/postpost | GET:/forum/getposts | GET:/forum/getpost | PUT:/forum/togglelikepost | DELETE:/forum/deletepost | PUT:/forum/updatepost
+● Users are able to write / update / delete / view / list / like posts.                         # POST:/forum/postpost | GET:/forum/getposts | GET:/forum/getpost | PUT:/forum/likepost | DELETE:/forum/deletepost | PUT:/forum/updatepost
 ● Users are able to write / update / delete / list comments to Posts.                                  
 ● Users are able to recommend books to their friends.
 ● Users are able to create book lists.
 ● Users are able to comment and rate out of 10 on specified books.
 ● Users will be able to create / edit book progress.	
 ● Users are able to report wrong information about books to librarians.
-
-
-● Users will be able to comment and like the book progress of their friends.					?
+● Users will be able to comment and like the book progress of their friends.					
      
 ● Users are able to search books by filtering author, year, genre.                              $
-
+● Users are able to search for friends.                                                         $ GET:/user/getusers | ...
 
 ---------------AUTHOR---------------------
 

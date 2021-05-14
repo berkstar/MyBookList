@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const sql_system = require("../db/system_sql");
 const cors = require("cors");
-
+const superkey = "superadmin"
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -15,11 +15,16 @@ router.use(cors());
 router.post("/inserttuples", async (req, res) => {
 
     try {
-        res.type('json')
-        
-        await sql_system.insertTuples();
-        res.sendStatus(200);
 
+        res.type('json')
+        let super_auth = req.headers.super_auth
+        if (super_auth == superkey) {
+            await sql_system.insertTuples();
+            res.sendStatus(200);
+        }
+        else
+            res.sendStatus(401);
+    
 
     } catch (error) {
         res.sendStatus(500);
@@ -31,11 +36,16 @@ router.post("/inserttuples", async (req, res) => {
 router.delete("/truncatetables", async (req, res) => {
 
     try {
-        res.type('json')
-        
-        await sql_system.truncatetables();
-        res.sendStatus(200);
 
+        res.type('json')
+        let super_auth = req.headers.super_auth
+        if (super_auth == superkey) {
+            await sql_system.truncatetables();
+            res.sendStatus(200);
+        }
+        else
+            res.sendStatus(401);
+    
 
     } catch (error) {
         res.sendStatus(500);
@@ -46,11 +56,16 @@ router.delete("/truncatetables", async (req, res) => {
 router.post("/inserttables", async (req, res) => {
 
     try {
-        res.type('json')
-        
-        await sql_system.insertTables();
-        res.sendStatus(200);
 
+        res.type('json')
+        let super_auth = req.headers.super_auth
+        if (super_auth == superkey) {
+            await sql_system.insertTables();
+            res.sendStatus(200);
+        }
+        else
+            res.sendStatus(401);
+    
 
     } catch (error) {
         res.sendStatus(500);

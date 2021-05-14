@@ -86,6 +86,18 @@ forum.getPost = (post_id) => {
     })
 }
 
+forum.deletePost = (pid, user_id) =>    {
+    return new Promise((resolve, reject) => {
+
+        pool.query("DELETE FROM Post WHERE user_id = ? AND pid = ?",[user_id, pid], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 forum.addPost = (thread_id, user_id, post_title, post_text) =>    {
     return new Promise((resolve, reject) => {
 
@@ -98,6 +110,30 @@ forum.addPost = (thread_id, user_id, post_title, post_text) =>    {
         })
 
 
+    })
+}
+
+forum.updatePost = (user_id, pid, title, text) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE Post SET title = ?, text = ? WHERE pid = ? and user_id = ?",[title,text,pid, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+forum.likePost = (pid) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("UPDATE Post SET like_count = like_count + 1 WHERE pid = ?",[pid], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
     })
 }
 
