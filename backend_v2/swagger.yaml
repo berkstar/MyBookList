@@ -592,6 +592,38 @@ paths:
 
 
 
+
+  /book/postbooklist:
+    post:
+      tags:
+        - "Book-BookList"
+
+      description: Adds booklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                  list_name:
+                    type: string
+                  book_ids:
+                    type: array
+                    items:
+                        type: integer
+
+
+              
+      responses:
+        '200':
+          description: OK - Successfully added.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+
   /book/addreview:
     post:
       tags:

@@ -18,7 +18,7 @@ router.post("/postbooklist", async (req, res) => {
     try {
         res.type('json')
         let user_id = req.body.uid
-        let book_id = req.body.list_name
+        let list_name = req.body.list_name
         let book_ids = req.body.book_ids
 
         let auth = req.headers.authorization
@@ -32,10 +32,8 @@ router.post("/postbooklist", async (req, res) => {
             book_ids.forEach(book_id => {
                  book_sql.addBookToList(book_id, bl_id);
             });
-            await book_sql.updateBookListCount(bl_id, book_ids.length);
-
-            let resultAddReview = await book_sql.addBookReview(user_id, book_id,rating,review);
-            if (resultAddReview && resultAddReview.affectedRows) {
+            let resultBookCount = await book_sql.updateBookListCount(bl_id, book_ids.length);
+            if (resultBookCount && resultBookCount.affectedRows) {
                 res.sendStatus(200);
             }
             else { // If there are duplicates

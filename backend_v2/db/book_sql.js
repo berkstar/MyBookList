@@ -226,4 +226,29 @@ book.createBookList = (user_id, list_name) => {
     })
 }   
 
+
+book.addBookToList = (book_id, bl_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO has_books (book_id, bl_id) VALUES (?,?)",[book_id, bl_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+} 
+
+
+book.updateBookListCount = (bl_id, book_count) => {
+    return new Promise((resolve, reject) => {
+        pool.query("UPDATE Book_list SET book_count = ? WHERE bl_id = ?",[book_count, bl_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 module.exports = book;
