@@ -165,7 +165,7 @@ book.addProgressMark = (user_id, book_id, pro_id) => {
 
 book.getMyProgressBooks = (user_id) => {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT * FROM book_progress_view WHERE user_id = ?",[user_id], (err, results) => {
+        pool.query("SELECT * FROM book_progress_user_view WHERE user_id = ?",[user_id], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }
@@ -176,7 +176,7 @@ book.getMyProgressBooks = (user_id) => {
 
 book.updateProgress = (page_num,pro_id,user_id) => {
     return new Promise((resolve, reject) => {
-        pool.query("UPDATE Progress SET page_number = ? WHERE EXISTS( SELECT book_id FROM mark_progress join Book USING (book_id) WHERE pro_id = ? and pages >= ? and user_id = ? ) AND pro_id = ?",[page_num, pro_id, page_num, user_id, pro_id], (err, results) => {
+        pool.query("UPDATE Progress SET page_number = ?, date = CURRENT_TIMESTAMP() WHERE EXISTS( SELECT book_id FROM mark_progress join Book USING (book_id) WHERE pro_id = ? and pages >= ? and user_id = ? ) AND pro_id = ?",[page_num, pro_id, page_num, user_id, pro_id], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }
@@ -185,6 +185,17 @@ book.updateProgress = (page_num,pro_id,user_id) => {
     })
 }
 
+
+book.deleteProgress = (user_id, pro_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("DELETE FROM Progress WHERE EXISTS( SELECT pro_id FROM mark_progress WHERE pro_id = ? and user_id = ? ) AND pro_id = ?",[pro_id ,user_id, pro_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
 
 
 

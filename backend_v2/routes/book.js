@@ -82,6 +82,39 @@ router.post("/addprogress", async (req, res) => {
 })
 
 
+router.delete("/deleteprogress", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let pro_id = req.body.pro_id
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthAuthor(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultCheckBook = await book_sql.deleteProgress(user_id, pro_id);
+            if (resultCheckBook.affectedRows) {
+                res.sendStatus(200);
+            }
+            else { 
+                res.sendStatus(401);
+            }
+        }
+        else { // If three are none uid of fid
+            res.sendStatus(401);
+        }
+
+
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+
+})
+
+
 router.put("/editprogress", async (req, res) => {
 
     try {
@@ -91,7 +124,6 @@ router.put("/editprogress", async (req, res) => {
         let page_num = req.body.page_num
 
         let auth = req.headers.authorization
-
         let resultCheckAuth = await user_sql.checkAuthAuthor(auth, user_id)
 
         if (resultCheckAuth.length) {

@@ -17,11 +17,21 @@ CALL PostComments_procedure(19)*/
 CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM auth WHERE CURRENT_TIMESTAMP() > auth.date
 
 /*>>>>>>>>>>>>>>>Views*/
+
+/* For listing books with progress with username and dates */
+
+CREATE VIEW book_progress_user_view AS
+SELECT ROUND((p.page_number/ b.pages) * 100, 0) AS progress , mp.book_id, mp.user_id, b.title, b.description, b.pages AS total_pages, p.page_number AS page_read, DATE_FORMAT(p.date, "%e %M %Y") AS date, p.pro_id, u.user_name, u.name
+FROM Progress p JOIN mark_progress mp USING(pro_id) JOIN Book b USING(book_id) JOIN User u USING(user_id) ORDER BY Progress DESC
 /*For Listing Books with Progress */
 
-CREATE VIEW book_progress_view AS
+
+
+/* CREATE VIEW book_progress_view AS
 SELECT ROUND((p.page_number/ b.pages) * 100, 0) AS progress , mp.book_id, mp.user_id, b.title, b.description, b.pages AS total_pages, p.page_number AS page_read, p.pro_id
 FROM Progress p JOIN mark_progress mp USING(pro_id) JOIN Book b USING(book_id) ORDER BY Progress DESC
+ */
+
 
 /* For Listing Books with series and rating*/
 
