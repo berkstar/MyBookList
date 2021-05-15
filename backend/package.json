@@ -15,8 +15,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "npx nodemon Server.js -e yaml,js,mjs,json -w *",
-    "start": "node --inspect server.js"
+    "start": "node Server.js",
+    "test": "npx nodemon Server.js -e yaml,js,mjs,json -w *"
   },
   "keywords": [],
   "author": "",
