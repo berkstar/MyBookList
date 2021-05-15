@@ -18,6 +18,12 @@ CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERV
 
 /*>>>>>>>>>>>>>>>Views*/
 
+/* For listing comments to progress */
+/* 
+CREATE VIEW comment_progress_view AS                                                                       
+SELECT u.user_id, pc.cid, pc.pro_id, c.date, u.user_name, u.name, c.text                                   
+FROM Progress p JOIN progress_comment pc USING(pro_id) JOIN Comment c USING(cid) JOIN User u USING(user_id) */
+
 /* For listing books with progress with username and dates */
 
 CREATE VIEW book_progress_user_view AS

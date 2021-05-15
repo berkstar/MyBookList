@@ -592,6 +592,36 @@ paths:
 
 
 
+  /book/addreview:
+    post:
+      tags:
+        - "Book-Review"
+
+      description: Adds book review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                  book_id:
+                    type: integer
+                  rating:
+                    type: integer
+                  review:
+                    type: string
+              
+      responses:
+        '200':
+          description: OK - Successfully added.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+
+
   /book/getmybooks:
     get:
       tags:

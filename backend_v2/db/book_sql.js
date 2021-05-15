@@ -174,6 +174,8 @@ book.getMyProgressBooks = (user_id) => {
     })
 }
 
+
+
 book.updateProgress = (page_num,pro_id,user_id) => {
     return new Promise((resolve, reject) => {
         pool.query("UPDATE Progress SET page_number = ?, date = CURRENT_TIMESTAMP() WHERE EXISTS( SELECT book_id FROM mark_progress join Book USING (book_id) WHERE pro_id = ? and pages >= ? and user_id = ? ) AND pro_id = ?",[page_num, pro_id, page_num, user_id, pro_id], (err, results) => {
@@ -197,6 +199,18 @@ book.deleteProgress = (user_id, pro_id) => {
     })
 }
 
+
+book.addBookReview = (user_id, book_id,rating,review) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO review (user_id, book_id, rating, comment) VALUES (?,?,?,?)",[user_id, book_id, rating, review], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}   
 
 
 module.exports = book;

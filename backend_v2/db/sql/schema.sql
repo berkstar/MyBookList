@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS review(
   book_id INT,
   FOREIGN KEY(book_id ) REFERENCES Book(book_id ) ON DELETE CASCADE,
   rating INT NOT NULL,
-  comment VARCHAR(256) NOT NULL,
+  comment VARCHAR(256),
   reply VARCHAR(256) DEFAULT NULL,
   CONSTRAINT PK_review PRIMARY KEY (user_id,book_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
