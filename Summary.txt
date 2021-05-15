@@ -15,10 +15,10 @@ console.log(req.body.YO); BOdy Bakma
 
 
 
-● Users are able to recommend books to their friends.                                           3$ GET: /book/incomingrecommends | GET: /book/outgoingrecommends| POST: /book/recommend | DELETE: /book/deleterecommend
-● Users are able to create / list their own book lists.                                         5$ GET: /book/getmybooklist | 
-● Users are able to comment and rate out of 10 on specified books.                              4$
-● Users will be able to create / edit book progress.	
+● Users are able to recommend books to their friends.                                           # GET: /book/incomingrecommends | GET: /book/outgoingrecommends| POST: /book/recommend | DELETE: /book/deleterecommend
+● Users are able to create / list their own book lists.                                         $ GET: /book/getmybooklists | POST: /book/createbooklist | POST: /book/addbooktolist | DELETE: /book/deletebooklist | DELETE: /book/removebookfromlist
+● Users are able to comment and rate out of 10 on specified books.                              $ 
+● Users will be able to create / edit book progress.                                            $ GET: /book/getmybooks	| POST: /book/addprogress | PUT: /book/editprogress
 ● Users are able to report wrong information about books to librarians.
 ● Users will be able to comment and like the book progress of their friends.					
      
@@ -40,7 +40,6 @@ console.log(req.body.YO); BOdy Bakma
 ● Librarians are able to create new / delete Forum threads. 												
 ● Librarians are able to manage and verify book addition requests.
 ● Librarians are able to create global challenges.
-● Librarians are able to verify author accounts.
 ● On request by users or authors, they are able to edit incorrect information about books.
 
 
