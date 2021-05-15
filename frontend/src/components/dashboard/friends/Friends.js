@@ -90,13 +90,13 @@ export default function Friends() {
                                 <CardActionArea>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {friend.title}
+                                            {friend.name}
                                         </Typography>
-                                        <Typography component="p">{friend.content}</Typography>
+                                        <Typography component="p">{friend.biography}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <Button onClick={() => window.helloComponent.handleOtherProfile()} size="large" color="primary">
+                                    <Button onClick={() => window.helloComponent.handleOtherProfile(friend)} size="large" color="primary">
                                         View Profile
                                     </Button>
                                 </CardActions>

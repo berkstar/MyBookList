@@ -12,11 +12,18 @@ import CloseIcon from '@material-ui/icons/Close';
 import Api from 'api/Api';
 import { useHistory } from "react-router-dom";
 import { Col, Row } from 'react-bootstrap';
+import Posts from './Posts';
 
 function Post(props) {
-    const [like, setLike] = useState(0);
     const [comment, setComment] = useState(-1);
-    const posts = props.posts
+    const [commentId, setCommentId] = useState(-1);
+
+    const [liked, updateLiked] = useState(false);
+
+
+    var text;
+    const posts = props.posts;
+    const history = useHistory();
 
     const If = ({ condition }) => (condition ? <CommentBox/> : <br/>);
 
@@ -28,12 +35,13 @@ function Post(props) {
                         className="container-fluid bg-info text-light"
                         variant="outlined"
                         placeholder="Comment"
+                        onChange={(e)=>{text = e.target.value}}
                         >
                     </TextField>
                 </Card>
             </Col>
             <Col className="d-flex align-items-center">
-                <Button className="container-fluid col-6" onClick={() => {setComment(-1)}} color="primary">
+                <Button className="container-fluid col-6" onClick={() => {sendComment()}} color="primary">
                     <SendIcon className="m-auto" fontSize="large" style={{color:"#000000"}}/>
                 </Button>
                 <Button className="container-fluid col-6" onClick={() => {setComment(-1)}} color="primary">
@@ -45,10 +53,31 @@ function Post(props) {
 
     function handleComment(pid, postIndex) {
         setComment(postIndex);
+        setCommentId(pid);
     }
 
-    function handleLike(pid) {
-        setLike(like + 1);
+    async function sendComment() {
+        let response = await Api.commentPost(text, commentId);
+        if( response.status !== 200 ) {
+            alert("Error!");
+        }
+        else {
+            setComment(-1);
+            props.parsePosts();
+        }
+    }
+
+    async function handleLike(pid) {
+        if (liked) alert("You have already liked this post!");
+        else {
+            let response = await Api.likePost(pid);
+            if (response.status !== 200) {
+                alert("Error!");
+            } else {
+                updateLiked(true);
+                props.parsePosts();
+            }
+        }
     }
 
     return (
@@ -58,27 +87,25 @@ function Post(props) {
                         item
                         key={post.title}
                         >
-                        <Card
-                            onClick={() => {window.helloComponent.handlePostDetails(post)}}
-                            >
-                            <CardActionArea>
+                        <Card>
+                            <CardActionArea onClick={() => {window.helloComponent.handlePostDetails(post)}}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
                                         {post.title}
                                     </Typography>
-                                    <Typography component="p">{post.excerpt}</Typography>
+                                    <Typography variant="body1" component="p">{post.user_name}</Typography>
                                     <br/>
                                     <Typography component="p">
-                                        {post.content}
+                                        {post.text}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button onClick={() => {handleLike(post.id)}} size="small" color="primary">
+                                <Button onClick={() => {handleLike(post.pid)}} size="small" color="primary">
                                     <ThumbUpIcon style={{color:"#606060"}}/>
-                                    <Typography style={{color:"#606060"}} className="mx-1">{like}</Typography>
+                                    <Typography style={{color:"#606060"}} className="mx-1">{post.like_count}</Typography>
                                 </Button>
-                                <Button onClick={() => {handleComment(post.id, index)}} size="small" color="primary">
+                                <Button onClick={() => {handleComment(post.pid, index)}} size="small" color="primary">
                                     <CommentIcon className="mt-1" style={{color:"#606060"}}/>
                                 </Button>
                             </CardActions>

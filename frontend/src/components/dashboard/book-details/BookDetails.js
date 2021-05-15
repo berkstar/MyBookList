@@ -9,6 +9,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Card, TextField, Button, CardMedia, Container, Grid} from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import Popup from 'reactjs-popup';
 import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,16 +33,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function BookDetails() {
+export default function BookDetails(props) {
     const [rating, setRating] = useState(2);
     const [progress, setProgress] = useState(0);
     const classes = useStyles();
+    const book = props.book;
+
+    function recommend() {
+
+    }
 
     const If = ({ condition }) => (condition ? <ProgressBox/> : <br/>);
-
-    function EditBio(text) {
-        // send api edit request
-    }
 
     const ProgressBox = () => (
         <div>
@@ -86,13 +88,13 @@ export default function BookDetails() {
         <Card className="bg-secondary text-light">
             <Grid style={{ marginLeft:30, marginRight:30 }}>
                 <Grid className="my-4" container justify="space-between">
-                    <h1 className="ml-4">The Hitchhiker's Guide to the Galaxy</h1>
+                    <h1 className="ml-4">{book.title}</h1>
                     <Button
                         variant="contained"
                         color="default"
                         size="medium"
                         className="mr-4"
-                        onClick={() => { alert('clicked') }}>
+                        onClick={() => { alert("clicked") }}>
                         <b>Recommend to a friend</b>
                     </Button>
                 </Grid>
@@ -104,9 +106,13 @@ export default function BookDetails() {
                 />
                 <br/>
                 <Typography component="h4" variant="h4">
-                    Author: Douglas Adams
+                    Author: {book.author_name}
                     <br/>
-                    Number of Pages: 334
+                    Number of Pages: {book.pages}
+                    <br/>
+                    Genre: {book.genre}
+                    <br/>
+                    Year: {book.year}
                 </Typography>
                 <br/>
                 <Typography component="h4" variant="h4" xs={10}>
@@ -114,7 +120,7 @@ export default function BookDetails() {
                 </Typography>
                 <br/>
                 <Typography component="h6" variant="h6" xs={10}>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    "{book.description}"
                 </Typography>
                 <br/>
                 <Row className="align-items-center">
@@ -140,10 +146,7 @@ export default function BookDetails() {
                 <br/>
                 <Rating
                     name="simple-controlled"
-                    value={rating}
-                    onChange={(event, newValue) => {
-                        setRating(newValue);
-                    }}
+                    value={book.rating}
                     className="mb-4"
                 />
             </Grid>

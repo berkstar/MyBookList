@@ -35,7 +35,9 @@ export default function EditBook() {
     const classes = useStyles();
     const[numOfPages, setNumOfPages] = useState(100);
     const[description, setDescription] = useState("Lorem ipsum sit amed...");
-    const[bookName, setBookName] = useState("bookName");
+    const[bookName, setBookName] = useState("Lord of the Rings");
+    const[genre, setGenre] = useState("Science Fiction");
+    const[year, setYear] = useState("2000");
     const [user, setUser] = useState([]);
     const history = useHistory();
     const [edit, setEdit] = useState(0);
@@ -52,7 +54,7 @@ export default function EditBook() {
     }
 
     async function postBook() {
-        let response = await Api.postBook(bookName, user.id, numOfPages, description);
+        let response = await Api.postBook(bookName, user.user_id, numOfPages, description, genre, year);
         if( response.status !== 200 ) {
             history.push("/login");
         } 
@@ -67,6 +69,12 @@ export default function EditBook() {
         }
         else if(contentIndex == 3) {
             setNumOfPages(content);
+        }
+        else if(contentIndex == 5) {
+            setGenre(content);
+        }
+        else if(contentIndex == 6) {
+            setYear(content);
         }
         else {
             setDescription(content);
@@ -109,6 +117,12 @@ export default function EditBook() {
         else if(index == 3) {
             return numOfPages;
         }
+        else if(index == 5) {
+            return genre;
+        }
+        else if(index == 6) {
+            return year;
+        }
         else {
             return description;
         }
@@ -150,6 +164,16 @@ export default function EditBook() {
                         <br/>
                         Number of Pages: <If condition={edit==3} index={3}/>
                         <Button onClick={() => {setEdit(3)}} color="primary">
+                            <EditIcon className="m-auto" fontSize="large"  style={{color:"#ffffff"}}/>
+                        </Button>
+                        <br/>
+                        Genre: <If condition={edit==5} index={5}/>
+                        <Button onClick={() => {setEdit(5)}} color="primary">
+                            <EditIcon className="m-auto" fontSize="large"  style={{color:"#ffffff"}}/>
+                        </Button>
+                        <br/>
+                        Year: <If condition={edit==6} index={6}/>
+                        <Button onClick={() => {setEdit(6)}} color="primary">
                             <EditIcon className="m-auto" fontSize="large"  style={{color:"#ffffff"}}/>
                         </Button>
                     </Typography>

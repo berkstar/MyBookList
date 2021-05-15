@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Typography } from "@material-ui/core";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import CommentIcon from '@material-ui/icons/Comment';
-import SendIcon from '@material-ui/icons/Send';
-import CloseIcon from '@material-ui/icons/Close';
-import Api from 'api/Api';
 import { useHistory } from "react-router-dom";
-import posts from './dummy-posts.json'
-import { Col, Row } from 'react-bootstrap';
 import Post from './Post';
+import Api from 'api/Api';
 
 function Posts(props) {
-    const [posts, setPosts] = useState([]);
     const history = useHistory();
+    const [posts, setPosts] = useState([]);
 
     const parsePosts = async () => {
-        let response = await Api.getPosts(props.thread.id);
+        let response = await Api.getPosts(props.thread.tid);
         if( response.status !== 200 ) {
             history.push("/login");
         } 
@@ -44,7 +34,7 @@ function Posts(props) {
                     <b>NEW POST</b>
                 </Button>
             </Grid>
-            <Post posts={posts}/>
+            <Post posts={posts} parsePosts={parsePosts}/>
         </div>
     );
 }

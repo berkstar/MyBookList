@@ -16,23 +16,21 @@ import { Col, Row } from 'react-bootstrap';
 function PostDetails(props) {
     const [like, setLike] = useState(0);
     const [comment, setComment] = useState(-1);
-    const post = props.post;
-    const comments = post.comments;
+    const [post, setPost] = useState([]);
+    const history = useHistory();
+    var text;
 
-    // const [post, setPost] = useState([]);
-    // const history = useHistory();
+    const parsePost = async () => {
+        let response = await Api.getPost(props.post.pid);
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setPost(response.data[0]);
+        }
+    }
 
-    // const parsePost = async () => {
-    //     let response = await Api.getPost(props.post.pid);
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setPost(response.data);
-    //     }
-    // }
-
-    // parsePosts();
+    useState(parsePost);
 
     const If = ({ condition }) => (condition ? <CommentBox/> : <br/>);
 
@@ -44,12 +42,13 @@ function PostDetails(props) {
                         className="container-fluid bg-info text-light"
                         variant="outlined"
                         placeholder="Comment"
+                        onChange={(e)=>{text = e.target.value}}
                         >
                     </TextField>
                 </Card>
             </Col>
             <Col className="d-flex align-items-center">
-                <Button className="container-fluid col-6" onClick={() => {setComment(-1)}} color="primary">
+                <Button className="container-fluid col-6" onClick={() => {sendComment()}} color="primary">
                     <SendIcon className="m-auto" fontSize="large" style={{color:"#000000"}}/>
                 </Button>
                 <Button className="container-fluid col-6" onClick={() => {setComment(-1)}} color="primary">
@@ -59,12 +58,25 @@ function PostDetails(props) {
         </Row>
     );
 
-    function handleComment(pid) {
-        setComment(1);
+    async function sendComment() {
+        let response = await Api.commentPost(text, post.pid);
+        if( response.status !== 200 ) {
+            alert("Error!");
+        }
+        else {
+            setComment(-1);
+            parsePost();
+        }
     }
 
-    function handleLike(pid) {
-        setLike(like + 1);
+    async function handleLike() {
+        let response = await Api.likePost(post.pid);
+        if( response.status !== 200 ) {
+            alert("Error!");
+        }
+        else {
+            parsePost();
+        }
     }
 
     return (
@@ -79,19 +91,19 @@ function PostDetails(props) {
                             <Typography gutterBottom variant="h5" component="h2">
                                 {post.title}
                             </Typography>
-                            <Typography component="p">{post.excerpt}</Typography>
+                            <Typography component="p">{post.user_name}</Typography>
                             <br/>
                             <Typography component="p">
-                                {post.content}
+                                {post.text}
                             </Typography>
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-                        <Button onClick={() => {handleLike(post.id)}} size="small" color="primary">
+                        <Button onClick={() => {handleLike()}} size="small" color="primary">
                             <ThumbUpIcon style={{color:"#606060"}}/>
-                            <Typography style={{color:"#606060"}} className="mx-1">{like}</Typography>
+                            <Typography style={{color:"#606060"}} className="mx-1">{post.like_count}</Typography>
                         </Button>
-                        <Button onClick={() => {handleComment(post.id)}} size="small" color="primary">
+                        <Button onClick={() => {setComment(1)}} size="small" color="primary">
                             <CommentIcon className="mt-1" style={{color:"#606060"}}/>
                         </Button>
                     </CardActions>
@@ -99,7 +111,7 @@ function PostDetails(props) {
                 <If condition={comment === 1}>
                 </If>
             </Grid>
-            {comments.map((comment, index) => (
+            {post.comments && post.comments.map((comment, index) => (
                     <Grid 
                         item
                         key={index}
@@ -109,11 +121,11 @@ function PostDetails(props) {
                             <CardActionArea>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        {comment.author_username}
+                                        {comment.name}
                                     </Typography>
                                     <br/>
                                     <Typography component="p">
-                                        {comment.content}
+                                        {comment.text}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>

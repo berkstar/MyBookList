@@ -82,7 +82,8 @@ export default function SearchFriends() {
     async function addFriend(friendId) {
         const response = await Api.addFriend(friendId);
         if(response.status === 200) {
-            alert("Friend request sent!");
+            alert("Friend added!");
+            parseUsers();
         }
     }
 
@@ -94,7 +95,7 @@ export default function SearchFriends() {
             let corres_users = []
             for(var i = 0; i < allUsers.length; i++)
             {
-                if(allUsers[i].title.toLowerCase().indexOf(input.toLowerCase()) !== -1)
+                if(allUsers[i].name.toLowerCase().indexOf(input.toLowerCase()) !== -1)
                 {
                     corres_users.push(allUsers[i]);
                 }
