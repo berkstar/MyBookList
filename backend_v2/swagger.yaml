@@ -686,7 +686,7 @@ paths:
                       type: string
                     description:
                       type: string
-                    total_pages:
+                    pages:
                       type: integer
                     page_read:
                       type: integer
@@ -700,6 +700,12 @@ paths:
                       type: string
                     rating:
                       type: integer
+                    year:
+                      type: integer
+                    genre:
+                      type: string
+                    author_name:
+                      type: string
 
         '401':
           description: Unauthorized - Token is expired or wrong.

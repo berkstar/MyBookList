@@ -200,6 +200,18 @@ book.deleteProgress = (user_id, pro_id) => {
 }
 
 
+book.deleteProgressUserId = (book_id, user_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("DELETE FROM Progress WHERE pro_id = (SELECT pro_id FROM mark_progress WHERE book_id = ? and user_id = ?)",[book_id ,user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
 book.addBookReview = (user_id, book_id,rating,review) => {
     return new Promise((resolve, reject) => {
         

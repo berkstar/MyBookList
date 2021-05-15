@@ -132,6 +132,8 @@ router.post("/addprogress", async (req, res) => {
         let resultCheckAuth = await user_sql.checkAuthType(auth, user_id)
 
         if (resultCheckAuth.length) {
+
+            await book_sql.deleteProgressUserId(book_id, user_id);
             let resultAddProgress = await book_sql.addProgress(page_num, book_id);
             if (resultAddProgress && resultAddProgress.affectedRows) {
                 pro_id = resultAddProgress.insertId
