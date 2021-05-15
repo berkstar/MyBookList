@@ -73,7 +73,7 @@ forum.listPosts = (threadId) => {
 }
 
 
-forum.listMyPosts = (user_id) => {
+forum.listUserPosts = (user_id) => {
     return new Promise((resolve, reject) => {
 
 

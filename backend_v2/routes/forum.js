@@ -151,12 +151,12 @@ router.get("/getuserposts", async (req, res) => {
         let auth = req.headers.authorization
         let user_id = req.query.uid
 
-        let resultCheckAuth = await sql_user.checkAuthType(auth, user_id)
+        let resultCheckAuth = await sql_user.checkAuth(auth)
 
         
         
         if (resultCheckAuth.length) {
-            let resultListThreads = await sql_forum.listMyPosts(user_id)
+            let resultListThreads = await sql_forum.listUserPosts(user_id)
             res.status(200);
             res.json(resultListThreads);
         }
