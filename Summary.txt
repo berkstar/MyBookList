@@ -15,20 +15,20 @@ console.log(req.body.YO); BOdy Bakma
 
 
 
-● Users are able to recommend books to their friends.                                           3$
-● Users are able to create book lists.                                                          5$
+● Users are able to recommend books to their friends.                                           3$ GET: /book/incomingrecommends | GET: /book/outgoingrecommends| POST: /book/recommend | DELETE: /book/deleterecommend
+● Users are able to create / list their own book lists.                                         5$ GET: /book/getmybooklist | 
 ● Users are able to comment and rate out of 10 on specified books.                              4$
 ● Users will be able to create / edit book progress.	
 ● Users are able to report wrong information about books to librarians.
 ● Users will be able to comment and like the book progress of their friends.					
      
-● Users are able to search books by filtering author, year, genre.                              $ GET:/book/searchbook 
+● Users are able to search books by filtering author, year, genre.                              # GET:/book/searchbook 
 ● Users are able to search for friends.                                                         # GET:/user/getusers <Search done in front-end>
 
 ---------------AUTHOR---------------------
 
 ● Authors are able to register and login.														# POST:/user/login |  POST:/user/register
-● Authors are able to publish their new / update books in the system.                           # POST: /book/createbook | PUT: /book/updatebook |GET: /book/getmybooks | DELETE: /book/removebook  
+● Authors are able to publish their new / update books in the system.                           # POST: /book/createbook | PUT: /book/updatebook |GET: /book/getmyownbooks | DELETE: /book/removebook  
 ● Authors are able to add / remove edition, series                                              $ POST: /book/addedition | GET: /book/listeditions DELETE: /book/removeedition | POST: /book/addseries | POST: /book/addtoseries | GET: /book/listseries | DELETE: /book/removeseries
 ● Authors are able to reply user’s comments about their own books.                              $
 ● Authors are able to report wrong information or claim issues about their books to librarians.	$

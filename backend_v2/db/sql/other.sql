@@ -1,4 +1,4 @@
--->>>>>>>>>>Procedures
+/*>>>>>>>>>>Procedures*/
 
 
 DROP PROCEDURE IF EXISTS PostComments_procedure;
@@ -9,47 +9,47 @@ USING (cid) JOIN User u
 USING (user_id) ORDER BY c.date
 
 
---For Calling<<<
---CALL PostComments_procedure(19)
+/*For Calling<<<
+CALL PostComments_procedure(19)*/
 
--->>>>>>>>>>>Event
+/*>>>>>>>>>>>Event*/
 
 CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM auth WHERE CURRENT_TIMESTAMP() > auth.date
 
--->>>>>>>>>>>>>>>Views
+/*>>>>>>>>>>>>>>>Views*/
 
 CREATE VIEW book_series_view AS
 SELECT b.book_id, b.title, b.description, b.genre, s.name AS series_name , b.year, b.img_url, b.pages
 FROM Book b LEFT JOIN series_of so USING(book_id) LEFT JOIN Series s USING(ser_id) ORDER BY title
 
---For Listing Book and their publishers
+/*For Listing Book and their publishers*/
 
 CREATE VIEW book_publishes_view AS
 SELECT *
 FROM Book b JOIN publishes p USING(book_id)
 
---For listing top 4 user comments
+/*For listing top 4 user comments*/
 CREATE VIEW top_postcomment_view AS 
 SELECT user_id, pid, title, text, DATE_FORMAT(date, "%e %M %Y") AS date, like_count, (SELECT COUNT(*) FROM post_comment c WHERE c.pid = p.pid ) AS comment_count
 FROM Post p
 ORDER BY like_count DESC
---For listing incoming friend requests
+/*For listing incoming friend requests*/
 
 CREATE VIEW incoming_request_view AS 
 SELECT f.user_id AS sender_id, f.friend_id AS receiver_id, u.user_name, u.name, f.accepted FROM friend_of f JOIN User u ON f.user_id = u.user_id WHERE f.accepted = 0 ORDER BY u.name
 
 
---For listing outgoing friend requests
+/*For listing outgoing friend requests*/
 
 CREATE VIEW outgoing_request_view AS 
 SELECT f.user_id AS sender_id, f.friend_id AS receiver_id, u.user_name, u.name, f.accepted FROM friend_of f JOIN User u ON f.friend_id = u.user_id WHERE f.accepted = 0 ORDER BY u.name
 
 
--- For listing posts after selecting a thread
+/*For listing posts after selecting a thread */
 CREATE VIEW Post_Preview AS
 SELECT p.tid, p.pid, u.user_name, p.title, p.text, p.like_count, p.date FROM Post p JOIN User u USING (user_id) ORDER BY p.date DESC;
 
---For listing user types
+/*For listing user types */
 CREATE VIEW UserType_View AS 
 SELECT user_id, SUM(TYPE) AS type
 FROM(
@@ -61,7 +61,7 @@ UNION
 ) AS TEMP
 GROUP BY user_id;
 
---For listing potential friends before adding friend.
+/*For listing potential friends before adding friend.*/
 CREATE VIEW nonFriend_view as
 SELECT u2.user_id, u2.user_name, u2.name, u2.biography, u2.email, u1.user_id AS check_user FROM User u1, User u2 WHERE NOT EXISTS 
 (SELECT 1 FROM friend_of f WHERE f.user_id = u1.user_id AND f.accepted = 1 AND f.friend_id = u2.user_id) AND NOT EXISTS 
@@ -69,4 +69,4 @@ SELECT u2.user_id, u2.user_name, u2.name, u2.biography, u2.email, u1.user_id AS 
 ORDER BY u2.name
 
 
--->>>>>>>>>>>>>>>>>>>>>>>Triggers
+/*>>>>>>>>>>>>>>>>>>>>>>>Triggers*/

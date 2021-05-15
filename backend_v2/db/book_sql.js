@@ -16,6 +16,51 @@ book.addBook = (title, description, genre, year, pages) => {
     })
 }
 
+book.addRecommend = (user_id, book_id, friend_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO recommend (user_id, book_id, friend_id) VALUES (?,?,?)",[user_id, book_id, friend_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+book.deleteRecommend= (user_id, book_id, friend_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("DELETE FROM recommend WHERE user_id = ? and book_id = ? and friend_id = ?",[user_id, book_id, friend_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+book.getIncomingRecommends = (user_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT b.book_id, r.user_id, u.name as friend_name, b.title, b.genre FROM recommend r JOIN User u USING(user_id) JOIN Book b USING (book_id) WHERE r.friend_id = ? ORDER BY b.title",[ user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+book.getOutgoingRecommends = (user_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT b.book_id, r.friend_id, u.name as friend_name, b.title, b.genre FROM recommend r JOIN User u ON u.user_id = r.friend_id JOIN Book b USING (book_id) WHERE r.user_id = ? ORDER BY b.title",[ user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 
 book.updateBook = (book_id, title, description, genre, year, pages, user_id) => {
     return new Promise((resolve, reject) => {
@@ -54,6 +99,7 @@ book.checkBook = (user_id, book_id) => {
 
 book.searchBookTitle = (keyword) => {
     return new Promise((resolve, reject) => {
+        console.log(keyword)
         pool.query("SELECT * FROM book_series_view WHERE title LIKE ?",[keyword], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);

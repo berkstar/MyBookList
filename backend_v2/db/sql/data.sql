@@ -233,3 +233,6 @@ INSERT IGNORE INTO `series_of` (`book_id`, `ser_id`) VALUES (7, 2);
 INSERT IGNORE INTO `series_of` (`book_id`, `ser_id`) VALUES (4, 3);
 INSERT IGNORE INTO `series_of` (`book_id`, `ser_id`) VALUES (5, 4);
 
+/* AUTH */
+INSERT INTO `auth` VALUES ('2021-07-16 23:19:42', 'admin1', 1);
+INSERT INTO `auth` VALUES ('2021-07-15 22:29:02', 'admin', 3);
