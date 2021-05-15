@@ -35,16 +35,14 @@ $ => To do
 ● Authors are able to publish their new / update books in the system.                           # POST: /book/createbook | PUT: /book/updatebook |GET: /book/getmyownbooks | DELETE: /book/removebook  
 ● Authors are able to add / remove edition, series                                              $ POST: /book/addedition | GET: /book/listeditions DELETE: /book/removeedition | POST: /book/addseries | POST: /book/addtoseries | GET: /book/listseries | DELETE: /book/removeseries
 ● Authors are able to reply user’s comments about their own books.                              $ GET: /book/getbookreviews | PUT: /book/commentreview
-● Authors are able to list requests from users.	$
+● Authors are able to list requests from users.	                                                $ GET: /book/mybookrequests | PUT: /book/approverequest
 
 
 
 --------------Librarian--------------------
 ● Librarians are able to list / verify an author.                                               # GET: /user/getunverifiedauthors | GET: /user/getverifiedauthors | PUT: /user/verifyauthor                                   
 ● Librarians are able to create new / delete Forum threads. 									$ POST: /forum/createthread | DELETE: /forum/deletethread			
-● Librarians are able to manage and verify book addition requests.                               
-● Librarians are able to create global challenges.
-● On request by users or authors, they are able to edit incorrect information about books.
+● Librarians are able to create global challenges.                                              $ POST: /book/createchallenge | DELETE: /book/deletechallenge | POST: /book/addbooklistchallenge | DELETE: /book/deletebooklistfromchallenge | PUT: /book/editchallenge
 
 
 
