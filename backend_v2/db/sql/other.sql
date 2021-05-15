@@ -18,9 +18,9 @@ CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERV
 
 /*>>>>>>>>>>>>>>>Views*/
 
-CREATE VIEW book_series_view AS
-SELECT b.book_id, b.title, b.description, b.genre, s.name AS series_name , b.year, b.img_url, b.pages
-FROM Book b LEFT JOIN series_of so USING(book_id) LEFT JOIN Series s USING(ser_id) ORDER BY title
+CREATE VIEW book_series_rating_view AS
+SELECT b.book_id, b.title, b.description, b.genre, u.name AS author_name, s.name AS series_name , b.year, b.img_url, b.pages, (SELECT AVG(r.rating) FROM review r WHERE b.book_id = r.book_id) AS rating
+FROM Book b LEFT JOIN series_of so USING(book_id) LEFT JOIN Series s USING(ser_id) LEFT JOIN publishes p USING(book_id) LEFT JOIN User u ON u.user_id = p.author_id ORDER BY title
 
 /*For Listing Book and their publishers*/
 

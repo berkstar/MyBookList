@@ -219,7 +219,10 @@ router.get("/searchbook", async (req, res) => {
         let keyword = req.query.keyword
         let auth = req.headers.authorization
         console.log("IN=> " + keyword);
-        keyword = "%" + keyword.trim().replace(/\s/g, "%") + "%";
+        if(keyword)
+            keyword = "%" + keyword.trim().replace(/\s/g, "%") + "%";
+        else
+            keyword = "%"
         let resultCheckAuth = await user_sql.checkAuth(auth)
         
         console.log("OUT=> " + keyword);

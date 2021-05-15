@@ -100,7 +100,7 @@ book.checkBook = (user_id, book_id) => {
 book.searchBookTitle = (keyword) => {
     return new Promise((resolve, reject) => {
         console.log(keyword)
-        pool.query("SELECT * FROM book_series_view WHERE title LIKE ?",[keyword], (err, results) => {
+        pool.query("SELECT * FROM book_series_rating_view WHERE title LIKE ?",[keyword], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }

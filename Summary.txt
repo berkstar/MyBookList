@@ -2,6 +2,10 @@
 //res.status(500); Status setleme
 console.log(req.body.YO); BOdy Bakma
 
+# => Completed
+$ => To do
+1..9$ => Priority
+
 -----------------USER--------
 
 
@@ -17,12 +21,12 @@ console.log(req.body.YO); BOdy Bakma
 
 ● Users are able to recommend books to their friends.                                           # GET: /book/incomingrecommends | GET: /book/outgoingrecommends| POST: /book/recommend | DELETE: /book/deleterecommend
 ● Users are able to create / list their own book lists.                                         $ GET: /book/getmybooklists | POST: /book/createbooklist | POST: /book/addbooktolist | DELETE: /book/deletebooklist | DELETE: /book/removebookfromlist
-● Users are able to comment and rate out of 10 on specified books.                              $ 
-● Users will be able to create / edit book progress.                                            $ GET: /book/getmybooks	| POST: /book/addprogress | PUT: /book/editprogress
-● Users are able to report wrong information about books to librarians.
-● Users will be able to comment and like the book progress of their friends.					
-     
-● Users are able to search books by filtering author, year, genre.                              # GET:/book/searchbook 
+● Users are able to comment and rate out of 10 on specified books.                              $ POST: /book/addreview | GET: /book/listmyreviews | GET: /book/listbookreviews
+● Users will be able to create / edit book progress.                                            1$ GET: /book/getmybooks	| POST: /book/addprogress | PUT: /book/editprogress
+● Users are able to report wrong information about books to authors.                            $ POST: /book/createrequest | GET: /book/myrequests  | DELETE: /book/deleterequest
+● Users will be able to comment the book progress of their friends.					            $ GET: /book/getprogresscomments | POST: /book/commentprogress | DELETE: /book/deleteprogresscomment
+● Users will be able to join challange.	                                                        $ GET: /book/getchallenges | POST: /book/joinchallenge | PUT: /book/challengeprogress
+● Users are able to search books by title                                                       # GET:/book/searchbook 
 ● Users are able to search for friends.                                                         # GET:/user/getusers <Search done in front-end>
 
 ---------------AUTHOR---------------------
@@ -30,15 +34,15 @@ console.log(req.body.YO); BOdy Bakma
 ● Authors are able to register and login.														# POST:/user/login |  POST:/user/register
 ● Authors are able to publish their new / update books in the system.                           # POST: /book/createbook | PUT: /book/updatebook |GET: /book/getmyownbooks | DELETE: /book/removebook  
 ● Authors are able to add / remove edition, series                                              $ POST: /book/addedition | GET: /book/listeditions DELETE: /book/removeedition | POST: /book/addseries | POST: /book/addtoseries | GET: /book/listseries | DELETE: /book/removeseries
-● Authors are able to reply user’s comments about their own books.                              $
-● Authors are able to report wrong information or claim issues about their books to librarians.	$
+● Authors are able to reply user’s comments about their own books.                              $ GET: /book/getbookreviews | PUT: /book/commentreview
+● Authors are able to list requests from users.	$
 
 
 
 --------------Librarian--------------------
 ● Librarians are able to list / verify an author.                                               # GET: /user/getunverifiedauthors | GET: /user/getverifiedauthors | PUT: /user/verifyauthor                                   
-● Librarians are able to create new / delete Forum threads. 												
-● Librarians are able to manage and verify book addition requests.
+● Librarians are able to create new / delete Forum threads. 									$ POST: /forum/createthread | DELETE: /forum/deletethread			
+● Librarians are able to manage and verify book addition requests.                               
 ● Librarians are able to create global challenges.
 ● On request by users or authors, they are able to edit incorrect information about books.
 
