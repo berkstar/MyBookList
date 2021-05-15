@@ -101,6 +101,7 @@ async function postBook(book_name, author_id, num_of_pages, description, genre, 
 
 async function postBookList(list_name, bookIds) {
     let request = {
+        uid: StorageService.getUserId(),
         list_name: list_name,
         book_ids: bookIds
     }
@@ -138,6 +139,33 @@ async function searchBook(keyword) {
     }
     return await api_get('/book/searchbook/', request);
 }
+
+async function getMyBooks() {
+    let request = {
+        uid: StorageService.getUserId(),
+    }
+    return await api_get('/book/getmybooks/', request);
+}
+
+async function rateBook(book_id, rating) {
+    let request = {
+        uid: StorageService.getUserId(),
+        book_id: book_id,
+        rating: rating,
+        review: ""
+    }
+    return await api_post('/book/addreview/', request);
+}
+
+async function postProgress(book_id, page_num) {
+    let request = {
+        uid: StorageService.getUserId(),
+        book_id: book_id,
+        page_num: page_num
+    }
+    return await api_post('/book/addprogress/', request);
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 async function api_get(path, param) {
@@ -276,7 +304,10 @@ const Api = {
     getPost,
     getUserPosts,
     searchBook,
-    postBookList
+    postBookList,
+    getMyBooks,
+    rateBook,
+    postProgress
 }
 
 export default Api;

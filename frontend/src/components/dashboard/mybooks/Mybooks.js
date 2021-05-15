@@ -68,25 +68,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Mybooks() {
     const classes = useStyles();
-    const [progress, setProgress] = React.useState(10);
     const [books, setBooks] = useState([]);
     const history = useHistory();
-
-    React.useEffect(() => {
-        const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-        }, 800);
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
 
     function search(input) {
         parseBooks(input);
     }
 
-    const parseBooks = async (input="") => {
-        let response = await Api.searchBook(input);
+    const parseBooks = async () => {
+        let response = await Api.getMyBooks();
         if( response.status !== 200 ) {
             history.push("/login");
         } 
@@ -95,9 +85,17 @@ export default function Mybooks() {
         }
     }
 
-    useState(parseBooks);
+    const rateBook = async (e, value, book_id) => {
+        let response = await Api.rateBook(book_id, value);
+        if( response.status === 200 ) {
+            parseBooks();
+        }
+        else {
+            alert("You cannot rate the same book!");
+        }
+    }
 
-    const [value, setValue] = React.useState(2);
+    useState(parseBooks);
 
     return (
         <div>
@@ -116,8 +114,9 @@ export default function Mybooks() {
                                             {book.title}
                                         </Typography>
                                         <Rating
-                                        name="simple-controlled"
-                                        value={book.rating}
+                                            name="simple-controlled"
+                                            value={book.rating}
+                                            onChange={(e,value)=>{rateBook(e,value,book.book_id)}}
                                         />
                                         <Typography component="p">{book.description}</Typography>
                                     </CardContent>
@@ -126,18 +125,17 @@ export default function Mybooks() {
                                     <Button className="mx-2" size="medium" color="primary">
                                         Progress
                                     </Button>
-                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book)} key="AllBooks">
+                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book, parseBooks)} key="AllBooks">
                                         <ListItemText primary="See Details"/>
                                     </ListItem>
                                 </CardActions>
-                                <LinearProgressWithLabel className="mb-4" value={progress} />
+                                <LinearProgressWithLabel className="mb-4" value={book.progress} />
                             </Card>
                             <br/>
                         </Grid>
                     ))}
                 </Grid>
             </div>
-            );
         </div>
     );
 }

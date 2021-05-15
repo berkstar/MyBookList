@@ -9,8 +9,7 @@ import { Row, Col } from 'react-bootstrap';
 import { Card, TextField, Button, CardMedia, Container, Grid} from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import Popup from 'reactjs-popup';
-import EditIcon from '@material-ui/icons/Edit';
+import Api from 'api/Api';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,45 +33,52 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function BookDetails(props) {
-    const [rating, setRating] = useState(2);
     const [progress, setProgress] = useState(0);
     const classes = useStyles();
     const book = props.book;
+    var page_num;
 
-    function recommend() {
+    const postProgress = async () => {
+        let response = await Api.postProgress(book.book_id, page_num);
+        if( response.status === 200 ) {
+            props.parseBooks();
+        }
+        else {
+            alert("Progress not added! (Server Error!)");
+        }
+        setProgress(0);
+    }
 
+    const rateBook = async (e, value, book_id) => {
+        let response = await Api.rateBook(book_id, value);
+        if( response.status === 200 ) {
+            props.parseBooks();
+        }
+        else {
+            alert("You cannot rate the same book!");
+        }
     }
 
     const If = ({ condition }) => (condition ? <ProgressBox/> : <br/>);
 
     const ProgressBox = () => (
         <div>
-            <h3>New Progress: </h3>
             <Row className="my-2">
                 <Col className="col-9">
                     <Card className="bg-secondary text-light" variant="outlined">
-                        <Row>
-                            <h4>Date:</h4>
-                            <TextField
-                                className="bg-light text-dark"
-                                style={{maxWidth:"220px"}}
-                                variant="outlined"
-                                placeholder="Example: 11.01.2021"
-                                >
-                            </TextField>
-                        </Row>
                         <h4>Page Number:</h4>
                         <TextField
                             className="col-6 bg-light text-dark"
                             style={{maxWidth:"220px"}}
                             variant="outlined"
                             placeholder="Example: 121"
+                            onChange={(e)=> {page_num = e.target.value}}
                             >
                         </TextField>
                     </Card>
                 </Col>
                 <Col className="d-flex align-items-center">
-                    <Button className="container-fluid col-6" onClick={() => {setProgress(0)}} color="primary">
+                    <Button className="container-fluid col-6" onClick={() => {postProgress()}} color="primary">
                         <CheckIcon className="m-auto" fontSize="large" style={{color:"#ffffff"}}/>
                     </Button>
                     <Button className="container-fluid col-6" onClick={() => {setProgress(0)}} color="primary">
@@ -123,7 +129,7 @@ export default function BookDetails(props) {
                     "{book.description}"
                 </Typography>
                 <br/>
-                <Row className="align-items-center">
+                    <Row className="align-items-center">
                     <Typography className="col-1" component="h4" variant="h4" xs={10}>
                         Progress
                     </Typography>
@@ -131,15 +137,15 @@ export default function BookDetails(props) {
                             <AddIcon fontSize="large" style={{color:"#ffffff"}}/>
                     </IconButton>
                 </Row>
-                <br/>
                 <If condition={progress}/>
-                <Typography component="h6" variant="h6" xs={10}>
-                    Date 02.04.2021 - Page Number: 241<br/>
-                    Date 01.01.2021 - Page Number: 211<br/>
-                    Date 23.12.2020 - Page Number: 177<br/>
-                    Date 27.10.2020 - Page Number: 123
-                </Typography>
-                <br/>
+                { book.progress && 
+                <div>
+                    <Typography component="h6" variant="h6" xs={10}>
+                        Date: {book.date} - Page Number: {book.page_read}<br/>
+                    </Typography> 
+                    <br/>
+                </div>
+                }
                 <Typography component="h4" variant="h4" xs={10}>
                     Rating
                 </Typography>
@@ -148,6 +154,7 @@ export default function BookDetails(props) {
                     name="simple-controlled"
                     value={book.rating}
                     className="mb-4"
+                    onChange={(e,value)=>{rateBook(e,value,book.book_id)}}
                 />
             </Grid>
         </Card>

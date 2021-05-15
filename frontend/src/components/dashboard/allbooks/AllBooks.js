@@ -120,7 +120,7 @@ export default function AllBooks() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book)} key="AllBooks">
+                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book, parseBooks)} key="AllBooks">
                                         <ListItemText primary="See Details"/>
                                     </ListItem>
                                 </CardActions>
