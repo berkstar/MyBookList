@@ -51,7 +51,7 @@ user.addFriend = (user_id, friend_id) =>    {
         // })
 
 
-        pool.query("INSERT INTO friend_of (user_id , friend_id) (SELECT ? , ? FROM dual WHERE NOT EXISTS (SELECT * FROM friend_of WHERE friend_id = ? and user_id = ?))",[user_id, friend_id, user_id, friend_id], (err, results) => {
+        pool.query("INSERT INTO friend_of (user_id , friend_id, accepted) (SELECT ? , ?, 1 FROM dual WHERE NOT EXISTS (SELECT * FROM friend_of WHERE friend_id = ? and user_id = ?))",[user_id, friend_id, user_id, friend_id], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }
