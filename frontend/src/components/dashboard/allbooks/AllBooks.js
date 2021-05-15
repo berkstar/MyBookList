@@ -4,43 +4,18 @@ import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import {Typography} from "@material-ui/core";
+import {TextField, Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import {Link} from "react-router-dom";
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
+import {Link, useHistory} from "react-router-dom";
 import Rating from '@material-ui/lab/Rating';
-import ListRoundedIcon from '@material-ui/icons/ListRounded';
-import IconButton from '@material-ui/core/IconButton';
-import books from "./dummy-books";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import StorageService from 'services/StorageService';
-
-function LinearProgressWithLabel(props) {
-    return (
-        <Box display="flex" alignItems="center">
-            <Box width="100%" mr={1}>
-                <LinearProgress variant="determinate" {...props} />
-            </Box>
-            <Box minWidth={35}>
-                <Typography variant="body2" color="textSecondary">{`${Math.round(
-                    props.value,
-                )}%`}</Typography>
-            </Box>
-        </Box>
-    );
-}
-
-LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
-    value: PropTypes.number.isRequired,
-};
+import { useState } from 'react';
+import Api from 'api/Api';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,13 +47,30 @@ const useStyles = makeStyles((theme) => ({
 export default function AllBooks() {
     const classes = useStyles();
     const userType = StorageService.getUserType();
-    const [value, setValue] = React.useState(2);
+    const [books, setBooks] = useState([]);
+    const history = useHistory();
+
+    function search(input) {
+        parseBooks(input);
+    }
+
+    const parseBooks = async (input="") => {
+        let response = await Api.searchBook(input);
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setBooks(response.data);
+        }
+    }
+
+    useState(parseBooks);
 
     return (
         <div>
             <Grid container justify="space-between">
-                <h2 className="col-9" style={{ marginLeft:30 }}>ALL BOOKS</h2>
-                { userType == 2 && <Button 
+                <h2 className={ userType? "col-6":"col-8" } style={{ marginLeft:30 }}>ALL BOOKS</h2>
+                { userType == 1 && <Button 
                     style={{ marginRight:30 }}
                     variant="contained"
                     color="default"
@@ -86,7 +78,7 @@ export default function AllBooks() {
                     onClick={() => { window.helloComponent.handleEditBook() }}>
                     <b>Publish a book</b>
                 </Button>}
-                <Button 
+                <Button
                 style={{ marginRight:30 }}
                 variant="contained"
                 color="default"
@@ -94,33 +86,41 @@ export default function AllBooks() {
                 onClick={() => { window.helloComponent.handleEditBookList() }}>
                     <b>Create Book List</b>
                 </Button>
+                <TextField
+                    type="search"
+                    variant="outlined"
+                    style={{ marginRight:30, color:'#606060' }}
+                    placeholder="Search for a book..."
+                    onChange= {input => ( search(input.target.value) )}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                > </TextField>
             </Grid>
 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} className={classes.root}>
                     {books.map((book, index) => (
                         <Grid item key={index}>
-                            <Card className={classes.card}>
+                            <Card>
                                 <CardActionArea>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {book.title}
-                                            <IconButton>
-                                                <ListRoundedIcon fontSize="large"/>
-                                            </IconButton>
                                         </Typography>
                                         <Rating
                                         name="simple-controlled"
-                                        value={value}
-                                        onChange={(event, newValue) => {
-                                            setValue(newValue);
-                                        }}
+                                        value={book.rating}
                                         />
-                                        <Typography component="p">{book.content}</Typography>
+                                        <Typography component="p">{book.description}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails()} key="AllBooks">
+                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book)} key="AllBooks">
                                         <ListItemText primary="See Details"/>
                                     </ListItem>
                                 </CardActions>

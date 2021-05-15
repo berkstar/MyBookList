@@ -15,7 +15,6 @@ if ( token ) {
 
 axios.defaults.baseURL = API_URL;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = "http://localhost:3000";
-axios.defaults.headers.common['super-auth'] = "superadmin";
 
 function setAuthToken() {
     token = StorageService.getToken();
@@ -35,8 +34,18 @@ async function getAllThreads() {
 }
 
 async function getPosts(threadId) {
-    let tid = { tid: threadId };
-    return await api_get('/forum/getposts', tid);
+    let request = { tid: threadId };
+    return await api_get('/forum/getposts', request);
+}
+
+async function getUserPosts(uid) {
+    let request = { uid: uid };
+    return await api_get('/forum/getuserposts', request);
+}
+
+async function getPost(pid) {
+    let request = { pid: pid };
+    return await api_get('/forum/getpost', request);
 }
 
 async function getFriends() {
@@ -78,15 +87,58 @@ async function joinChallenge(challenge_id) {
     return await api_post('/challange/joinchallenge', request);
 }
 
-async function postBook(book_name, author_id, num_of_pages, description) {
+async function postBook(book_name, author_id, num_of_pages, description, genre, year) {
     let request = {
         b_name: book_name,
         aid: author_id,
         page_num: num_of_pages,
-        desc: description
+        desc: description,
+        genre: genre,
+        year: year
     }
     return await api_post('/book/publish', request);
 }
+
+async function postBookList(list_name, bookIds) {
+    let request = {
+        list_name: list_name,
+        book_ids: bookIds
+    }
+    return await api_post('/book/postbooklist', request);
+}
+
+async function setBio(bio) {
+    let request = {
+        uid: StorageService.getUserId(),
+        bio: bio
+    }
+    return await api_put('/user/setbio', request);
+}
+
+async function likePost(pid) {
+    let request = {
+        uid: StorageService.getUserId(),
+        pid: pid
+    };
+    return await api_put('/forum/likepost', request);
+}
+
+async function commentPost(text, pid) {
+    let request = {
+        uid: StorageService.getUserId(),
+        pid: pid,
+        text: text,
+    };
+    return await api_post('/forum/addpostcomment', request);
+}
+
+async function searchBook(keyword) {
+    let request = {
+        keyword: keyword,
+    }
+    return await api_get('/book/searchbook/', request);
+}
+////////////////////////////////////////////////////////////////////////
 
 async function api_get(path, param) {
     try {
@@ -218,6 +270,13 @@ const Api = {
     postBook,
     getAllChallenges,
     joinChallenge,
+    setBio,
+    likePost,
+    commentPost,
+    getPost,
+    getUserPosts,
+    searchBook,
+    postBookList
 }
 
 export default Api;

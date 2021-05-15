@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react';
 import {CardMedia, Container, Grid} from "@material-ui/core";
 import posts from "../posts/dummy-posts";
 import Card from "@material-ui/core/Card";
 import ProfImg from "static/img/dummy_profile_image.png"
 import { Row, Col } from 'react-bootstrap';
-import Post from '../posts/Post'
+import Post from '../posts/Post';
+import Api from 'api/Api';
+import { useHistory } from 'react-router';
 
 function OtherProfile(props){
     const user = props.user;
+    const history = useHistory();
+    const [posts, setPosts] = useState([]);
+
+    const parsePosts = async () => {
+        let response = await Api.getUserPosts(props.user.user_id);
+        if( response.status !== 200 ) {
+            history.push("/login");
+        } 
+        else {
+            setPosts(response.data);
+        }
+    }
+
+    useState(parsePosts);
 
     return (
         <Card className="bg-secondary text-white my-4 mx-5" style={{ maxHeight:'1900px'}} variant="outlined" >
@@ -35,10 +51,6 @@ function OtherProfile(props){
                             <h3>{user.user_name}</h3>
                         </Row>
                         <Row className="my-4">
-                            <h2>EMAIL: </h2>
-                            <h3>jhn.doe@gmail.com</h3>
-                        </Row>
-                        <Row className="my-4">
                             <h2>BIOGRAPHY: </h2>
                             <h3>{user.biography}</h3>
                         </Row>
@@ -49,7 +61,7 @@ function OtherProfile(props){
                         </Row>
                         <Row className="justify-content-center">
                             <Grid>
-                                <Post posts={posts}/>
+                                <Post posts={posts} parsePosts={parsePosts}/>
                             </Grid>
                         </Row>
                     </Col>

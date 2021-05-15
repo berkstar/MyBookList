@@ -12,21 +12,6 @@ function EditPost(props) {
     const [name, setName] = useState("");
     const [text, setText] = useState("");
 
-    // const [post, setPost] = useState([]);
-    // const history = useHistory();
-
-    // const parsePost = async () => {
-    //     let response = await Api.getPost(props.post.pid);
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setPost(response.data);
-    //     }
-    // }
-
-    // parsePosts();
-
     const createPost = () => {
         const new_post = {
             tid: tid,
@@ -34,7 +19,7 @@ function EditPost(props) {
             name: name,
             text: text
         }
-        console.log(new_post);
+        Api.postPost(new_post);
         window.helloComponent.handlePosts(props.thread);
     }
 

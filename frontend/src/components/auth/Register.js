@@ -19,19 +19,16 @@ class Register extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: "", name: "", password: "", email: "", author: false, librarian: false };
+        this.state = { username: "", name: "", password: "", email: "", author: false };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
     async handleSubmit(event) {
         event.preventDefault();
-        let type = 0;
-        if(this.state.librarian) {
-            type = 1;
-        } 
-        else if(this.state.author) {
-            type = 2;
+        let type = "0";
+        if(this.state.author) {
+            type = "1";
         }
         let userData = {
             username: this.state.username,
@@ -160,18 +157,6 @@ class Register extends React.Component {
                                                 />
                                                 }
                                                 label="Are you an author?"
-                                            />
-                                            <FormControlLabel
-                                                control={
-                                                <Checkbox
-                                                    checked={this.state.librarian}
-                                                    onChange={this.handleChange}
-                                                    name="librarian"
-                                                    color="primary"
-                                                    disabled={this.state.author}
-                                                />
-                                                }
-                                                label="Are you a librarian?"
                                             />
                                             </Grid>
                                             <Grid item>
