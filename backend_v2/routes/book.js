@@ -10,6 +10,108 @@ router.use(bodyParser.json());
 router.use(cors());
 
 
+
+
+
+
+
+router.get("/getmybooks", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.query.uid
+        let auth = req.headers.authorization
+
+
+        let resultCheckAuth = await user_sql.checkAuthType(auth,user_id)
+
+
+        if (resultCheckAuth.length) {
+            let resultIncomingRecom = await book_sql.getMyProgressBooks(user_id);
+            if (resultIncomingRecom && resultIncomingRecom.length) {
+                res.json(resultIncomingRecom);
+                res.status(200);
+            }
+            else { 
+                
+                res.status(200);
+                res.json([])
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.post("/addprogress", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let book_id = req.body.book_id
+        let page_num = req.body.page_num
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthType(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultAddProgress = await book_sql.addProgress(page_num, book_id);
+            if (resultAddProgress && resultAddProgress.affectedRows) {
+                pro_id = resultAddProgress.insertId
+                await book_sql.addProgressMark(user_id, book_id, pro_id);
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                
+                res.sendStatus(401);
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.put("/editprogress", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let pro_id = req.body.pro_id
+        let page_num = req.body.page_num
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthAuthor(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultUpdateProgress = await book_sql.updateProgress(page_num,pro_id,user_id);
+            if (resultUpdateProgress && resultUpdateProgress.affectedRows) {
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                res.sendStatus(401);
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
 router.post("/recommend", async (req, res) => {
 
     try {

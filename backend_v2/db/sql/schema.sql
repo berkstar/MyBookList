@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS mark_progress(
   FOREIGN KEY(book_id) REFERENCES Book(book_id) ON DELETE CASCADE,
   pro_id INT,
   FOREIGN KEY(pro_id) REFERENCES Progress(pro_id) ON DELETE CASCADE,
-  CONSTRAINT PK_mark_progress PRIMARY KEY (user_id,book_id,pro_id)
+  CONSTRAINT PK_mark_progress PRIMARY KEY (user_id,book_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 

@@ -22,7 +22,7 @@ $ => To do
 ● Users are able to recommend books to their friends.                                           # GET: /book/incomingrecommends | GET: /book/outgoingrecommends| POST: /book/recommend | DELETE: /book/deleterecommend
 ● Users are able to create / list their own book lists.                                         $ GET: /book/getmybooklists | POST: /book/createbooklist | POST: /book/addbooktolist | DELETE: /book/deletebooklist | DELETE: /book/removebookfromlist
 ● Users are able to comment and rate out of 10 on specified books.                              $ POST: /book/addreview | GET: /book/listmyreviews | GET: /book/listbookreviews
-● Users will be able to create / edit book progress.                                            1$ GET: /book/getmybooks	| POST: /book/addprogress | PUT: /book/editprogress
+● Users will be able to create / edit book progress.                                            # GET: /book/getmybooks	| POST: /book/addprogress | PUT: /book/editprogress
 ● Users are able to report wrong information about books to authors.                            $ POST: /book/createrequest | GET: /book/myrequests  | DELETE: /book/deleterequest
 ● Users will be able to comment the book progress of their friends.					            $ GET: /book/getprogresscomments | POST: /book/commentprogress | DELETE: /book/deleteprogresscomment
 ● Users will be able to join challange.	                                                        $ GET: /book/getchallenges | POST: /book/joinchallenge | PUT: /book/challengeprogress

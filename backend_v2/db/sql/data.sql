@@ -161,25 +161,25 @@ INSERT IGNORE INTO `Edition` (`ed_id`, `book_id`, `name`, `format`, `translator`
 
 /*Progress*/
 
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (1, 279, '1970-01-19 01:11:27');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (2, 276, '2014-06-25 11:31:15');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (1, 100, '1970-01-19 01:11:27');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (2, 10, '2014-06-25 11:31:15');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (3, 55, '1996-01-19 04:34:49');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (4, 155, '1976-01-28 04:27:31');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (5, 137, '2000-06-09 11:54:56');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (6, 209, '2011-03-30 15:35:35');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (6, 100, '2011-03-30 15:35:35');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (7, 249, '1987-12-09 03:21:26');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (8, 116, '1989-06-23 17:12:12');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (9, 103, '2010-09-30 15:49:37');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (10, 188, '1999-12-29 03:02:32');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (11, 217, '1979-01-16 01:56:07');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (9, 50, '2010-09-30 15:49:37');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (10, 25, '1999-12-29 03:02:32');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (11, 100, '1979-01-16 01:56:07');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (12, 193, '2009-11-07 01:18:41');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (13, 214, '1995-01-28 19:25:24');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (14, 113, '1985-02-02 19:19:44');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (14, 30, '1985-02-02 19:19:44');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (15, 137, '1975-02-16 18:14:33');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (16, 92, '2013-10-08 19:50:08');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (17, 33, '1988-08-05 15:56:12');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (18, 192, '1989-10-02 17:14:03');
-INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (19, 143, '1995-03-12 14:54:12');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (18, 130, '1989-10-02 17:14:03');
+INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (19, 120, '1995-03-12 14:54:12');
 INSERT IGNORE INTO `Progress` (`pro_id`, `page_number`, `date`) VALUES (20, 149, '1983-11-09 15:54:29');
 
 /* Series */
@@ -224,11 +224,27 @@ INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES 
 
 /* mark_progress */
 
-INSERT IGNORE INTO `mark_progress` (`user_id`, `book_id`, `pro_id`) VALUES (2, 2, 6);
-INSERT IGNORE INTO `mark_progress` (`user_id`, `book_id`, `pro_id`) VALUES (3, 4, 20);
-INSERT IGNORE INTO `mark_progress` (`user_id`, `book_id`, `pro_id`) VALUES (4, 5, 15);
-INSERT IGNORE INTO `mark_progress` (`user_id`, `book_id`, `pro_id`) VALUES (7, 9, 8);
-INSERT IGNORE INTO `mark_progress` (`user_id`, `book_id`, `pro_id`) VALUES (9, 7, 2);
+INSERT IGNORE INTO `mark_progress` VALUES (12, 3, 1);
+INSERT IGNORE INTO `mark_progress` VALUES (9, 7, 2);
+INSERT IGNORE INTO `mark_progress` VALUES (7, 4, 3);
+INSERT IGNORE INTO `mark_progress` VALUES (14, 9, 4);
+INSERT IGNORE INTO `mark_progress` VALUES (19, 1, 5);
+INSERT IGNORE INTO `mark_progress` VALUES (2, 2, 6);
+INSERT IGNORE INTO `mark_progress` VALUES (7, 6, 7);
+INSERT IGNORE INTO `mark_progress` VALUES (7, 9, 8);
+INSERT IGNORE INTO `mark_progress` VALUES (9, 8, 9);
+INSERT IGNORE INTO `mark_progress` VALUES (19, 8, 10);
+INSERT IGNORE INTO `mark_progress` VALUES (17, 3, 11);
+INSERT IGNORE INTO `mark_progress` VALUES (19, 1, 12);
+INSERT IGNORE INTO `mark_progress` VALUES (19, 9, 13);
+INSERT IGNORE INTO `mark_progress` VALUES (14, 8, 14);
+INSERT IGNORE INTO `mark_progress` VALUES (4, 5, 15);
+INSERT IGNORE INTO `mark_progress` VALUES (1, 1, 16);
+INSERT IGNORE INTO `mark_progress` VALUES (15, 2, 17);
+INSERT IGNORE INTO `mark_progress` VALUES (10, 2, 18);
+INSERT IGNORE INTO `mark_progress` VALUES (15, 5, 19);
+INSERT IGNORE INTO `mark_progress` VALUES (6, 9, 20);
+
 
 /* progress_comment */
 INSERT IGNORE INTO `progress_comment` (`cid`, `pro_id`) VALUES (8, 13);
