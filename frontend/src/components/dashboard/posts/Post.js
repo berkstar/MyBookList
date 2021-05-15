@@ -17,6 +17,10 @@ import Posts from './Posts';
 function Post(props) {
     const [comment, setComment] = useState(-1);
     const [commentId, setCommentId] = useState(-1);
+
+    const [liked, updateLiked] = useState(false);
+
+
     var text;
     const posts = props.posts;
     const history = useHistory();
@@ -64,12 +68,15 @@ function Post(props) {
     }
 
     async function handleLike(pid) {
-        let response = await Api.likePost(pid);
-        if( response.status !== 200 ) {
-            alert("Error!");
-        }
+        if (liked) alert("You have already liked this post!");
         else {
-            props.parsePosts();
+            let response = await Api.likePost(pid);
+            if (response.status !== 200) {
+                alert("Error!");
+            } else {
+                updateLiked(true);
+                props.parsePosts();
+            }
         }
     }
 
