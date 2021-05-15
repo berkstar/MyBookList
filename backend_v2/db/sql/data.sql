@@ -10,6 +10,17 @@ INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`,
 INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (9, 'newton.lehner', 'akihn@example.net', 'Marc Rath', 'Qui repudiandae ut cum qui at beatae. Suscipit minus est ratione sunt velit harum. In tempore pariatur sequi officia ratione.', 'b7547188265fa71a3ca89fbd76fc87f6');
 INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (10, 'vlarson', 'kassandra.dickens@example.net', 'Prof. Ulices Reichel', 'Ducimus sint beatae facere dolor ea ab occaecati. Magnam assumenda quis rerum suscipit rem repellendus. Et quos consequatur aliquam adipisci eos.', 'a5dbd065a32e9a22de39ab4dc57835ed');
 
+
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (11, 'profmahmut', 'prfmht@example.net', 'Prof Mahmut', 'Facere minima totam ex dolorem ipsa. Qui quasi odit ipsam ratione dolorem facere quis.', '5123dc4e11c164ae89036de42b666c7b4');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (12, 'bilalg', 'domdom@example.net', 'Bilal Goregen', 'Ab a nihil expedita eum at laudantium iure. Quia et cupiditate excepturi et aut quo alias. Quis placeat alias voluptates nemo cupiditate et quas.', 'a12362e8f3c61eadb3ba98aee9e040dd');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (13, 'dustin', 'duston.dibbert@example.net', 'Dustin Schiller', 'Nihil eius natus repellendus sequi iste eius accusantium expedita. Iusto ipsam officia et voluptatem distinctio corporis. Dolore enim praesentium ratione corporis id.', '4123bdc033e5f2241d25fab4247d70c3');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (14, 'kagni', 'kagin.hahn@example.com', 'Mr. Kagni Lsubowitz I', 'Pariatur ut corrupti blanditiis eligendi ducimus quo magni. Itaque suscipit sit quam. Libero similique tempore quia molestiae. Ut ut repudiandae necessitatibus quasi molestias quod.', '0123f54d4e72033452802678b4f7d1ea');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (15, 'ahmtyls', 'ahmet.lebsack@example.net', 'Ahmet Yalis', 'Ab eum recusandae facere aut occaecati et eum quia. Aperiam iure dolor nihil. Iure sunt neque molestiae at cumque. Dolorem harum natus magni perspiciatis aperiam corporis facere amet. Sapiente officiis necessitatibus omnis enim ratione rerum.', '7123f880305470c47aca2065b7ccbabf');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (16, 'ibolipa', 'ibolipa@example.com', 'Ibrahim Dua Lipa', 'Laborum ut maxime et doloribus iste. Repellat tempore incidunt repellendus nesciunt corporis omnis. Nobis nihil consequatur quia eos qui numquam. Dolor accusantium facere vel reiciendis velit molestias aperiam.', '5123587be8895b5e57a667140827789b');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (17, 'cfkennedy', 'cckadam.miller@example.com', 'Cihangir Kennedy', 'Quae voluptas numquam pariatur reiciendis et qui. Qui quis vero ut et itaque. Aut deleniti vel explicabo eum maxime assumenda reiciendis. Architecto eum labore voluptate sunt minima dolores molestiae.', '81230b39616e38b82490e0f516fcf083');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (18, 'vverss', 'vsds@example.net', 'Vers Rath', 'Qui repudiandae ut cum qui at beatae. Suscipit minus est ratione sunt velit harum. In tempore pariatur sequi officia ratione.', 'b1237188265fa71a3ca89fbd76fc87f6');
+INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (19, 'clarsn', 'calsd.dickens@example.net', 'Prof. Ulrich Clars', 'Ducimus sint beatae facere dolor ea ab occaecati. Magnam assumenda quis rerum suscipit rem repellendus. Et quos consequatur aliquam adipisci eos.', 'a123d065a32e9a22de39ab4dc57835ed');
+
 /* Librarian */
 
 INSERT IGNORE INTO `Librarian` (`user_id`) VALUES (9);
@@ -17,6 +28,16 @@ INSERT IGNORE INTO `Librarian` (`user_id`) VALUES (9);
 /* Author */
 INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (1, 1, 9);
 INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (3, 0, NULL);
+
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (11, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (12, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (13, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (14, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (15, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (16, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (17, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (18, 1, 9);
+INSERT IGNORE INTO `Author` (`user_id`, `is_verified`, `verifier_id`) VALUES (19, 1, 9);
 
 
 
@@ -90,20 +111,29 @@ INSERT IGNORE INTO `post_comment` (`cid`, `pid`) VALUES (9, 19);
 
 /* Book */
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (1, 'Officiis sint.', 'Soluta sit autem odit totam quasi sunt. Sed reiciendis aliquid omnis doloremque perferendis et.', 'Molestiae.', 2014, 'http://www.larkin.com/', 210);
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (2, 'Officiis veniam.', 'Ad dolor eveniet aliquid error eveniet minima. Id repudiandae dicta perferendis commodi reiciendis officia.', 'Dolorem eaque.', 2012, 'http://koss.com/', 150);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (2, 'Levan Polka.', 'Ad dolor eveniet aliquid error eveniet minima. Id repudiandae dicta perferendis commodi reiciendis officia.', 'Dolorem eaque.', 2012, 'http://koss.com/', 150);
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (3, 'Nostrum excepturi consequatur.', 'Dolorum placeat incidunt et vitae. Illo non adipisci expedita et rerum inventore facere ipsa. Similique iste maxime iusto nihil quisquam quis.', 'Dignissimos alias.', 2005, 'http://www.morissette.biz/', 110);
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (4, 'Quas placeat nobis.', 'Id rem perferendis voluptatem quis maiores itaque aut. Ea vero nemo sit doloremque consequatur.', 'Corrupti voluptatum.', 2011, 'http://www.reilly.info/', 172);
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (5, 'Quia distinctio est.', 'Ducimus deleniti sit doloribus doloremque voluptas dolor. Beatae vel molestiae ut quisquam. Fugit velit autem sint inventore neque natus.', 'Corrupti est.', 1987, 'http://hackett.com/', 137);
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (6, 'Commodi tempora quasi.', 'Dolor debitis natus dolor sapiente rem iusto. Provident quam et quo labore assumenda corrupti tempora voluptas. Et in officia cum expedita.', 'Facere.', 1996, 'http://deckow.com/', 520);
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (7, 'Voluptatibus cupiditate.', 'Tempore deleniti eius adipisci est autem. Quis rem similique esse voluptatem ad. Eum aut qui vitae rerum aut non molestias adipisci.', 'Ut.', 1986, 'http://west.org/', 27);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (7, 'Dom Dom Kursunu.', 'Tempore deleniti eius adipisci est autem. Quis rem similique esse voluptatem ad. Eum aut qui vitae rerum aut non molestias adipisci.', 'Ut.', 1986, 'http://west.org/', 27);
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (8, 'Et ipsa veniam.', 'Explicabo inventore non quis quos dicta at. Dolorum maxime in natus mollitia dolore est.', 'Nihil accusantium.', 2019, 'http://will.org/', 50);
-INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (9, 'Repellat consequatur dicta.', 'Labore quia eaque deleniti tempore. Nisi blanditiis non praesentium.', 'Cupiditate impedit.', 2006, 'http://buckridge.net/',720);
+INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (9, 'Neon Sign', 'Labore quia eaque deleniti tempore. Nisi blanditiis non praesentium.', 'Cupiditate impedit.', 2006, 'http://buckridge.net/',720);
 INSERT IGNORE INTO `Book` (`book_id`, `title`, `description`, `genre`, `year`, `img_url`, `pages`) VALUES (10, 'Omnis molestiae omnis.', 'Delectus non repudiandae similique et debitis quaerat. Sequi dicta at quibusdam occaecati sed facere qui. Porro reprehenderit saepe aut incidunt consequatur eaque maiores.', 'Eius.', 1991, 'http://www.hoeger.org/', 530);
 
 /* Publishes */
 
 INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (1, 4);
 INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (1, 8);
+
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (11, 1);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (12, 2);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (13, 3);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (14, 5);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (15, 6);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (16, 7);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (17, 9);
+INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (18, 10);
 
 
 /* Book_list */
