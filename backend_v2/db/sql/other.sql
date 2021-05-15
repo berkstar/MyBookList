@@ -26,9 +26,9 @@ FROM Progress p JOIN progress_comment pc USING(pro_id) JOIN Comment c USING(cid)
 
 /* For listing books with progress with username and dates */
 
-CREATE VIEW book_progress_user_view AS
-SELECT ROUND((p.page_number/ b.pages) * 100, 0) AS progress , mp.book_id, mp.user_id, b.title, b.description, b.pages AS total_pages, p.page_number AS page_read, DATE_FORMAT(p.date, "%e %M %Y") AS date, p.pro_id, u.user_name, u.name
-FROM Progress p JOIN mark_progress mp USING(pro_id) JOIN Book b USING(book_id) JOIN User u USING(user_id) ORDER BY Progress DESC
+CREATE VIEW book_progress_rating_user_view AS
+SELECT ROUND((p.page_number/ b.pages) * 100, 0) AS progress , mp.book_id, mp.user_id, b.title, b.description, b.pages AS total_pages, p.page_number AS page_read, DATE_FORMAT(p.date, "%e %M %Y") AS date, p.pro_id, u.user_name, u.name, r.rating
+FROM Progress p JOIN mark_progress mp USING(pro_id) JOIN Book b USING(book_id) JOIN User u USING(user_id) JOIN  book_series_rating_view r USING (book_id) ORDER BY Progress DESC
 /*For Listing Books with Progress */
 
 

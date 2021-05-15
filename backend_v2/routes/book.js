@@ -13,6 +13,47 @@ router.use(cors());
 
 
 
+router.post("/postbooklist", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let book_id = req.body.list_name
+        let book_ids = req.body.book_ids
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthType(auth, user_id)
+
+
+        if (resultCheckAuth.length) {
+            let resultCreateBookList= await book_sql.createBookList(user_id, list_name);
+            let bl_id = resultCreateBookList.insertId;
+            book_ids.forEach(book_id => {
+                 book_sql.addBookToList(book_id, bl_id);
+            });
+            await book_sql.updateBookListCount(bl_id, book_ids.length);
+
+            let resultAddReview = await book_sql.addBookReview(user_id, book_id,rating,review);
+            if (resultAddReview && resultAddReview.affectedRows) {
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                
+                res.sendStatus(401);
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+
 
 router.post("/addreview", async (req, res) => {
 

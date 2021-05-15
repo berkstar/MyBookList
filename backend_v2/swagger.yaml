@@ -666,6 +666,8 @@ paths:
                       type: string
                     name:
                       type: string
+                    rating:
+                      type: integer
 
         '401':
           description: Unauthorized - Token is expired or wrong.

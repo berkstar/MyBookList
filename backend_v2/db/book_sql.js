@@ -165,7 +165,7 @@ book.addProgressMark = (user_id, book_id, pro_id) => {
 
 book.getMyProgressBooks = (user_id) => {
     return new Promise((resolve, reject) => {
-        pool.query("SELECT * FROM book_progress_user_view WHERE user_id = ?",[user_id], (err, results) => {
+        pool.query("SELECT * FROM book_progress_rating_user_view WHERE user_id = ?",[user_id], (err, results) => {
             if (err &&err.code != "ER_DUP_ENTRY") {
                 return reject(err);
             }
@@ -212,5 +212,18 @@ book.addBookReview = (user_id, book_id,rating,review) => {
     })
 }   
 
+
+
+book.createBookList = (user_id, list_name) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO Book_list (user_id, name) VALUES (?,?)",[user_id, list_name], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}   
 
 module.exports = book;
