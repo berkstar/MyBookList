@@ -666,7 +666,7 @@ paths:
   /book/editprogress:
     put:
       tags:
-        - "Book-General"
+        - "Book-Progress"
       description: Updating book information
       requestBody:
         required: true
