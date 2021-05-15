@@ -55,10 +55,10 @@ INSERT IGNORE INTO `Post` (`pid`, `tid`, `user_id`, `like_count`, `title`, `text
 
 INSERT IGNORE INTO `friend_of` VALUES (8, 10, b'1');
 INSERT IGNORE INTO `friend_of` VALUES (10, 2, b'1');
-INSERT IGNORE INTO `friend_of` VALUES (7, 6, b'0');
+INSERT IGNORE INTO `friend_of` VALUES (7, 6, b'1');
 INSERT IGNORE INTO `friend_of` VALUES (6, 5, b'1');
-INSERT IGNORE INTO `friend_of` VALUES (5, 9, b'0');
-INSERT IGNORE INTO `friend_of` VALUES (3, 6, b'0');
+INSERT IGNORE INTO `friend_of` VALUES (5, 9, b'1');
+INSERT IGNORE INTO `friend_of` VALUES (3, 6, b'1');
 INSERT IGNORE INTO `friend_of` VALUES (4, 7, b'1');
 
 /*Comment*/
@@ -234,5 +234,5 @@ INSERT IGNORE INTO `series_of` (`book_id`, `ser_id`) VALUES (4, 3);
 INSERT IGNORE INTO `series_of` (`book_id`, `ser_id`) VALUES (5, 4);
 
 /* AUTH */
-INSERT INTO `auth` VALUES ('2021-07-16 23:19:42', 'admin1', 1);
-INSERT INTO `auth` VALUES ('2021-07-15 22:29:02', 'admin', 3);
+INSERT IGNORE INTO `auth` VALUES ('2021-07-16 23:19:42', 'admin1', 1);
+INSERT IGNORE INTO `auth` VALUES ('2021-07-15 22:29:02', 'admin', 3);
