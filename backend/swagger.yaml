@@ -1148,6 +1148,18 @@ paths:
             type: string
           description: keyword
           example: 1
+        - in: query
+          name: date_b
+          schema:
+            type: integer
+          description: date beginning (OPTIONAL)
+          example: 1990
+        - in: query
+          name: date_e
+          schema:
+            type: integer
+          description: date end (OPTIONAL)
+          example: 2000
       responses:
         '200':
           description: OK - Successfully listed.

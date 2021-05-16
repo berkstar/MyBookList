@@ -112,6 +112,18 @@ book.searchBookTitle = (keyword) => {
     })
 }
 
+book.searchBookTitleWithDate = (keyword,date_b,date_e) => {
+    return new Promise((resolve, reject) => {
+        console.log(keyword)
+        pool.query("SELECT * FROM book_series_rating_view WHERE title LIKE ? and year BETWEEN ? AND ?",[keyword,date_b,date_e], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 
 book.getMyBooks = (user_id) => {
     return new Promise((resolve, reject) => {

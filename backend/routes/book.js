@@ -611,7 +611,10 @@ router.get("/searchbook", async (req, res) => {
     try {
         res.type('json')
         let keyword = req.query.keyword
+        let date_b = req.query.date_b
+        let date_e = req.query.date_e
         let auth = req.headers.authorization
+
         console.log("IN=> " + keyword);
         if(keyword)
             keyword = "%" + keyword.trim().replace(/\s/g, "%") + "%";
@@ -622,7 +625,12 @@ router.get("/searchbook", async (req, res) => {
         console.log("OUT=> " + keyword);
 
         if (resultCheckAuth.length) {
-            let resultGetBook = await book_sql.searchBookTitle(keyword);
+            let resultGetBook;
+            if(date_b && date_e)
+                resultGetBook = await book_sql.searchBookTitleWithDate(keyword,date_b,date_e);
+            else
+                resultGetBook = await book_sql.searchBookTitle(keyword);
+
             if (resultGetBook && resultGetBook.length) {
                 res.json(resultGetBook);
                 res.status(200);
