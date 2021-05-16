@@ -18,10 +18,10 @@ import { useHistory } from 'react-router';
 export default function EditBookList() {
     var books = [];
     const [list, setList] = useState([]);
+    const [bookIds, setBookIds] = useState([]);
     const [menuItems, setMenuItems] = useState([]);
+    const [listName, setListName] = useState("");
     const history = useHistory();
-    var bookIds = [];
-    var listName = "";
 
     const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },
@@ -64,8 +64,10 @@ export default function EditBookList() {
         let book = data.value;
         let temp = [...list];
         let newRow = { name: book.title, author_name: book.author_name, pagenumber: book.pages};
+        let temp2 = [...bookIds];
+        temp2.push(book.book_id);
         temp.push(newRow);
-        bookIds.push(book.book_id);
+        setBookIds(temp2);
         setList(temp);
     }
 
@@ -92,7 +94,7 @@ export default function EditBookList() {
                         <TextField
                             variant="filled"
                             label="Name"
-                            onChange={(e)=>{listName = e.target.value}}
+                            onChange={(e)=>{setListName(e.target.value)}}
                             >
                         </TextField> 
                         <br/>

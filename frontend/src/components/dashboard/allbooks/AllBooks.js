@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
+import Slider from '@material-ui/core/Slider';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import {TextField, Typography} from "@material-ui/core";
@@ -47,15 +48,21 @@ const useStyles = makeStyles((theme) => ({
 export default function AllBooks() {
     const classes = useStyles();
     const userType = StorageService.getUserType();
+    var input;
     const [books, setBooks] = useState([]);
+    const [value, setValue] = useState([1900, 2021]);
     const history = useHistory();
 
-    function search(input) {
-        parseBooks(input);
+    function search() {
+        parseBooks(input, value[0], value[1]);
     }
 
-    const parseBooks = async (input="") => {
-        let response = await Api.searchBook(input);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const parseBooks = async (input="", date_b="", date_e="") => {
+        let response = await Api.searchBook(input, date_b, date_e);
         if( response.status !== 200 ) {
             history.push("/login");
         } 
@@ -69,7 +76,7 @@ export default function AllBooks() {
     return (
         <div>
             <Grid container justify="space-between">
-                <h2 className={ userType? "col-6":"col-8" } style={{ marginLeft:30 }}>ALL BOOKS</h2>
+                <h2 className={ userType? "col-8":"col-10" } style={{ marginLeft:30 }}>ALL BOOKS</h2>
                 { userType == 1 && <Button 
                     style={{ marginRight:30 }}
                     variant="contained"
@@ -86,20 +93,47 @@ export default function AllBooks() {
                 onClick={() => { window.helloComponent.handleEditBookList() }}>
                     <b>Create Book List</b>
                 </Button>
-                <TextField
-                    type="search"
-                    variant="outlined"
-                    style={{ marginRight:30, color:'#606060' }}
-                    placeholder="Search for a book..."
-                    onChange= {input => ( search(input.target.value) )}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                > </TextField>
+                
+                <Card className="m-5 container-fluid justify-content-center">
+                    <h3 className="mx-5 mt-5">Book name</h3>
+                    <div className="d-flex justify-content-center">
+                        <TextField className="mx-5 container-fluid"
+                            type="search"
+                            variant="outlined"
+                            style={{ marginTop:20 ,marginRight:30, color:'#606060' }}
+                            placeholder="Search by book name..."
+                            onChange= {e => ( input = e.target.value )}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        >
+                        </TextField>
+                    </div>
+                    <h3 className="mx-5 mt-5" >Year range</h3>
+                    <Slider
+                        style={{maxWidth:"500px"}}
+                        className="mx-5 mb-3"
+                        value={value}
+                        onChange={handleChange}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        min={1900}
+                        max={2021}
+                    />
+                    <div className="mb-5 d-flex justify-content-center">
+                        <Button
+                        variant="contained"
+                        color="default"
+                        size="medium"
+                        onClick={() => { search() }}>
+                            <b>Apply Filters</b>
+                        </Button>
+                    </div>
+                </Card>
             </Grid>
 
             <div style={{ marginTop: 0, padding: 30 }}>
@@ -113,8 +147,9 @@ export default function AllBooks() {
                                             {book.title}
                                         </Typography>
                                         <Rating
-                                        name="simple-controlled"
+                                        name="read-only"
                                         value={book.rating}
+                                        readOnly
                                         />
                                         <Typography component="p">{book.description}</Typography>
                                     </CardContent>
