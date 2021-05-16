@@ -590,6 +590,204 @@ paths:
 #---<<<<<<<<<<<<<<<<<<<<<<<<<<<Book>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
+  /book/challengeprogress:
+    put:
+      tags:
+        - "Book-Challenge"
+      description: Updating user challenge progress. book_read cannot be higher than books that challenge have.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    format: user_id
+                    example: 9
+                  chal_id:
+                    type: integer
+                    format: chal_id
+                    example: 2
+                  book_read:
+                    type: integer
+                    format: book_read
+                    example: 2
+      responses:
+        '200':
+          description: OK - Successfully updated.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+  /book/getchallengebooklist:
+    get:
+      tags:
+        - "Book-Challenge"
+
+      description: Shows all books that belongs to given challenge
+      parameters:
+        - in: query
+          name: chal_id
+          schema:
+            type: integer
+          description: Challenge ID
+          example: 1
+      responses:
+        '200':
+          description: OK - Successfully listed.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    genre:
+                      type: string
+                    year:
+                      type: integer
+                    pages:
+                      type: integer
+
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
+
+  /book/getchallenges:
+    get:
+      tags:
+        - "Book-Challenge"
+
+      description: Shows all challenges with additional info like join status, completion,
+      parameters:
+        - in: query
+          name: uid
+          schema:
+            type: integer
+          description: user_id
+          example: 1
+      responses:
+        '200':
+          description: OK - Successfully listed.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    challenge_name:
+                      type: string
+                    chal_id:
+                      type: integer
+                    book_listname:
+                      type: string
+                    book_count:
+                      type: integer
+                    isJoined:
+                      type: boolean
+                    percent:
+                      type: integer
+
+        '401':
+          description: Unauthorized - Token is expired or wrong.
+
+  /book/joinchallenge:
+    post:
+      tags:
+        - "Book-Challenge"
+
+      description: User joins to a challenge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    example: 1
+                  cid:
+                    type: integer
+                    example: 2
+              
+      responses:
+        '200':
+          description: OK - Successfully joined.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+
+  /book/createchallenge:
+    post:
+      tags:
+        - "Book-Challenge"
+
+      description: Adds challenge to the system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uid:
+                    type: integer
+                    example: 9
+                  bl_id:
+                    type: integer
+                    example: 7
+                  chal_name:
+                    type: string
+                    example: "Best Challenge"
+                  due_date:
+                    type: string
+                    example: "2021-07-20"
+              
+      responses:
+        '200':
+          description: OK - Successfully added.
+        '401':
+          description: Unauthorized - Wrong username or email.
+
+
+
+  /book/getmybooklists:
+    get:
+      tags:
+        - "Book-BookList"
+
+      description: Gets user's booklists
+      parameters:
+        - in: query
+          name: uid
+          schema:
+            type: integer
+          description: user_id
+          example: 1
+      responses:
+        '200':
+          description: OK - Successfully listed.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    bl_id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    name:
+                      type: string
+                    book_count:
+                      type: integer
+        '401':
+          description: Unauthorized - Token is expired or wrong.
 
 
 

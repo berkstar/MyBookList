@@ -1,21 +1,29 @@
 /*>>>>>>>>>>Procedures*/
 
-
+/* */
 DROP PROCEDURE IF EXISTS PostComments_procedure;
-
 CREATE PROCEDURE `PostComments_procedure`(IN `postId` INT) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
 SELECT u.user_name, u.name, c.text, DATE_FORMAT(c.date, "%e %M %Y") AS date FROM (SELECT * FROM post_comment WHERE pid = postId) AS pc JOIN Comment c 
 USING (cid) JOIN User u 
 USING (user_id) ORDER BY c.date
 
+/* For listing challenge list with availability, progress and join status */
+DROP PROCEDURE IF EXISTS challengelist_procedure;
+CREATE PROCEDURE `challengelist_procedure`(IN `userID` INT) NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
+SELECT c.challenge_name, c.chal_id, bl.name AS book_listname, bl.book_count, (EXISTS (SELECT * from joins_challenge jc2 where jc2.user_id = userID AND jc2.chal_id = c.chal_id)) AS isJoined,
+(SELECT ROUND((jc.book_read / bl.book_count) * 100 ) FROM joins_challenge jc WHERE user_id = userID AND chal_id = c.chal_id) AS percent
+FROM Challenge c LEFT JOIN Book_list bl USING(bl_id) ORDER BY percent DESC 
 
 /*For Calling<<<
 CALL PostComments_procedure(19)*/
 
 /*>>>>>>>>>>>Event*/
 
+SET GLOBAL event_scheduler="ON"
+
 CREATE EVENT `Auth Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM auth WHERE CURRENT_TIMESTAMP() > auth.date
 
+CREATE EVENT `Challenge Remover` ON SCHEDULE EVERY 1 MINUTE ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM Challenge WHERE CURRENT_TIMESTAMP() > Challenge.due_date
 /*>>>>>>>>>>>>>>>Views*/
 
 /* For listing comments to progress */

@@ -263,4 +263,89 @@ book.updateBookListCount = (bl_id, book_count) => {
     })
 }
 
+
+
+book.getMyBookLists = (user_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM Book_list WHERE user_id = ? ORDER BY name",[ user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
+book.getBooksFromList = (user_id,bl_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT * FROM Book_list bl JOIN has_books USING(bl_id) JOIN Book b USING(book_id) where user_id = ? and bl_id = ?",[user_id, bl_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
+book.createChallenge = (user_id, bl_id,chal_name,due_date) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO Challenge (librarian_id, bl_id, challenge_name, due_date) VALUES (?,?,?,?)",[user_id, bl_id,chal_name,due_date], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+} 
+
+book.getChallenges = (user_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("CALL challengelist_procedure(?)",[user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+book.getChallengesBookList = (chal_id) => {
+    return new Promise((resolve, reject) => {
+        pool.query("SELECT b.title, b.description, b.genre, b.year, b.pages FROM Challenge c JOIN has_books hb USING(bl_id) JOIN Book b USING(book_id) WHERE c.chal_id = ? ORDER BY title",[chal_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
+
+book.joinChallenge = (user_id, chal_id) => {
+    return new Promise((resolve, reject) => {
+        
+        pool.query("INSERT INTO joins_challenge (user_id, chal_id) VALUES (?,?)",[user_id, chal_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+} 
+
+
+book.updateChallengeProgress = (user_id,chal_id,book_read) => {
+    return new Promise((resolve, reject) => {
+        pool.query("UPDATE joins_challenge SET book_read = ? WHERE EXISTS( SELECT c.chal_id FROM Challenge c JOIN Book_list bl USING(bl_id) WHERE chal_id = ? AND book_count >= ?) AND chal_id = ? AND user_id = ?",[book_read, chal_id, book_read, chal_id, user_id], (err, results) => {
+            if (err &&err.code != "ER_DUP_ENTRY") {
+                return reject(err);
+            }
+            return resolve(results);
+        })
+    })
+}
+
 module.exports = book;

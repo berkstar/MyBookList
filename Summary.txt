@@ -17,16 +17,21 @@ $ => To do
 ● Users are able to follow and list Forum threads.                                              # GET:/forum/getallthreads | POST:/forum/followthread | DELETE:/forum/unfollowthread | GET:forum/listfollowedthreads
 ● Users are able to write / update / delete / view / list / like posts and get user posts.      # POST:/forum/postpost | GET:/forum/getposts | GET:/forum/getpost | PUT:/forum/likepost | DELETE:/forum/deletepost | PUT:/forum/updatepost | GET:/forum/getuserposts 
 ● Users are able to write / update / delete / list comments to Posts.                           # POST:/forum/addpostcomment GET:/forum/getpostcomment | DELETE:/forum/delpostcomment |  PUT:/forum/updatepostcomment   
-
-
-
 ● Users are able to recommend books to their friends.                                           # GET: /book/incomingrecommends | GET: /book/outgoingrecommends| POST: /book/recommend | DELETE: /book/deleterecommend
-● Users are able to create / list their own book lists.                                         % GET: /book/getmybooklists | POST: /book/createbooklist | POST: /book/addbooktolist | DELETE: /book/deletebooklist | DELETE: /book/removebookfromlist
+
+
+
+● Users are able to create / list their own book lists.                                         # GET: /book/getmybooklists | POST: /book/postbooklist
+● Users will be able to join challange.	                                                        # GET: /book/getchallenges => cnmame, cid, c.duedate, c.booklist name, c.booklist.book_count, isJoined, percent, isLibrarian  | POST: /book/joinchallenge <= cid,uid | PUT: /book/challengeprogress <= user_id,chal_id,book_read
+
+
+
+
 ● Users are able to comment and rate out of 10 on specified books.                              % POST: /book/addreview | /// GET: /book/listmyreviews | GET: /book/listbookreviews///
 ● Users will be able to create / edit book progress.                                            # GET: /book/getmybooks	| POST: /book/addprogress | PUT: /book/editprogress | DELETE: /book/deleteprogress
 ● Users are able to report wrong information about books to authors.                            $ POST: /book/createrequest | GET: /book/myrequests  | DELETE: /book/deleterequest
 ● Users will be able to comment the book progress of their friends.					            $ GET: /book/getmyprogresscomments | POST: /book/commentprogress | DELETE: /book/deleteprogresscomment
-● Users will be able to join challange.	                                                        $ GET: /book/getchallenges | POST: /book/joinchallenge | PUT: /book/challengeprogress
+
 ● Users are able to search books by title                                                       # GET:/book/searchbook 
 ● Users are able to search for friends.                                                         # GET:/user/getusers <Search done in front-end>
 
@@ -43,7 +48,9 @@ $ => To do
 --------------Librarian--------------------
 ● Librarians are able to list / verify an author.                                               # GET: /user/getunverifiedauthors | GET: /user/getverifiedauthors | PUT: /user/verifyauthor                                   
 ● Librarians are able to create new / delete Forum threads. 									$ POST: /forum/createthread | DELETE: /forum/deletethread			
-● Librarians are able to create global challenges.                                              $ POST: /book/createchallenge | DELETE: /book/deletechallenge | POST: /book/addbooklistchallenge | DELETE: /book/deletebooklistfromchallenge | PUT: /book/editchallenge
+
+
+● Librarians are able to create global challenges.                                              # POST: /book/createchallenge <= bl_id, user_id, name | # GET: /book/getchallengebooklist
 
 
 

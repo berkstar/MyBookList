@@ -1,3 +1,5 @@
+SET GLOBAL event_scheduler="ON"
+
 /* USERS */
 INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (1, 'dhoeger', 'allison.nader@example.net', 'Edwin Hauck', 'Maiores vitae omnis et enim quibusdam libero omnis. Debitis non dignissimos saepe distinctio ipsa voluptatem. Id est vel aperiam nulla tempore labore quas.', '586f68429b85816734acbc80775cbad6');
 INSERT IGNORE INTO `User` (`user_id`, `user_name`, `email`, `name`, `biography`, `password`) VALUES (2, 'alubowitz', 'gus.hilll@example.net', 'Claudie Boyle', 'Facere minima totam ex dolorem ipsa. Qui quasi odit ipsam ratione dolorem facere quis.', '52edc4e11c164ae89036de42b666c7b4');
@@ -137,12 +139,12 @@ INSERT IGNORE INTO `publishes` (`author_id`, `book_id`) VALUES (18, 10);
 
 
 /* Book_list */
-INSERT IGNORE INTO `Book_list` (`bl_id`, `user_id`, `name`, `book_count`) VALUES (1, 7, 'aut', 1);
-INSERT IGNORE INTO `Book_list` (`bl_id`, `user_id`, `name`, `book_count`) VALUES (2, 2, 'magnam', 2);
+INSERT IGNORE INTO `Book_list` (`bl_id`, `user_id`, `name`, `book_count`) VALUES (1, 7, 'aut', 5);
+INSERT IGNORE INTO `Book_list` (`bl_id`, `user_id`, `name`, `book_count`) VALUES (2, 2, 'magnam', 4);
 
 /* Challange */
 
-INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (1, 9, 2, 'The Best 100 Challenge', '2021-10-15');
+INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (1, 9, 1, 'The Best 100 Challenge', '2021-10-15');
 INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (2, 9, 2, 'Adventure Challenge', '2022-02-22');
 INSERT IGNORE INTO `Challenge` (`chal_id`, `librarian_id`, `bl_id`, `challenge_name`, `due_date`) VALUES (3, 9, 2, 'Bloody Challenge', '2023-03-10');
 
@@ -214,13 +216,13 @@ INSERT IGNORE INTO `has_books` (`book_id`, `bl_id`) VALUES (10, 1);
 
 /* joins_challanges */
 
-INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (1, 3, 7);
-INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (3, 1, 3);
-INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (5, 1, 5);
-INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (5, 2, 0);
+INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (1, 3, 4);
+INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (3, 1, 4);
+INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (5, 1, 1);
+INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (5, 2, 2);
 INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (6, 2, 2);
-INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (8, 3, 7);
-INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (9, 3, 9);
+INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (8, 3, 3);
+INSERT IGNORE INTO `joins_challenge` (`user_id`, `chal_id`, `book_read`) VALUES (9, 3, 4);
 
 /* mark_progress */
 
@@ -282,3 +284,4 @@ INSERT IGNORE INTO `series_of` (`book_id`, `ser_id`) VALUES (5, 4);
 /* AUTH */
 INSERT IGNORE INTO `auth` VALUES ('2021-07-16 23:19:42', 'admin1', 1);
 INSERT IGNORE INTO `auth` VALUES ('2021-07-15 22:29:02', 'admin', 3);
+INSERT IGNORE INTO `auth` VALUES ('2021-07-15 22:29:02', 'bulut', 9);

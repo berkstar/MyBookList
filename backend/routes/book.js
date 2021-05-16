@@ -10,7 +10,162 @@ router.use(bodyParser.json());
 router.use(cors());
 
 
+router.put("/challengeprogress", async (req, res) => {
 
+    try {
+        res.type('json')
+        let user_id = req.body.uid
+        let chal_id = req.body.chal_id
+        let book_read = req.body.book_read
+
+        let auth = req.headers.authorization
+        let resultCheckAuth = await user_sql.checkAuthType(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultUpdateProgress = await book_sql.updateChallengeProgress(user_id,chal_id,book_read);
+            if (resultUpdateProgress && resultUpdateProgress.affectedRows) {
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                res.sendStatus(401);
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.post("/joinchallenge", async (req, res) => {
+    try {
+
+        res.type('json')
+        let user_id = req.body.uid
+        let chal_id = req.body.cid
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthType(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultJoinChal = await book_sql.joinChallenge(user_id, chal_id);
+            if (resultJoinChal && resultJoinChal.affectedRows) {
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                
+                res.sendStatus(401);
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+router.get("/getchallenges", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.query.uid
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthType(auth,user_id)
+
+
+        if (resultCheckAuth.length) {
+            let resultChallenges = await book_sql.getChallenges(user_id);
+            if (resultChallenges && resultChallenges.length) {
+
+                res.json(resultChallenges[0]);
+                res.status(200);
+            }
+            else { 
+                
+                res.status(200);
+                res.json([])
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.get("/getchallengebooklist", async (req, res) => {
+
+    try {
+        res.type('json')
+        let chal_id = req.query.chal_id
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuth(auth)
+
+
+        if (resultCheckAuth.length) {
+            let resultChallenges = await book_sql.getChallengesBookList(chal_id);
+            if (resultChallenges && resultChallenges.length) {
+
+                res.json(resultChallenges);
+                res.status(200);
+            }
+            else { 
+                
+                res.status(200);
+                res.json([])
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
+
+
+router.post("/createchallenge", async (req, res) => {
+    try {
+
+        res.type('json')
+        let user_id = req.body.uid
+        let bl_id = req.body.bl_id
+        let chal_name = req.body.chal_name
+        let due_date = req.body.due_date
+
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthLibrarian(auth, user_id)
+
+        if (resultCheckAuth.length) {
+            let resultCreateChal = await book_sql.createChallenge(user_id, bl_id,chal_name,due_date);
+            if (resultCreateChal && resultCreateChal.affectedRows) {
+                res.sendStatus(200);
+            }
+            else { // If there are duplicates
+                
+                res.sendStatus(401);
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
 
 
 router.post("/postbooklist", async (req, res) => {
@@ -50,6 +205,38 @@ router.post("/postbooklist", async (req, res) => {
     }
 })
 
+
+router.get("/getmybooklists", async (req, res) => {
+
+    try {
+        res.type('json')
+        let user_id = req.query.uid
+        let auth = req.headers.authorization
+
+        let resultCheckAuth = await user_sql.checkAuthType(auth,user_id)
+
+
+        if (resultCheckAuth.length) {
+            let resultBookLists = await book_sql.getMyBookLists(user_id);
+            if (resultBookLists && resultBookLists.length) {
+
+                res.json(resultBookLists);
+                res.status(200);
+            }
+            else { 
+                
+                res.status(200);
+                res.json([])
+            }
+        }
+        else { 
+            res.sendStatus(401);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        console.log(error)
+    }
+})
 
 
 
