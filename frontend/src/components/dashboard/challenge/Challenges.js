@@ -93,7 +93,6 @@ export default function Challenges() {
         }
         else {
             await parseChallenges();
-            alert("Updated Progress!");
         }
     }
 
