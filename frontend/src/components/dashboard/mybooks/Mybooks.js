@@ -114,9 +114,10 @@ export default function Mybooks() {
                                             {book.title}
                                         </Typography>
                                         <Rating
-                                            name="simple-controlled"
+                                            name="read-only"
                                             value={book.rating}
                                             onChange={(e,value)=>{rateBook(e,value,book.book_id)}}
+                                            readOnly
                                         />
                                         <Typography component="p">{book.description}</Typography>
                                     </CardContent>

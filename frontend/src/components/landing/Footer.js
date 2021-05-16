@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
         background: '#5e92f3',
         minHeight: '200px',
         width: '100vw',
-        marginTop: '20px',
         paddingTop: '20px',
-
+        backgroundColor: '#606060',
+        color: 'white'
     },
     divider: {
         marginTop: '0px',
@@ -36,7 +36,7 @@ function Footer() {
                     Bulut Gozubuyuk
                 </Grid>
                 <Grid item xs={2}>
-                    Berk ....
+                    Berk Yildiz
                 </Grid>
                 <Grid item xs={2}>
                     Denizhan Kemeroz
@@ -45,7 +45,7 @@ function Footer() {
                     <Typography component="h6" variant="h6">
                         BOOKLAB
                     </Typography>
-                    <Typography variant="subtitle2" color="textPrimary">
+                    <Typography variant="subtitle2" color="white">
                         All rights reserved &copy; 2021
                     </Typography>
                 </Grid>
@@ -54,8 +54,7 @@ function Footer() {
     }
     return (
         <div className={classes.root}>
-
-            <Container >
+            <Container>
                 <Divider className={classes.divider} />
                 <Grid container spacing={1}>
                     <Grid container item xs={12} spacing={5}>

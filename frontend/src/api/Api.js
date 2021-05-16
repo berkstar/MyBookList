@@ -33,6 +33,10 @@ async function getAllThreads() {
     return await api_get('/forum/getallthreads/', null);
 }
 
+async function getTopThreads() {
+    return await api_get('/forum/gettopthreads/', null);
+}
+
 async function getPosts(threadId) {
     let request = { tid: threadId };
     return await api_get('/forum/getposts', request);
@@ -159,9 +163,11 @@ async function commentPost(text, pid) {
     return await api_post('/forum/addpostcomment', request);
 }
 
-async function searchBook(keyword) {
+async function searchBook(keyword, date_b, date_e) {
     let request = {
         keyword: keyword,
+        date_b: date_b,
+        date_e: date_e
     }
     return await api_get('/book/searchbook/', request);
 }
@@ -336,7 +342,8 @@ const Api = {
     getMyBookLists,
     getMyBooks,
     rateBook,
-    postProgress
+    postProgress,
+    getTopThreads
 }
 
 export default Api;

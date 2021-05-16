@@ -1,9 +1,7 @@
 import React from 'react';
 import {Nav, Navbar, Button} from 'react-bootstrap'
-import Showcase from 'components/landing/Showcase';
-import { Container } from '@material-ui/core';
 import Footer from './Footer';
-import About from './About';
+import ShowcaseImg from 'static/img/ShowcaseImg.jpeg';
 
 function LandingPage() {
 
@@ -22,9 +20,7 @@ function LandingPage() {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <Container>
-                <Showcase />
-            </Container>
+            <img src={ ShowcaseImg } />
             <Footer />
         </div>
 
