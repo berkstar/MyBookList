@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {CardMedia, Container, Grid} from "@material-ui/core";
-import posts from "../posts/dummy-posts";
 import Card from "@material-ui/core/Card";
 import ProfImg from "static/img/dummy_profile_image.png"
-import { Row, Col } from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 import Post from '../posts/Post';
 import Api from 'api/Api';
-import { useHistory } from 'react-router';
+import {useHistory} from 'react-router';
 
-function OtherProfile(props){
+function OtherProfile(props) {
     const user = props.user;
     const history = useHistory();
     const [posts, setPosts] = useState([]);
 
     const parsePosts = async () => {
         let response = await Api.getUserPosts(props.user.user_id);
-        if( response.status !== 200 ) {
+        if (response.status !== 200) {
             history.push("/login");
-        } 
-        else {
+        } else {
             setPosts(response.data);
         }
     }
@@ -26,15 +24,15 @@ function OtherProfile(props){
     useState(parsePosts);
 
     return (
-        <Card className="bg-secondary text-white my-4 mx-5" style={{ maxHeight:'1900px'}} variant="outlined" >
+        <Card className="bg-secondary text-white my-4 mx-5" style={{maxHeight: '1900px'}} variant="outlined">
             <Container className="justify-content-center">
                 <Row className="justify-content-center">
-                    <CardMedia 
+                    <CardMedia
                         className="my-2"
-                        style={{ maxWidth:'220px', maxHeight:'220px'}}
+                        style={{maxWidth: '220px', maxHeight: '220px'}}
                         src={ProfImg}
                         component='img'
-                        >
+                    >
                     </CardMedia>
                 </Row>
                 <Row>
@@ -66,9 +64,10 @@ function OtherProfile(props){
                         </Row>
                     </Col>
                 </Row>
-                
+
             </Container>
         </Card>
     );
 }
+
 export default OtherProfile

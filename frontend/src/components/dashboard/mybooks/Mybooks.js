@@ -11,7 +11,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import Rating from '@material-ui/lab/Rating';
-import books from "./dummy-books";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import Api from 'api/Api';

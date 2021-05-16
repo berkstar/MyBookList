@@ -1,12 +1,8 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-
-// import FormControl from '@material-ui/core/FormControl';
-// import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Threads from "./Threads";
-// import AddButton from '../createform/AddButton'
 
 const useStyles = makeStyles((theme) => ({
     root: {
