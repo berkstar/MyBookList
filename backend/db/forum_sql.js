@@ -198,7 +198,6 @@ forum.getComments = (post_id) => {
 
                 return reject(err);
             }
-            console.log(results[0]);
             return resolve(results[0]);
         })
     })
