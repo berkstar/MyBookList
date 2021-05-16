@@ -85,6 +85,18 @@ export default function Challenges() {
         }
     }
 
+    const updateProgress = async (id) => {
+        const book_read = prompt('Please enter how many books you have read');
+        let response = await Api.challengeProgress(id, book_read);
+        if( response.status !== 200 ) {
+            history.push("/login");
+        }
+        else {
+            await parseChallenges();
+            alert("Updated Progress!");
+        }
+    }
+
     useState(parseChallenges);
 
     // React.useEffect(() => {
@@ -117,6 +129,7 @@ export default function Challenges() {
                                             {chl.challenge_name}
                                         </Typography>
                                         <Typography component="p">Book list: {chl.book_listname}</Typography>
+                                        <Typography component="p">Book count: {chl.book_count}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
@@ -126,9 +139,11 @@ export default function Challenges() {
                                         onClick={() => joinChallenge(chl.chal_id)}>
                                         Join
                                     </Button>}
-                                    <Button size="small" color="primary">
-                                        View
-                                    </Button>
+                                    { chl.isJoined === 1 && <Button size="small"
+                                                                    color="primary"
+                                                                    onClick={() => updateProgress(chl.chal_id)}>
+                                        Update Progress
+                                    </Button>}
                                 </CardActions>
                                 <LinearProgressWithLabel value={chl.percent} />
                             </Card>
