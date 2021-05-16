@@ -98,6 +98,16 @@ async function challengeProgress(challenge_id, num) {
     return await api_put('/book/challengeprogress', request);
 }
 
+async function createChallenge(booklist_id, name, duedate) {
+    let request = {
+        uid: StorageService.getUserId(),
+        bl_id: booklist_id,
+        chal_name: name,
+        due_date: duedate
+    }
+    return await api_post('/book/createchallenge', request);
+}
+
 async function postBook(book_name, author_id, num_of_pages, description, genre, year) {
     let request = {
         b_name: book_name,
@@ -314,6 +324,7 @@ const Api = {
     postBook,
     getChallenges,
     joinChallenge,
+    createChallenge,
     challengeProgress,
     setBio,
     likePost,

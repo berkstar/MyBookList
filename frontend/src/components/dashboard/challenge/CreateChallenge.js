@@ -6,6 +6,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Dropdown } from 'semantic-ui-react'
 import Api from 'api/Api';
 import { useHistory } from 'react-router';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 
 
 export default function CreateChallenge() {
@@ -14,6 +22,12 @@ export default function CreateChallenge() {
     const history = useHistory();
     const bookListIds = [];
     let challengeName = "";
+
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2021-08-18T21:11:54'));
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
     const parseBookLists = async () => {
         let response = await Api.getMyBookLists();
@@ -45,13 +59,14 @@ export default function CreateChallenge() {
         let book = data.value;
     }
 
-    async function postChallenge() {
-        let response = await Api.postBookList(challengeName, bookListIds);
+    async function postChallenge(bl_id,ch_name,due_date) {
+        let response = await Api.createChallenge(bl_id,ch_name,due_date);
         if( response.status !== 200 ) {
             history.push("/login");
         }
         else {
             window.helloComponent.handleBrowse();
+            alert("Challenge has been created successfully!");
         }
     }
 
@@ -63,14 +78,32 @@ export default function CreateChallenge() {
                         <Typography component="h4" variant="h4" xs={10}>
                             Create New Challenge
                         </Typography>
-                        <br/>
                         <h3>Challenge Name <EditIcon/></h3>
+
                         <TextField
                             variant="filled"
-                            label="Name"
+                            label="Enter challenge name..."
                             onChange={(e)=>{challengeName = e.target.value}}
                         >
+
                         </TextField>
+                        <br/>
+                        <br/>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    id="date-picker-inline"
+                                    label="Challenge due date"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                        </MuiPickersUtilsProvider>
                         <br/>
                         <h3>Assign booklist</h3>
                         <Dropdown
