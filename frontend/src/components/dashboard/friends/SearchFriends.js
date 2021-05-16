@@ -8,15 +8,11 @@ import CardContent from "@material-ui/core/CardContent";
 import {TextField, Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import { IconButton } from '@material-ui/core';
-import dummy_users from "./dummy-friends";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
 import AddIcon from '@material-ui/icons/Add';
 import Button from "@material-ui/core/Button";
 import Api from 'api/Api';
-import StorageService from 'services/StorageService';
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -9,8 +9,6 @@ import CardContent from "@material-ui/core/CardContent";
 import {Typography} from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import {Link} from "react-router-dom";
-import friends from "./dummy-friends";
 import { Row } from 'react-bootstrap';
 
 const useStyles = makeStyles((theme) => ({

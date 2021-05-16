@@ -75,8 +75,9 @@ async function postPost(newPost) {
     return await api_post('/forum/postpost', newPost);
 }
 
-async function getAllChallenges() {
-    return await api_get('/challange/getallchallenges', null);
+async function getChallenges() {
+    let request = { uid: StorageService.getUserId() };
+    return await api_get('/book/getchallenges', request);
 }
 
 async function joinChallenge(challenge_id) {
@@ -84,7 +85,7 @@ async function joinChallenge(challenge_id) {
         uid: StorageService.getUserId(),
         cid: challenge_id
     }
-    return await api_post('/challange/joinchallenge', request);
+    return await api_post('/book/joinchallenge', request);
 }
 
 async function postBook(book_name, author_id, num_of_pages, description, genre, year) {
@@ -296,7 +297,7 @@ const Api = {
     postPost,
     getUser,
     postBook,
-    getAllChallenges,
+    getChallenges,
     joinChallenge,
     setBio,
     likePost,

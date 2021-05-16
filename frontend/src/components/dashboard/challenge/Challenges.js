@@ -11,8 +11,9 @@ import {Link, useHistory} from "react-router-dom";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-import challenges from "./dummy-challenges";
 import Api from "api/Api";
+import {Row} from "react-bootstrap";
+import StorageService from 'services/StorageService';
 
 function LinearProgressWithLabel(props) {
     return (
@@ -56,32 +57,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Challenges() {
     const classes = useStyles();
+
+    const [challenges, setChallenges] = useState([]);
+    const history = useHistory();
+
+    const parseChallenges = async () => {
+        let response = await Api.getChallenges();
+        if( response.status !== 200 ) {
+            history.push("/login");
+        }
+        else {
+            setChallenges(response.data);
+        }
+    }
     // const [progress, setProgress] = React.useState(10);
     // const [challenges, setChallenges] = useState([]);
     // const history = useHistory();
 
-    // const parseChallenges = async () => {
-    //     let response = await Api.getAllChallenges();
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         setChallenges(response.data);
-    //     }
-    // }
+    const joinChallenge = async (id) => {
+        let response = await Api.joinChallenge(id);
+        if( response.status !== 200 ) {
+            history.push("/login");
+        }
+        else {
+            await parseChallenges();
+            alert("Joined to challenge!");
+        }
+    }
 
-    // const joinChallenge = async (id) => {
-    //     let response = await Api.joinChallenge(id);
-    //     if( response.status !== 200 ) {
-    //         history.push("/login");
-    //     } 
-    //     else {
-    //         parseChallanges();
-    //         alert("Joined to challenge!");
-    //     }
-    // }
-
-    // useState(parseChallenges);
+    useState(parseChallenges);
 
     // React.useEffect(() => {
     //     const timer = setInterval(() => {
@@ -94,32 +98,39 @@ export default function Challenges() {
 
     return (
         <div className={classes.root}>
-            <Grid >
-                <h2 style={{ marginLeft:30 }}>CHALLENGES</h2>
-            </Grid>
+
+            <Row className="container-fluid row-cols-auto">
+                <h2 className="col my-auto" style={{ marginLeft:10 }}>Challenges - </h2>
+                {StorageService.getUserType() === 2 && <Button className="col my-auto" onClick={() => window.helloComponent.handleCreateChallenge()} size="medium" color="primary" style={{marginLeft: 10, float: 'right'}}>
+                    Create Challenge
+                </Button>}
+            </Row>
 
             <div style={{ marginTop: 0, padding: 30 }}>
                 <Grid container spacing={10} justify="center">
                     {challenges.map(chl => (
-                        <Grid item key={chl.title}>
+                        <Grid item key={chl.chal_id}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {chl.title}
+                                            {chl.challenge_name}
                                         </Typography>
-                                        <Typography component="p">{chl.content}</Typography>
+                                        <Typography component="p">Book list: {chl.book_listname}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    { chl.joined != 1 && <Button size="small" color="primary">
+                                    { chl.isJoined !== 1 && <Button
+                                        size="small"
+                                        color="primary"
+                                        onClick={() => joinChallenge(chl.chal_id)}>
                                         Join
                                     </Button>}
                                     <Button size="small" color="primary">
                                         View
                                     </Button>
                                 </CardActions>
-                                <LinearProgressWithLabel value={chl.progress} />
+                                <LinearProgressWithLabel value={chl.percent} />
                             </Card>
                             <br/>
                         </Grid>

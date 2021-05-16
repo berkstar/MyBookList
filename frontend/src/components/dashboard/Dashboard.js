@@ -26,6 +26,7 @@ import EditBookList from 'components/dashboard/edit-book-list/EditBookList';
 import Mybooks from 'components/dashboard/mybooks/Mybooks';
 import Friends from 'components/dashboard/friends/Friends';
 import SearchFriends from 'components/dashboard/friends/SearchFriends';
+import CreateChallenge from 'components/dashboard/challenge/CreateChallenge';
 import Posts from 'components/dashboard/posts/Posts';
 import UserProfile from 'components/dashboard/profile/MyProfile';
 import OtherProfile from 'components/dashboard/profile/OtherProfile';
@@ -151,6 +152,7 @@ class Dashboard extends Component {
             bookDetails: false,
             editBookList: false,
             searchFriends: false,
+            createChallenge: false,
             otherProfile: false,
             posts: false,
             postDetails: false,
@@ -171,6 +173,7 @@ class Dashboard extends Component {
             bookDetails: false,
             editBookList: false,
             searchFriends: false,
+            createChallenge:false,
             otherProfile: false,
             posts: false,
             postDetails: false,
@@ -244,6 +247,11 @@ class Dashboard extends Component {
         this.setState({searchFriends: true});
     }
 
+    handleCreateChallenge() {
+        this.setState(this.states);
+        this.setState({createChallenge: true});
+    }
+
     handleEditPost(editPost_thread) {
         this.editPost_thread = editPost_thread;
         this.setState(this.states);
@@ -275,6 +283,8 @@ class Dashboard extends Component {
             showContent = <BookDetails book={this.book} parseBooks={this.parseBooks}/>
         } else if (this.state.searchFriends) {
             showContent = <SearchFriends/>
+        } else if (this.state.createChallenge) {
+            showContent = <CreateChallenge/>
         } else if (this.state.otherProfile) {
             showContent = <OtherProfile user={this.profile_user}/>
         } else if (this.state.editBookList) {
