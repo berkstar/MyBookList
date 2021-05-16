@@ -30,7 +30,7 @@ import CreateChallenge from 'components/dashboard/challenge/CreateChallenge';
 import Posts from 'components/dashboard/posts/Posts';
 import UserProfile from 'components/dashboard/profile/MyProfile';
 import OtherProfile from 'components/dashboard/profile/OtherProfile';
-import { fade } from '@material-ui/core/styles';
+import {fade} from '@material-ui/core/styles';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import PostDetails from './post-details/Post-details';
@@ -173,7 +173,7 @@ class Dashboard extends Component {
             bookDetails: false,
             editBookList: false,
             searchFriends: false,
-            createChallenge:false,
+            createChallenge: false,
             otherProfile: false,
             posts: false,
             postDetails: false,
@@ -312,16 +312,7 @@ class Dashboard extends Component {
                             </Typography>
                             <Grid>
                                 <div className={classes.sectionDesktop}>
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="create thread"
-                                        aria-controls={1}
-                                        aria-haspopup="true"
-                                        onClick={() => this.handleMyProfile()}
-                                        color="inherit"
-                                    >
-                                        <PostAddIcon/>
-                                    </IconButton>
+
                                     <IconButton
                                         edge="end"
                                         aria-label="account of current user"
@@ -348,28 +339,34 @@ class Dashboard extends Component {
                     <div className={"container-fluid h-100 " + classes.drawerContainer}>
                         <List>
                             <ListItem button onClick={() => this.handleThreads()} key="Threads">
-                                <ListItemIcon><HomeIcon style={{ color: '#fff' }}/></ListItemIcon>
-                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Forum</Typography>}/>
+                                <ListItemIcon><HomeIcon style={{color: '#fff'}}/></ListItemIcon>
+                                <ListItemText
+                                    primary={<Typography type="body2" style={{color: '#FFFFFF'}}>Forum</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyFriends()} key="Friends">
-                                <ListItemIcon><PeopleIcon style={{ color: '#fff' }}/></ListItemIcon>
-                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Friends</Typography>}/>
+                                <ListItemIcon><PeopleIcon style={{color: '#fff'}}/></ListItemIcon>
+                                <ListItemText
+                                    primary={<Typography type="body2" style={{color: '#FFFFFF'}}>Friends</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyChallenges()} key="Challenges">
-                                <ListItemIcon><AccessAlarmIcon style={{ color: '#fff' }}/></ListItemIcon>
-                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Challenges</Typography>}/>
+                                <ListItemIcon><AccessAlarmIcon style={{color: '#fff'}}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2"
+                                                                   style={{color: '#FFFFFF'}}>Challenges</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleMyBooks()} key="MyBooks">
-                                <ListItemIcon><LibraryBooksIcon style={{ color: '#fff' }}/></ListItemIcon>
-                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>My Books</Typography>}/>
+                                <ListItemIcon><LibraryBooksIcon style={{color: '#fff'}}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{color: '#FFFFFF'}}>My
+                                    Books</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.handleBrowse()} key="AllBooks">
-                                <ListItemIcon><MenuBookIcon style={{ color: '#fff' }}/></ListItemIcon>
-                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Browse</Typography>}/>
+                                <ListItemIcon><MenuBookIcon style={{color: '#fff'}}/></ListItemIcon>
+                                <ListItemText
+                                    primary={<Typography type="body2" style={{color: '#FFFFFF'}}>Browse</Typography>}/>
                             </ListItem>
                             <ListItem button onClick={() => this.props.history.push("/login")} key="SignOut">
-                                <ListItemIcon><ExitToAppIcon style={{ color: '#fff' }}/></ListItemIcon>
-                                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>Sign Out</Typography>}/>
+                                <ListItemIcon><ExitToAppIcon style={{color: '#fff'}}/></ListItemIcon>
+                                <ListItemText primary={<Typography type="body2" style={{color: '#FFFFFF'}}>Sign
+                                    Out</Typography>}/>
                             </ListItem>
                         </List>
                         <Divider/>

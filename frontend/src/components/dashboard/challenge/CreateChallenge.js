@@ -8,20 +8,18 @@ import Api from 'api/Api';
 import { useHistory } from 'react-router';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+import moment from 'moment';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-
-
 
 export default function CreateChallenge() {
     let bookLists = [];
     const [menuItems, setMenuItems] = useState([]);
+    const [selectedBL, setSelectedBL] = useState();
+    const [challengeName, setChallengeName] = useState("");
     const history = useHistory();
-    const bookListIds = [];
-    let challengeName = "";
 
     const [selectedDate, setSelectedDate] = React.useState(new Date('2021-08-18T21:11:54'));
 
@@ -56,11 +54,14 @@ export default function CreateChallenge() {
     useState(parseBookLists);
 
     function selectBookList(event, data) {
-        let book = data.value;
+        setSelectedBL(data.value);
     }
 
-    async function postChallenge(bl_id,ch_name,due_date) {
-        let response = await Api.createChallenge(bl_id,ch_name,due_date);
+    async function postChallenge() {
+
+        let due_date = moment(selectedDate).format('YYYY-MM-DD');
+        let bookList_id = selectedBL.bl_id;
+        let response = await Api.createChallenge(bookList_id,challengeName,due_date);
         if( response.status !== 200 ) {
             history.push("/login");
         }
@@ -83,9 +84,8 @@ export default function CreateChallenge() {
                         <TextField
                             variant="filled"
                             label="Enter challenge name..."
-                            onChange={(e)=>{challengeName = e.target.value}}
+                            onChange={(e)=>{setChallengeName(e.target.value)}}
                         >
-
                         </TextField>
                         <br/>
                         <br/>
@@ -122,7 +122,7 @@ export default function CreateChallenge() {
                 variant="contained"
                 color="primary"
                 size="medium"
-                onClick={postChallenge}
+                onClick={() => {postChallenge()}}
             >
                 <b>Create</b>
             </Button>
