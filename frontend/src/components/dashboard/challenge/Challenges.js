@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -54,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 export default function Challenges() {
     const classes = useStyles();
 
@@ -63,23 +62,18 @@ export default function Challenges() {
 
     const parseChallenges = async () => {
         let response = await Api.getChallenges();
-        if( response.status !== 200 ) {
+        if (response.status !== 200) {
             history.push("/login");
-        }
-        else {
+        } else {
             setChallenges(response.data);
         }
     }
-    // const [progress, setProgress] = React.useState(10);
-    // const [challenges, setChallenges] = useState([]);
-    // const history = useHistory();
 
     const joinChallenge = async (id) => {
         let response = await Api.joinChallenge(id);
-        if( response.status !== 200 ) {
+        if (response.status !== 200) {
             history.push("/login");
-        }
-        else {
+        } else {
             await parseChallenges();
             alert("Joined to challenge!");
         }
@@ -88,36 +82,28 @@ export default function Challenges() {
     const updateProgress = async (id) => {
         const book_read = prompt('Please enter how many books you have read');
         let response = await Api.challengeProgress(id, book_read);
-        if( response.status !== 200 ) {
+        if (response.status !== 200) {
             history.push("/login");
-        }
-        else {
+        } else {
             await parseChallenges();
         }
     }
 
     useState(parseChallenges);
 
-    // React.useEffect(() => {
-    //     const timer = setInterval(() => {
-    //         setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-    //     }, 800);
-    //     return () => {
-    //         clearInterval(timer);
-    //     };
-    // }, []);
-
     return (
         <div className={classes.root}>
 
             <Row className="container-fluid row-cols-auto">
-                <h2 className="col my-auto" style={{ marginLeft:10 }}>Challenges - </h2>
-                {StorageService.getUserType() === 2 && <Button className="col my-auto" onClick={() => window.helloComponent.handleCreateChallenge()} size="medium" color="primary" style={{marginLeft: 10, float: 'right'}}>
+                <h2 className="col my-auto" style={{marginLeft: 10}}>Challenges - </h2>
+                {StorageService.getUserType() === 2 &&
+                <Button className="col my-auto" onClick={() => window.helloComponent.handleCreateChallenge()}
+                        size="medium" color="primary" style={{marginLeft: 10, float: 'right'}}>
                     Create Challenge
                 </Button>}
             </Row>
 
-            <div style={{ marginTop: 0, padding: 30 }}>
+            <div style={{marginTop: 0, padding: 30}}>
                 <Grid container spacing={10} justify="center">
                     {challenges.map(chl => (
                         <Grid item key={chl.chal_id}>
@@ -132,19 +118,19 @@ export default function Challenges() {
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
-                                    { chl.isJoined !== 1 && <Button
+                                    {chl.isJoined !== 1 && <Button
                                         size="small"
                                         color="primary"
                                         onClick={() => joinChallenge(chl.chal_id)}>
                                         Join
                                     </Button>}
-                                    { chl.isJoined === 1 && <Button size="small"
-                                                                    color="primary"
-                                                                    onClick={() => updateProgress(chl.chal_id)}>
+                                    {chl.isJoined === 1 && <Button size="small"
+                                                                   color="primary"
+                                                                   onClick={() => updateProgress(chl.chal_id)}>
                                         Update Progress
                                     </Button>}
                                 </CardActions>
-                                <LinearProgressWithLabel value={chl.percent} />
+                                <LinearProgressWithLabel value={chl.percent}/>
                             </Card>
                             <br/>
                         </Grid>
