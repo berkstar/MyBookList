@@ -4,26 +4,19 @@ import { Button, TextField } from '@material-ui/core';
 import Typography from "@material-ui/core/Typography";
 import EditIcon from '@material-ui/icons/Edit';
 import { Dropdown } from 'semantic-ui-react'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Api from 'api/Api';
 import { useHistory } from 'react-router';
 
 
 export default function CreateChallenge() {
     let bookLists = [];
-    const [bookListItem, setBookListItem] = useState();
     const [menuItems, setMenuItems] = useState([]);
     const history = useHistory();
     const bookListIds = [];
     let challengeName = "";
 
-    const parseBooks = async (input="") => {
-        let response = await Api.searchBook(input);
+    const parseBookLists = async () => {
+        let response = await Api.getMyBookLists();
         if( response.status !== 200 ) {
             history.push("/login");
         }
@@ -35,18 +28,18 @@ export default function CreateChallenge() {
 
     function constructMenuItems() {
         let new_list = [];
-        bookLists.map((book,index)=>{
+        bookLists.map((bookList,index)=>{
             let list_element = {
-                key: book.title,
-                text: book.title,
-                value: book
+                key: bookList.bl_id,
+                text: bookList.name,
+                value: bookList
             }
             new_list.push(list_element);
         });
         setMenuItems(new_list);
     }
 
-    useState(parseBooks);
+    useState(parseBookLists);
 
     function selectBookList(event, data) {
         let book = data.value;

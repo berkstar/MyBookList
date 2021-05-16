@@ -109,6 +109,11 @@ async function postBookList(list_name, bookIds) {
     return await api_post('/book/postbooklist', request);
 }
 
+async function getMyBookLists() {
+    let request = { uid: StorageService.getUserId() };
+    return await api_get('/book/getmybooklists', request);
+}
+
 async function setBio(bio) {
     let request = {
         uid: StorageService.getUserId(),
@@ -306,6 +311,7 @@ const Api = {
     getUserPosts,
     searchBook,
     postBookList,
+    getMyBookLists,
     getMyBooks,
     rateBook,
     postProgress
