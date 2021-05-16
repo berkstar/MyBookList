@@ -81,11 +81,13 @@ export default function Challenges() {
 
     const updateProgress = async (id) => {
         const book_read = prompt('Please enter how many books you have read');
-        let response = await Api.challengeProgress(id, book_read);
-        if (response.status !== 200) {
-            history.push("/login");
-        } else {
-            await parseChallenges();
+        if (book_read !== null) {
+            let response = await Api.challengeProgress(id, book_read);
+            if (response.status !== 200) {
+                history.push("/login");
+            } else {
+                await parseChallenges();
+            }
         }
     }
 
