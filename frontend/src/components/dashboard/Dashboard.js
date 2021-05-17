@@ -20,6 +20,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import Grid from '@material-ui/core/Grid';
 import Threads from 'components/dashboard/threads/Threads';
 import Challenges from 'components/dashboard/challenge/Challenges';
+import ChallengeDetails from 'components/dashboard/challenge/ChallengeDetails';
 import AllBooks from 'components/dashboard/allbooks/AllBooks';
 import BookDetails from 'components/dashboard/book-details/BookDetails';
 import EditBookList from 'components/dashboard/edit-book-list/EditBookList';
@@ -149,6 +150,7 @@ class Dashboard extends Component {
             friends: false,
             allBooks: false,
             bookDetails: false,
+            challengeDetails: false,
             editBookList: false,
             searchFriends: false,
             createChallenge: false,
@@ -170,6 +172,7 @@ class Dashboard extends Component {
             allBooks: false,
             mybooks: false,
             bookDetails: false,
+            challengeDetails: false,
             editBookList: false,
             searchFriends: false,
             createChallenge: false,
@@ -221,6 +224,12 @@ class Dashboard extends Component {
         this.book = book;
         this.setState(this.states);
         this.setState({bookDetails: true});
+    }
+
+    handleChallengeDetails(challenge) {
+        this.challenge = challenge;
+        this.setState(this.states);
+        this.setState({challengeDetails: true});
     }
 
     handleEditBookList() {
@@ -279,6 +288,8 @@ class Dashboard extends Component {
             showContent = <AllBooks/>
         } else if (this.state.bookDetails) {
             showContent = <BookDetails book={this.book}/>
+        } else if (this.state.challengeDetails) {
+            showContent = <ChallengeDetails challenge={this.challenge}/>
         } else if (this.state.searchFriends) {
             showContent = <SearchFriends/>
         } else if (this.state.createChallenge) {
