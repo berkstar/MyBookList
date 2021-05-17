@@ -63,16 +63,16 @@ export default function ChallengeDetails(props) {
                     <br/>
                     Book count: {challenge.book_count}
                 </Typography>
-                <br/><br/>
+                <br/>
                 <br/>
                 <br/>
                 <Typography component="h4" variant="h4" xs={10}>
                     Books:
                 </Typography>
                 <br/>
-                <Grid container spacing={10} >
+                <Grid container spacing={10}>
                     {booklist.map(book => (
-                        <Grid item>
+                        <Grid item xs={12}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>
@@ -83,15 +83,15 @@ export default function ChallengeDetails(props) {
                                         <Typography component="p">Genre: {book.genre}</Typography>
                                         <Typography component="p">Year: {book.year}</Typography>
                                         <Typography component="p">Pages: {book.pages}</Typography>
-
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            <br/>
                         </Grid>
                     ))}
                 </Grid>
             </Grid>
+            <br/>
+            <br/>
         </Card>
     );
 }
