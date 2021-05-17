@@ -63,7 +63,7 @@ FROM Book b JOIN publishes p USING(book_id)
 CREATE VIEW top_postcomment_view AS 
 SELECT user_id, pid, title, text, DATE_FORMAT(date, "%e %M %Y") AS date, like_count, (SELECT COUNT(*) FROM post_comment c WHERE c.pid = p.pid ) AS comment_count
 FROM Post p
-ORDER BY like_count DESC
+ORDER BY user_id,like_count DESC
 /*For listing incoming friend requests*/
 
 CREATE VIEW incoming_request_view AS 

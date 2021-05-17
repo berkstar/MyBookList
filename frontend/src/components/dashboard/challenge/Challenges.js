@@ -56,6 +56,15 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         width: '25ch',
     },
+    card: {
+        display: "grid",
+        gridTemplateRows: "1fr auto",
+        gridGap: "8px",
+        height: 345,
+        maxWidth: 500,
+        minWidth: 400,
+        backgroundSize: "cover"
+    },
 }));
 
 
@@ -116,7 +125,7 @@ export default function Challenges() {
             <div style={{marginTop: 0, padding: 30}}>
                 <Grid container spacing={10} justify="center">
                     {challenges.map(chl => (
-                        <Grid item key={chl.chal_id}>
+                        <Grid item key={chl.chal_id} className={classes.card}>
                             <Card>
                                 <CardActionArea>
                                     <CardContent>
