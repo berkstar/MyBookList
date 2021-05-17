@@ -59,7 +59,7 @@ export default function ChallengeDetails(props) {
                     Challenge Name: {challenge.challenge_name}
                     <br/>
                     <br/>
-                    Book list: {challenge.book_listname} # {challenge.book_listname}
+                    Book list: {challenge.book_listname}
                     <br/>
                     Book count: {challenge.book_count}
                 </Typography>

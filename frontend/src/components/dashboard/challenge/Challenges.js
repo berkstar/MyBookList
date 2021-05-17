@@ -91,6 +91,7 @@ export default function Challenges() {
         if (response.status !== 200) {
             history.push("/login");
         } else {
+
             await parseChallenges();
             alert("Joined to challenge!");
         }
@@ -114,7 +115,7 @@ export default function Challenges() {
         <div className={classes.root}>
 
             <Row className="container-fluid row-cols-auto">
-                <h2 className="col my-auto" style={{marginLeft: 10}}>Challenges - </h2>
+                <h2 className="col my-auto" style={{marginLeft: 10}}>CHALLENGES </h2>
                 {StorageService.getUserType() === 2 &&
                 <Button className="col my-auto" onClick={() => window.helloComponent.handleCreateChallenge()}
                         size="medium" color="primary" style={{marginLeft: 10, float: 'right'}}>
@@ -127,7 +128,7 @@ export default function Challenges() {
                     {challenges.map(chl => (
                         <Grid item key={chl.chal_id} className={classes.card}>
                             <Card>
-                                <CardActionArea>
+                                <CardActionArea className="mb-5">
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {chl.challenge_name}
@@ -137,7 +138,7 @@ export default function Challenges() {
 
                                     </CardContent>
                                 </CardActionArea>
-                                <CardActions>
+                                <CardActions className="mt-2">
                                     <Button size="small"
                                             color="primary"
                                             onClick={() => window.helloComponent.handleChallengeDetails(chl)}
@@ -156,7 +157,7 @@ export default function Challenges() {
                                         Update Progress
                                     </Button>}
                                 </CardActions>
-                                <LinearProgressWithLabel value={chl.percent}/>
+                                { chl.percent && <LinearProgressWithLabel value={chl.percent}/>}
                             </Card>
                             <br/>
 
