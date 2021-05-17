@@ -84,6 +84,11 @@ async function getChallenges() {
     return await api_get('/book/getchallenges', request);
 }
 
+async function getChallengeBookList(challenge_id) {
+    let request = { chal_id: challenge_id };
+    return await api_get('/book/getchallengebooklist', request);
+}
+
 async function joinChallenge(challenge_id) {
     let request = {
         uid: StorageService.getUserId(),
@@ -339,6 +344,7 @@ const Api = {
     getUserPosts,
     searchBook,
     postBookList,
+    getChallengeBookList,
     getMyBookLists,
     getMyBooks,
     rateBook,

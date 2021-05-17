@@ -14,6 +14,11 @@ import PropTypes from 'prop-types';
 import Api from "api/Api";
 import {Row} from "react-bootstrap";
 import StorageService from 'services/StorageService';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from "@material-ui/core/IconButton";
 
 function LinearProgressWithLabel(props) {
     return (
@@ -54,11 +59,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 export default function Challenges() {
     const classes = useStyles();
 
     const [challenges, setChallenges] = useState([]);
     const history = useHistory();
+
 
     const parseChallenges = async () => {
         let response = await Api.getChallenges();
@@ -117,9 +125,16 @@ export default function Challenges() {
                                         </Typography>
                                         <Typography component="p">Book list: {chl.book_listname}</Typography>
                                         <Typography component="p">Book count: {chl.book_count}</Typography>
+
                                     </CardContent>
                                 </CardActionArea>
                                 <CardActions>
+                                    <Button size="small"
+                                            color="primary"
+                                            onClick={() => window.helloComponent.handleChallengeDetails(chl)}
+                                    >
+                                        Details
+                                    </Button>
                                     {chl.isJoined !== 1 && <Button
                                         size="small"
                                         color="primary"
@@ -135,9 +150,11 @@ export default function Challenges() {
                                 <LinearProgressWithLabel value={chl.percent}/>
                             </Card>
                             <br/>
+
                         </Grid>
                     ))}
                 </Grid>
+
             </div>
         </div>
     );
