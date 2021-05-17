@@ -34,14 +34,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BookDetails(props) {
     const [progress, setProgress] = useState(0);
+    const [book, setBook] = useState(props.book);
     const classes = useStyles();
-    const book = props.book;
     var page_num;
 
     const postProgress = async () => {
         let response = await Api.postProgress(book.book_id, page_num);
         if( response.status === 200 ) {
-            props.parseBooks();
+            parseBook();
         }
         else {
             alert("Progress not added! (Server Error!)");
@@ -52,10 +52,20 @@ export default function BookDetails(props) {
     const rateBook = async (e, value, book_id) => {
         let response = await Api.rateBook(book_id, value);
         if( response.status === 200 ) {
-            props.parseBooks();
+            parseBook();
         }
         else {
             alert("You cannot rate the same book!");
+        }
+    }
+
+    const parseBook = async (input = book.book_id) => {
+        let response = await Api.getMyBooks();
+        if (response.status === 200) {
+            let books = response.data;
+            books.map((book)=>{ if(book.book_id == input) {setBook(book)}});
+        } else {
+            alert("Error parsing book!");
         }
     }
 

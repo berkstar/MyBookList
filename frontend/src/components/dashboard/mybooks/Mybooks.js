@@ -125,7 +125,7 @@ export default function Mybooks() {
                                     <Button className="mx-2" size="medium" color="primary">
                                         Progress
                                     </Button>
-                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book, parseBooks)} key="AllBooks">
+                                    <ListItem button onClick={() => window.helloComponent.handleBookDetails(book)} key="AllBooks">
                                         <ListItemText primary="See Details"/>
                                     </ListItem>
                                 </CardActions>

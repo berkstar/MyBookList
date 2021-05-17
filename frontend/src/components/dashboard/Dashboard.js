@@ -137,7 +137,6 @@ class Dashboard extends Component {
         this.post = {};
         this.profile_user = {};
         this.editPost_thread = {};
-        this.parseBooks = {};
         this.book = {};
         this.states = {
             threads: false,
@@ -218,8 +217,7 @@ class Dashboard extends Component {
         this.setState({allBooks: true});
     }
 
-    handleBookDetails(book, parseBooks) {
-        this.parseBooks = parseBooks;
+    handleBookDetails(book) {
         this.book = book;
         this.setState(this.states);
         this.setState({bookDetails: true});
@@ -280,7 +278,7 @@ class Dashboard extends Component {
         } else if (this.state.allBooks) {
             showContent = <AllBooks/>
         } else if (this.state.bookDetails) {
-            showContent = <BookDetails book={this.book} parseBooks={this.parseBooks}/>
+            showContent = <BookDetails book={this.book}/>
         } else if (this.state.searchFriends) {
             showContent = <SearchFriends/>
         } else if (this.state.createChallenge) {
