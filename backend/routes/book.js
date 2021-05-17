@@ -549,9 +549,10 @@ router.post("/publish", async (req, res) => {
         let auth = req.headers.authorization
 
         let resultCheckAuth = await user_sql.checkAuthAuthor(auth, user_id)
-
+            
+        
         if (resultCheckAuth.length) {
-            let resultAddBook =  book_sql.addBook(title, description, genre, year, pages);
+            let resultAddBook = await book_sql.addBook(title, description, genre, year, pages);
             if (resultAddBook && resultAddBook.affectedRows) {
                 book_id = resultAddBook.insertId
                 await book_sql.linkPublisher(user_id, book_id);
