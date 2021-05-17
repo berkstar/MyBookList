@@ -77,7 +77,7 @@ forum.listUserPosts = (user_id) => {
     return new Promise((resolve, reject) => {
 
 
-        pool.query("SELECT * FROM top_postcomment_view WHERE user_id = ? ORDER BY user_id LIMIT 4",[user_id], (err, results) => {
+        pool.query("SELECT * FROM top_postcomment_view WHERE user_id = ? ORDER BY like_count DESC LIMIT 4",[user_id], (err, results) => {
             if (err) {
 
                 return reject(err);
