@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   console.log(req.query)
 
   console.log("Main Page Request");
-  res.send("JUST NO");
+  res.redirect("http://localhost:8080/api-docs/");
 })
 
 
