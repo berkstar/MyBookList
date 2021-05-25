@@ -1,7 +1,4 @@
 
-//res.status(500); Status setleme
-console.log(req.body.YO); BOdy Bakma
-
 # => Completed
 $ => To do
 1..9$ => Priority
